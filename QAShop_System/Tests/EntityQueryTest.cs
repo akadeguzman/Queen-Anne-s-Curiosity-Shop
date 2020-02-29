@@ -98,5 +98,20 @@ namespace QAShop_System.Tests
                 }
             }
         }
+
+        [Test]
+        public void Shipment_ViewAllVendors()
+        {
+            using (var context = new QueenAnneCuriosityShopContext())
+            {
+                var vendors = context.Vendors
+                    .ToList();
+
+                foreach (var vendor in vendors)
+                {
+                    Console.WriteLine($"{vendor.VendorId, 4}  {vendor.FirstName} {vendor.LastName}  Company:{vendor.CompanyName, -50}");
+                }
+            }
+        }
     }
 }
