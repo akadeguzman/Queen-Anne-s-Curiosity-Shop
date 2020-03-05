@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QAShop_System", "QAShop_Sys
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceLayer", "ServiceLayer\ServiceLayer.csproj", "{6E1CD0AF-5444-42BC-B32C-2B6B5EB5B634}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAShopWPF", "QAShopWPF\QAShopWPF.csproj", "{AD68D90E-0D3C-4E60-B2A9-F9B68E9E9034}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QAShopWPF", "QAShopWPF\QAShopWPF.csproj", "{AD68D90E-0D3C-4E60-B2A9-F9B68E9E9034}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

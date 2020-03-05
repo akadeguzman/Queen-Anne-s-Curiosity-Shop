@@ -26,5 +26,11 @@ namespace QAShop_System.EfClasses
         public ICollection<Transaction> Transactions { get; set; }
         public ICollection<Procurement> Procurements { get; set; }
         public ICollection<Person> Persons { get; set; }
+
+        public string GetFullName()
+        {
+            var fulName = $"{LastName}, {FirstName}";
+            return fulName;
+        }
     }
 }
