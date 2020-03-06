@@ -35,9 +35,9 @@ namespace QAShopWPF.ViewModel.Person
 
         public ObservableCollection<PersonViewModel> PersonList { get; }
 
-        public ItemViewModel SelectedItem { get; set; }
+        public PersonViewModel SelectedPerson { get; set; }
 
-        public void SearchMovie(string searchString)
+        public void SearchPerson(string searchString)
         {
             PersonList.Clear();
 
@@ -62,7 +62,7 @@ namespace QAShopWPF.ViewModel.Person
             set
             {
                 _searchText = value;
-                SearchMovie(_searchText);
+                SearchPerson(_searchText);
             }
         }
     }

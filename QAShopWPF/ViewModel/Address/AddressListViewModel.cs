@@ -33,7 +33,7 @@ namespace QAShopWPF.ViewModel.Address
 
         public AddressViewModel SelectedMovie { get; set; }
 
-        public void SearchMovie(string searchString)
+        public void SearchAddress(string searchString)
         {
             AddressList.Clear();
 
@@ -56,7 +56,7 @@ namespace QAShopWPF.ViewModel.Address
             set
             {
                 _searchText = value;
-                SearchMovie(_searchText);
+                SearchAddress(_searchText);
             }
         }
     }

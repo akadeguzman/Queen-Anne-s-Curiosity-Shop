@@ -13,5 +13,11 @@ namespace QAShop_System.EfClasses
         public string CompanyName { get; set; }
 
         public ICollection<ItemVendor> ItemVendors { get; set; }
+
+        public string GetFullName()
+        {
+            string fullName = $"{LastName}, {FirstName}";
+            return fullName;
+        }
     }
 }

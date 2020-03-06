@@ -29,8 +29,8 @@ namespace QAShop_System.EfClasses
 
         public string GetFullName()
         {
-            var fulName = $"{LastName}, {FirstName}";
-            return fulName;
+            var fullName = $"{LastName}, {FirstName}";
+            return fullName;
         }
     }
 }

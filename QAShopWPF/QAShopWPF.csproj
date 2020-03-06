@@ -23,13 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModel\Shipper\" />
-    <Folder Include="ViewModel\Vendor\" />
-    <Folder Include="ViewModel\Transaction\" />
-    <Folder Include="ViewModel\Shipment\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj" />
   </ItemGroup>
 

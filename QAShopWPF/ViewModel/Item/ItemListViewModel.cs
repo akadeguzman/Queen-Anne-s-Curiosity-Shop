@@ -40,7 +40,7 @@ namespace QAShopWPF.ViewModel.Item
 
         public ItemViewModel SelectedItem { get; set; }
 
-        public void SearchMovie(string searchString)
+        public void SearchItem(string searchString)
         {
             ItemList.Clear();
 
@@ -62,7 +62,7 @@ namespace QAShopWPF.ViewModel.Item
             set
             {
                 _searchText = value;
-                SearchMovie(_searchText);
+                SearchItem(_searchText);
             }
         }
     }

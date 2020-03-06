@@ -29,9 +29,9 @@ namespace QAShopWPF.ViewModel.Procurement
 
         public ObservableCollection<ProcurementViewModel> ProcurementList { get; }
 
-        public ProcurementViewModel SelectedItem { get; set; }
+        public ProcurementViewModel SelectedProcurement { get; set; }
 
-        public void SearchMovie(string searchString)
+        public void SearchProcurement(string searchString)
         {
             ProcurementList.Clear();
 
@@ -55,7 +55,7 @@ namespace QAShopWPF.ViewModel.Procurement
             set
             {
                 _searchText = value;
-                SearchMovie(_searchText);
+                SearchProcurement(_searchText);
             }
         }
     }
