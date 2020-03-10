@@ -1,8 +1,16 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using GalaSoft.MvvmLight;
+using ServiceLayer;
+
 namespace QAShopWPF.ViewModel.Person
 {
     public class PersonViewModel : ObservableObject
     {
+        #region Properties
+
         private int _personId;
         private string _lastName;
         private string _firstName;
@@ -99,5 +107,76 @@ namespace QAShopWPF.ViewModel.Person
             AdditionalContactId = additionalContactId;
         }
 
+        public PersonViewModel(QAShop_System.EfClasses.Person person)
+        {
+            PersonId = person.PersonId;
+            LastName = person.LastName;
+            FirstName = person.FirstName;
+            PhoneNumber = person.PhoneNumber;
+            PersonType = person.PersonTypeLink.Type;
+            Address = person.AddressLink.City;
+            AdditionalContact = person.AdditionalContactLink.GetFullName();
+            PersonTypeId = person.PersonTypeId;
+            AddressId = person.AddressId;
+            AdditionalContactId = person.AdditionalContactId;
+        }
+
+        #endregion
+        
+        private PersonService _personService;
+        private PersonViewModel _selectedPerson;
+        private string _searchText;
+
+        public PersonViewModel()
+        {
+            GeneratePersons();
+        }
+
+        public void GeneratePersons()
+        { 
+            var person = _personService.GetPersons()
+                .Select(c =>
+                    new PersonViewModel(c)).ToList();
+
+            PersonList = new ObservableCollection<PersonViewModel>(person);
+            PersonCount = PersonList.Count;
+
+        }
+
+
+        public ObservableCollection<PersonViewModel> PersonList { get; set; } = new ObservableCollection<PersonViewModel>();
+
+        public int PersonCount { get; set; }
+
+        public PersonViewModel SelectedPerson { get; set; }
+
+        public void SearchPerson(string searchString)
+        {
+            PersonList.Clear();
+
+            var persons = _personService.GetPersons().Where(c => c.PersonId.ToString().Contains(searchString) ||
+                                                                      c.LastName.Contains(searchString) ||
+                                                                      c.FirstName.Contains(searchString) ||
+                                                                      c.AddressLink.City.Contains(searchString) ||
+                                                                      c.PersonTypeLink.Type.Contains(searchString));
+
+            foreach (var person in persons)
+            {
+                var personModel = new PersonViewModel(person.PersonId, person.LastName, person.FirstName,
+                    person.PhoneNumber, person.PersonTypeLink.Type, person.AddressLink.City, person.AdditionalContactLink.GetFullName(), person.PersonTypeId,
+                    person.AddressId, person.AdditionalContactId);
+                PersonList.Add(personModel);
+            }
+        }
+
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                SearchPerson(_searchText);
+            }
+        }
     }
 }

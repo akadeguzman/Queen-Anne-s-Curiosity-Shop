@@ -1,15 +1,18 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using QAShopWPF.Annotations;
 using QAShopWPF.ViewModel.Person;
 using ServiceLayer;
+using GalaSoft.MvvmLight;
 
 namespace QAShopWPF.ViewModel.Transaction
 {
-    public class TransactionListViewModel
+    public class TransactionListViewModel : ObservableObject
     {
         private TransactionService _transactionService;
         private TransactionViewModel _selectedTransaction;
         private string _searchText;
+        private int _transactionCount;
 
         public TransactionListViewModel(TransactionService transactionService)
         {
@@ -30,11 +33,17 @@ namespace QAShopWPF.ViewModel.Transaction
                         c.TransactionTypeId)).ToList();
 
             TransactionList = new ObservableCollection<TransactionViewModel>(person);
-
+            TransactionCount = TransactionList.Count;
         }
 
 
         public ObservableCollection<TransactionViewModel> TransactionList { get; }
+
+        public int TransactionCount
+        {
+            get => _transactionCount;
+            set => Set(ref _transactionCount, value);
+        }
 
         public TransactionViewModel SelectedTransaction { get; set; }
 

@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using GalaSoft.MvvmLight;
+using ServiceLayer;
 
 namespace QAShopWPF.ViewModel.Transaction
 {
     public class TransactionViewModel : ObservableObject
     {
+        #region Properties
+
         private int _transactionId;
         private string _invoiceNumber;
         private DateTime _transactionDate;
@@ -109,6 +114,88 @@ namespace QAShopWPF.ViewModel.Transaction
             TransactionType = transactionType;
             PersonId = personId;
             TransactionTypeId = transactionTypeId;
+        }
+
+        public TransactionViewModel(QAShop_System.EfClasses.Transaction transaction)
+        {
+            TransactionId = transaction.TransactionId;
+            InvoiceNumber = transaction.InvoiceNumber;
+            TransactionDate = transaction.TransactionDate;
+            Subtotal = transaction.Subtotal;
+            Total = transaction.Total;
+            Tax = transaction.Tax;
+            Person = transaction.PersonLink.GetFullName();
+            TransactionType = transaction.TransactionTypeLink.Type;
+            PersonId = transaction.PersonId;
+            TransactionTypeId = transaction.TransactionTypeId;
+        }
+
+        #endregion
+
+
+        private TransactionService _transactionService;
+        private TransactionViewModel _selectedTransaction;
+        private string _searchText;
+        private int _transactionCount;
+
+        public TransactionViewModel()
+        {
+            GenerateTransactions();
+        }
+
+        public void GenerateTransactions()
+        {
+            var person = _transactionService.GetTransactions()
+                .Select(c =>
+                    new TransactionViewModel(c)).ToList();
+
+            TransactionList = new ObservableCollection<TransactionViewModel>(person);
+            TransactionCount = TransactionList.Count;
+        }
+
+
+        public ObservableCollection<TransactionViewModel> TransactionList { get; set; } = new ObservableCollection<TransactionViewModel>();
+
+        public int TransactionCount
+        {
+            get => _transactionCount;
+            set
+            {
+                _transactionCount = value;
+                _ = TransactionList.Count;
+            }
+        }
+
+        public TransactionViewModel SelectedTransaction { get; set; }
+
+        public void SearchTransaction(string searchString)
+        {
+            TransactionList.Clear();
+
+            var transactions = _transactionService.GetTransactions().Where(c => c.TransactionId.ToString().Contains(searchString) ||
+                                                                      c.InvoiceNumber.Contains(searchString) ||
+                                                                      c.TransactionDate.Date.Day.ToString().Contains(searchString) ||
+                                                                      c.TransactionDate.Date.Month.ToString().Contains(searchString) ||
+                                                                      c.PersonLink.GetFullName().Contains(searchString) ||
+                                                                      c.TransactionTypeLink.Type.Contains(searchString));
+
+            foreach (var transaction in transactions)
+            {
+                var transactionModel = new TransactionViewModel(transaction.TransactionId, transaction.InvoiceNumber, transaction.TransactionDate,
+                    transaction.Subtotal, transaction.Total, transaction.Tax, transaction.PersonLink.GetFullName(), transaction.TransactionTypeLink.Type,
+                    transaction.PersonId, transaction.TransactionTypeId);
+                TransactionList.Add(transactionModel);
+            }
+        }
+
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                SearchTransaction(_searchText);
+            }
         }
     }
 }

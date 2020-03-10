@@ -5,7 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QAShopWPF"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Height="600" Width="1080" Foreground="Black" WindowStartupLocation="CenterScreen">
+        mc:Ignorable="d" 
+        Height="600" 
+        Width="1080" 
+        Foreground="Black" 
+        WindowStartupLocation="CenterScreen">
+    
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
@@ -69,33 +74,36 @@
                 </Grid>
                 <ListView x:Name="ListViewMenu" Foreground="#490b00" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListViewMenu_SelectionChanged">
                     <ListViewItem x:Name="ItemHome" Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="HomeVariant" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
-                            <TextBlock Text="Dashboard" VerticalAlignment="Center" Margin="20 10"/>
-                        </StackPanel>
+                        <Button Background="Transparent" BorderBrush="Transparent" Height="Auto" Width="Auto">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="HomeVariant" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
+                                <TextBlock Text="Dashboard" VerticalAlignment="Center" Margin="20 10"/>
+                            </StackPanel>
+                        </Button>
+                        
                     </ListViewItem>
                     <ListViewItem x:Name="ItemCreate" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Shop" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
-                            <TextBlock Text="Create" VerticalAlignment="Center" Margin="20 10"/>
+                            <TextBlock Text="Transaction" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Users" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
-                            <TextBlock Text="Tickets" VerticalAlignment="Center"  Margin="20 10"/>
+                            <TextBlock Text="Person" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="PackageVariantClosed" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
-                            <TextBlock Text="Messages" VerticalAlignment="Center"  Margin="20 10"/>
+                            <TextBlock Text="Shipments" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ScriptText" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
-                            <TextBlock Text="Messages" VerticalAlignment="Center"  Margin="20 10"/>
+                            <TextBlock Text="Procurements" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                 </ListView>

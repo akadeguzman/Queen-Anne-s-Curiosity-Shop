@@ -1,0 +1,125 @@
+﻿<Window x:Class="QAShopWPF.Views.Address.AddNewAddressView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QAShopWPF.Views.Address"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" 
+        Height="Auto" 
+        Width="Auto"
+        MinHeight="300"
+        MinWidth="420"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" 
+        d:DesignHeight="300" 
+        d:DesignWidth="420">
+    <Grid>
+        <GroupBox Header="Add Address" Style="{DynamicResource MaterialDesignCardGroupBox}">
+            <!--Header-->
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="32"
+                            Height="32"
+                            VerticalAlignment="Center"
+                            Kind="House"/>
+                        <TextBlock Text="Add Address"
+                                   FontSize="15"
+                                   Margin="15,5,0,5"/>
+                    </StackPanel>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+            <!--end Header-->
+
+            <Grid Height="Auto"
+                  Width="400">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Margin="10">
+                    <StackPanel Margin="10,5,10,0">
+                        <TextBlock
+                            Text="Name of City"
+                            FontSize="15"
+                            Foreground="Orange"
+                            FontWeight="Medium"
+                            Margin="0,0,0,3" />
+                        <TextBox
+                            BorderBrush="White" BorderThickness="1"
+                            Padding="3,0,3,0"
+                            Text="{Binding}"
+                            Foreground="White"
+                            Height="30"
+                        />
+                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="240"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="10,5,10,0" Grid.Column="0">
+                            <TextBlock
+                                Text="State"
+                                FontSize="15"
+                                Foreground="Orange"
+                                FontWeight="Medium"
+                                Margin="0,0,0,3" />
+                            <TextBox
+                                BorderBrush="White" BorderThickness="1"
+                                Padding="3,0,3,0"
+                                Text="{Binding}"
+                                Height="30"
+                                Foreground="White"
+                            />
+                        </StackPanel>
+                        <StackPanel Margin="10,5,10,0" Grid.Column="1">
+                            <TextBlock
+                                Text="Zip Code"
+                                FontSize="15"
+                                Foreground="Orange"
+                                FontWeight="Medium"
+                                Margin="0,0,0,3" />
+                            <TextBox
+                                BorderBrush="White" BorderThickness="1"
+                                Padding="3,0,3,0"
+                                Text="{Binding}"
+                                Height="30"
+                                Foreground="White"
+                            />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+                
+                <!--Buttons-->
+                <DockPanel
+                    Grid.Row="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom">
+
+                    <Button
+                        Width="100"
+                        Height="30"
+                        Margin="4"
+                        HorizontalAlignment="Right"
+                        Command="{Binding OkCommand}"
+                        Content="Save"
+                        Style="{StaticResource MaterialDesignRaisedButton}" />
+
+                    <Button
+                        Width="100"
+                        Height="30"
+                        Margin="4"
+                        HorizontalAlignment="Right"
+                        Command="{Binding CancelCommand}"
+                        Content="Cancel"
+                        Style="{StaticResource MaterialDesignFlatButton}" />
+
+                </DockPanel>
+                <!--end Buttons-->
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using QAShopWPF.Annotations;
 using GalaSoft.MvvmLight;
+using ServiceLayer;
 
 namespace QAShopWPF.ViewModel.Item
 {
     public class ItemViewModel : ObservableObject
     {
+        #region Properties
+
         private int _itemId;
         private string _itemDescription;
         private DateTime _purchaseDate;
@@ -123,15 +128,15 @@ namespace QAShopWPF.ViewModel.Item
         public int ItemTypeId { get; set; }
 
         public ItemViewModel(
-            int itemId, 
-            string itemDescription, 
-            DateTime purchaseDate, 
-            int itemCost, 
-            int inventoryQuantity, 
-            string city, 
-            int localCurrency, 
-            int exchangeRate, 
-            string itemAvailability, 
+            int itemId,
+            string itemDescription,
+            DateTime purchaseDate,
+            int itemCost,
+            int inventoryQuantity,
+            string city,
+            int localCurrency,
+            int exchangeRate,
+            string itemAvailability,
             string itemType,
             int itemAvailabilityId,
             int itemTypeId)
@@ -150,5 +155,79 @@ namespace QAShopWPF.ViewModel.Item
             ItemType = itemType;
         }
 
+        public ItemViewModel(QAShop_System.EfClasses.Item item)
+        {
+            ItemId = item.ItemId;
+            ItemDescription = item.ItemDescription;
+            PurchaseDate = item.PurchaseDate;
+            ItemCost = item.ItemCost;
+            InventoryQuantity = item.InventoryQuantity;
+            City = item.City;
+            LocalCurrency = item.LocalCurrency;
+            ExchangeRate = item.ExchangeRate;
+            ItemAvailabilityId = item.ItemAvailabilityId;
+            ItemAvailability = item.ItemAvailabilityLink.Status;
+            ItemTypeId = item.ItemTypeId;
+            ItemType = item.ItemTypeLink.Type;
+        }
+
+        #endregion
+
+        private ItemService _itemService;
+        private ItemViewModel _selectedItem;
+        private string _searchText;
+        private int _itemCount;
+
+        public ItemViewModel()
+        {
+            GenerateItems();
+        }
+
+        public void GenerateItems()
+        {
+            var item = _itemService.GetItems()
+                .Select(c =>
+                    new ItemViewModel(c)).ToList();
+
+            ItemList = new ObservableCollection<ItemViewModel>(item);
+            ItemCount = ItemList.Count;
+        }
+
+
+        public ObservableCollection<ItemViewModel> ItemList { get; set; } = new ObservableCollection<ItemViewModel>();
+
+        public int ItemCount
+        {
+            get => _itemCount;
+            set => Set(ref _itemCount, value);
+        }
+
+        public ItemViewModel SelectedItem { get; set; }
+
+        public void SearchItem(string searchString)
+        {
+            ItemList.Clear();
+
+            var items = _itemService.GetItems().Where(c => c.ItemId.ToString().Contains(searchString) ||
+                                                                      c.ItemDescription.ToString().Contains(searchString) || c.ItemTypeLink.Type.ToString().Contains(searchString));
+
+            foreach (var item in items)
+            {
+                var itemModel = new ItemViewModel(item.ItemId, item.ItemDescription, item.PurchaseDate,
+                    item.ItemCost, item.InventoryQuantity, item.City, item.LocalCurrency, item.ExchangeRate,
+                    item.ItemAvailabilityLink.Status, item.ItemTypeLink.Type, item.ItemAvailabilityId, item.ItemTypeId);
+                ItemList.Add(itemModel);
+            }
+        }
+
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                SearchItem(_searchText);
+            }
+        }
     }
 }

@@ -26,4 +26,10 @@
     <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Shipper\" />
+    <Folder Include="Views\Vendor\" />
+    <Folder Include="Views\Procurement\" />
+  </ItemGroup>
+
 </Project>
