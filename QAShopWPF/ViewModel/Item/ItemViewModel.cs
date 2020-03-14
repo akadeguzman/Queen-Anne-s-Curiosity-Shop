@@ -171,63 +171,12 @@ namespace QAShopWPF.ViewModel.Item
             ItemType = item.ItemTypeLink.Type;
         }
 
-        #endregion
-
-        private ItemService _itemService;
-        private ItemViewModel _selectedItem;
-        private string _searchText;
-        private int _itemCount;
-
         public ItemViewModel()
         {
-            GenerateItems();
+            
         }
 
-        public void GenerateItems()
-        {
-            var item = _itemService.GetItems()
-                .Select(c =>
-                    new ItemViewModel(c)).ToList();
+        #endregion
 
-            ItemList = new ObservableCollection<ItemViewModel>(item);
-            ItemCount = ItemList.Count;
-        }
-
-
-        public ObservableCollection<ItemViewModel> ItemList { get; set; } = new ObservableCollection<ItemViewModel>();
-
-        public int ItemCount
-        {
-            get => _itemCount;
-            set => Set(ref _itemCount, value);
-        }
-
-        public ItemViewModel SelectedItem { get; set; }
-
-        public void SearchItem(string searchString)
-        {
-            ItemList.Clear();
-
-            var items = _itemService.GetItems().Where(c => c.ItemId.ToString().Contains(searchString) ||
-                                                                      c.ItemDescription.ToString().Contains(searchString) || c.ItemTypeLink.Type.ToString().Contains(searchString));
-
-            foreach (var item in items)
-            {
-                var itemModel = new ItemViewModel(item.ItemId, item.ItemDescription, item.PurchaseDate,
-                    item.ItemCost, item.InventoryQuantity, item.City, item.LocalCurrency, item.ExchangeRate,
-                    item.ItemAvailabilityLink.Status, item.ItemTypeLink.Type, item.ItemAvailabilityId, item.ItemTypeId);
-                ItemList.Add(itemModel);
-            }
-        }
-
-        public string SearchText
-        {
-            get => _searchText;
-            set
-            {
-                _searchText = value;
-                SearchItem(_searchText);
-            }
-        }
     }
 }

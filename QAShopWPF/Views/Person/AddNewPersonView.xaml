@@ -9,7 +9,8 @@
         Title="AddNewPersonView" 
         Height="Auto" 
         Width="400" 
-        d:DesignHeight="600">
+        d:DesignHeight="600"
+        DataContext="{Binding Path=AddPersonViewModel, Source={StaticResource Locator}}">
     <Grid>
         <GroupBox Header="Add Person" Style="{DynamicResource MaterialDesignCardGroupBox}">
             <!--Header-->
@@ -61,16 +62,14 @@
                             Foreground="White"
                             BorderBrush="White"
                             BorderThickness="1"
-
                             FontSize="15"
                             Margin="0,2,0,0"
-                            ItemsSource="{Binding ExistingProducts}"
-                            SelectedItem="{Binding SelectedExistingProduct}"
-                            Visibility="{Binding IsAdding, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            ItemsSource="{Binding PersonTypes}"
+                            SelectedItem="{Binding SelectedPersonType}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Name}" />
+                                        <TextBlock Text="{Binding Path=Type}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
@@ -97,7 +96,7 @@
                             <TextBox
                                 BorderBrush="White" BorderThickness="1"
                                 Padding="3,0,3,0"
-                                Text="{Binding}"
+                                Text="{Binding FirstName}"
                                 Height="30"
                                 Foreground="White"
                             />
@@ -112,7 +111,7 @@
                             <TextBox
                                 BorderBrush="White" BorderThickness="1"
                                 Padding="3,0,3,0"
-                                Text="{Binding}"
+                                Text="{Binding LastName}"
                                 Height="30"
                                 Foreground="White"
                             />
@@ -141,7 +140,7 @@
                             <TextBox
                                 BorderBrush="White" BorderThickness="1"
                                 Padding="3,0,3,0"
-                                Text="{Binding}"
+                                Text="{Binding PhoneNumber}"
                                 Height="30"
                                 Foreground="White"
                                 Grid.Column="1"
@@ -185,13 +184,12 @@
 
                                 FontSize="15"
                                 Margin="0,2,0,0"
-                                ItemsSource="{Binding ExistingProducts}"
-                                SelectedItem="{Binding SelectedExistingProduct}"
-                                Visibility="{Binding IsAdding, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                ItemsSource="{Binding Address}"
+                                SelectedItem="{Binding SelectedAddress}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Name}" />
+                                            <TextBlock Text="{Binding City}" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
@@ -205,7 +203,7 @@
                                 Grid.Column="1"
                                 Width="Auto"
                                 Margin="5"
-                                Command="{Binding ShowNewProductUnitPopUpCommand}"
+                                Command="{Binding }"
                                 ToolTip="Add Address">
                                 
                                 <materialDesign:PackIcon 
@@ -235,13 +233,12 @@
 
                                 FontSize="15"
                                 Margin="0,2,0,0"
-                                ItemsSource="{Binding ExistingProducts}"
-                                SelectedItem="{Binding SelectedExistingProduct}"
-                                Visibility="{Binding IsAdding, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                ItemsSource="{Binding AdditionalContacts}"
+                                SelectedItem="{Binding SelectedAdditionalContacts}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Name}" />
+                                            <TextBlock Text="{Binding LastName}" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
@@ -282,7 +279,7 @@
                         Height="30"
                         Margin="4"
                         HorizontalAlignment="Right"
-                        Command="{Binding OkCommand}"
+                        Command="{Binding Path=AddPerson}"
                         Content="Save"
                         Style="{StaticResource MaterialDesignRaisedButton}" />
 
@@ -291,7 +288,7 @@
                         Height="30"
                         Margin="4"
                         HorizontalAlignment="Right"
-                        Command="{Binding CancelCommand}"
+                        Command="{Binding CloseCommand}"
                         Content="Cancel"
                         Style="{StaticResource MaterialDesignFlatButton}" />
 

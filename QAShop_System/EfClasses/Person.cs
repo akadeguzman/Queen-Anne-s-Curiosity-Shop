@@ -17,20 +17,28 @@ namespace QAShop_System.EfClasses
         public int AddressId { get; set; }
         public Address AddressLink { get; set; }
 
-        //public int AdditionalContactId { get; set; }
-        //public Person PersonLink { get; set; }
-
         public int? AdditionalContactId { get; set; }
         public virtual Person AdditionalContactLink { get; set; }
 
         public ICollection<Transaction> Transactions { get; set; }
         public ICollection<Procurement> Procurements { get; set; }
         public ICollection<Person> Persons { get; set; }
+        public ICollection<PurchasingAgent> PurchasingAgents { get; set; }
 
         public string GetFullName()
         {
-            var fullName = $"{LastName}, {FirstName}";
-            return fullName;
+            var fullName = "";
+
+            if (LastName == null && FirstName == null)
+            {
+                return fullName;
+            }
+            else
+            {
+                fullName = $"{LastName}, {FirstName}";
+                return fullName;
+            }
+            
         }
     }
 }

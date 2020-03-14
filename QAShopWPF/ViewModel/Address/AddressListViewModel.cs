@@ -8,7 +8,7 @@ namespace QAShopWPF.ViewModel.Address
     public class AddressListViewModel
     {
         private AddressService _addressService;
-        private AddressViewModel _selectedMovie;
+        private AddressViewModel _selectedAddress;
         private string _searchText;
 
         public AddressListViewModel(AddressService addressService)
@@ -25,13 +25,14 @@ namespace QAShopWPF.ViewModel.Address
 
 
             AddressList = new ObservableCollection<AddressViewModel>(address);
-
+            AddressCount = AddressList.Count;
         }
 
 
         public ObservableCollection<AddressViewModel> AddressList { get; }
 
-        public AddressViewModel SelectedMovie { get; set; }
+        public AddressViewModel SelectedAddress { get; set; }
+        public int AddressCount { get; set; }
 
         public void SearchAddress(string searchString)
         {
@@ -44,9 +45,9 @@ namespace QAShopWPF.ViewModel.Address
 
             foreach (var address in addresses)
             {
-                var movieModel = new AddressViewModel(address.AddressId, address.City, address.State,
+                var addressModel = new AddressViewModel(address.AddressId, address.City, address.State,
                     address.ZipCode);
-                AddressList.Add(movieModel);
+                AddressList.Add(addressModel);
             }
         }
 

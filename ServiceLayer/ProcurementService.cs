@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using QAShop_System.EfClasses;
 
@@ -17,16 +18,23 @@ namespace ServiceLayer
         {
             return _context.Procurements
                 .Include(c => c.ShipmentItemLink)
-                .Include(c => c.PersonLink);
+                .Include(c => c.ReceivingClerkLink)
+                .Include(c => c.PurchasingAgentLink);
         }
 
-        public void UpdateProcurement(int procurementId,
-            int ShipmentItemVendorId,
-            int personId)
+        public void UpdateProcurement(int procurementId, 
+            string condition,
+            DateTime arrivalDate,
+            DateTime departureDate,
+            int receivingClerkId,
+            int purchasingAgentId)
         {
             var procurement = _context.Procurements.Find(procurementId);
-            procurement.ShipmentItemVendorId = ShipmentItemVendorId;
-            procurement.PersonId = personId;
+            procurement.Condition = condition;
+            procurement.ReceivingClerkId = receivingClerkId;
+            procurement.ShipmentItemLink.ShipmentLink.ArrivalDate = arrivalDate;
+            procurement.ShipmentItemLink.ShipmentLink.DepartureDate = departureDate;
+            procurement.PurchasingAgentId = purchasingAgentId;
 
             _context.SaveChanges();
         }

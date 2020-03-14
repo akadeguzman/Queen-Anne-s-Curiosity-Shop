@@ -12,6 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QAShopWPF.Views.Item;
+using QAShopWPF.Views.Person;
+using QAShopWPF.Views.Procurement;
+using QAShopWPF.Views.Shipment;
+using QAShopWPF.Views.Transaction;
 
 namespace QAShopWPF
 {
@@ -42,7 +47,36 @@ namespace QAShopWPF
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListViewMenu.SelectedItem = null;
+
+            UserControl transaction = new TransactionView();
+            UserControl person = new PersonView();
+            UserControl item = new ItemView();
+            UserControl procurement = new ProcurementView();
+            UserControl shipment = new ShipmentView();
+
+            GridMain.Children.Clear();
+
+            switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
+            {
+                case "Transaction":
+                    GridMain.Children.Add(transaction);
+                    break;
+                case "Person":
+                    GridMain.Children.Add(person);
+                    break;
+                case "Item":
+                    GridMain.Children.Add(item);
+                    break;
+                case "Procurement":
+                    GridMain.Children.Add(procurement);
+                    break;
+                case "Shipment":
+                    GridMain.Children.Add(shipment);
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 }

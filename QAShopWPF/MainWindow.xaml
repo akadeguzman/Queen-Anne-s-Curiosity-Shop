@@ -73,34 +73,37 @@
                   
                 </Grid>
                 <ListView x:Name="ListViewMenu" Foreground="#490b00" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListViewMenu_SelectionChanged">
-                    <ListViewItem x:Name="ItemHome" Height="60">
-                        <Button Background="Transparent" BorderBrush="Transparent" Height="Auto" Width="Auto">
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="HomeVariant" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
-                                <TextBlock Text="Dashboard" VerticalAlignment="Center" Margin="20 10"/>
-                            </StackPanel>
-                        </Button>
-                        
+                    <ListViewItem x:Name="Home" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="HomeVariant" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
+                            <TextBlock Text="Dashboard" VerticalAlignment="Center" Margin="20 10"/>
+                        </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="ItemCreate" Height="60">
+                    <ListViewItem x:Name="Transaction" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Shop" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
                             <TextBlock Text="Transaction" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="60">
+                    <ListViewItem x:Name="Person" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Users" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
                             <TextBlock Text="Person" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="60">
+                    <ListViewItem x:Name="Shipment" Height="60">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="PackageVariantClosed" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
+                            <materialDesign:PackIcon Kind="TruckFast" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
                             <TextBlock Text="Shipments" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="60">
+                    <ListViewItem x:Name="Item" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="PackageVariantClosed" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
+                            <TextBlock Text="Items" VerticalAlignment="Center"  Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="Procurement" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ScriptText" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
                             <TextBlock Text="Procurements" VerticalAlignment="Center"  Margin="20 10"/>

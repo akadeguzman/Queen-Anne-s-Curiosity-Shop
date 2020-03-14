@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 using QAShopWPF.ViewModel.Address;
 using ServiceLayer;
 
@@ -10,6 +12,7 @@ namespace QAShopWPF.ViewModel.Item
         private ItemService _itemService;
         private ItemViewModel _selectedItem;
         private string _searchText;
+        private string _itemCount;
 
         public ItemListViewModel(ItemService itemService)
         {
@@ -17,26 +20,28 @@ namespace QAShopWPF.ViewModel.Item
 
             var item = _itemService.GetItems()
                 .Select(c =>
-                    new ItemViewModel(
-                        c.ItemId,
-                        c.ItemDescription,
-                        c.PurchaseDate,
-                        c.ItemCost,
-                        c.InventoryQuantity,
-                        c.City,
-                        c.LocalCurrency,
-                        c.ExchangeRate,
-                        c.ItemAvailabilityLink.Status,
-                        c.ItemTypeLink.Type,
-                        c.ItemAvailabilityId,
-                        c.ItemTypeId)).ToList();
+                    new ItemViewModel(c)).ToList();
 
             ItemList = new ObservableCollection<ItemViewModel>(item);
-
         }
 
 
         public ObservableCollection<ItemViewModel> ItemList { get; }
+
+        public string ItemCount
+        {
+            get => _itemCount;
+            set
+            {
+                _itemCount = value;
+                GetItemCount();
+            }
+        }
+        public string GetItemCount()
+        {
+            var count = $"{ItemList.Count}";
+            return count;
+        }
 
         public ItemViewModel SelectedItem { get; set; }
 
@@ -45,7 +50,11 @@ namespace QAShopWPF.ViewModel.Item
             ItemList.Clear();
 
             var items = _itemService.GetItems().Where(c => c.ItemId.ToString().Contains(searchString) ||
-                                                                      c.ItemDescription.ToString().Contains(searchString) || c.ItemTypeLink.Type.ToString().Contains(searchString));
+                                                                      c.ItemDescription.Contains(searchString) ||
+                                                                      c.ItemTypeLink.Type.Contains(searchString) ||
+                                                                      c.City.Contains(searchString) ||
+                                                                      c.ItemAvailabilityLink.Status.Contains(searchString) ||
+                                                                      c.ItemCost.ToString().Contains(searchString));
 
             foreach (var item in items)
             {

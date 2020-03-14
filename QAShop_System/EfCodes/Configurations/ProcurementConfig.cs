@@ -13,9 +13,14 @@ namespace QAShop_System.EfCodes.Configurations
             builder.HasKey(c => c.ProcurementId);
             builder.Property(c => c.ProcurementId).ValueGeneratedOnAdd();
 
-            builder.HasOne(c => c.PersonLink)
+            builder.HasOne(c => c.ReceivingClerkLink)
                 .WithMany(c => c.Procurements)
-                .HasForeignKey(c => c.PersonId)
+                .HasForeignKey(c => c.ReceivingClerkId)
+                .IsRequired(true).OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(c => c.PurchasingAgentLink)
+                .WithMany(c => c.Procurements)
+                .HasForeignKey(c => c.PurchasingAgentId)
                 .IsRequired(true).OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(c => c.ShipmentItemLink)

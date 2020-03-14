@@ -1,9 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 using QAShopWPF.Annotations;
 using QAShopWPF.ViewModel.Person;
 using ServiceLayer;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using QAShopWPF.Views.Transaction;
 
 namespace QAShopWPF.ViewModel.Transaction
 {
@@ -12,7 +16,8 @@ namespace QAShopWPF.ViewModel.Transaction
         private TransactionService _transactionService;
         private TransactionViewModel _selectedTransaction;
         private string _searchText;
-        private int _transactionCount;
+        private string _transactionCount;
+        private AddNewTransactionView _addNewTransactionView;
 
         public TransactionListViewModel(TransactionService transactionService)
         {
@@ -20,29 +25,29 @@ namespace QAShopWPF.ViewModel.Transaction
 
             var person = _transactionService.GetTransactions()
                 .Select(c =>
-                    new TransactionViewModel(
-                        c.TransactionId,
-                        c.InvoiceNumber,
-                        c.TransactionDate,
-                        c.Subtotal,
-                        c.Tax,
-                        c.Total, 
-                        c.PersonLink.GetFullName(),
-                        c.TransactionTypeLink.Type,
-                        c.PersonId,
-                        c.TransactionTypeId)).ToList();
+                    new TransactionViewModel(c)).ToList();
 
             TransactionList = new ObservableCollection<TransactionViewModel>(person);
-            TransactionCount = TransactionList.Count;
         }
 
 
         public ObservableCollection<TransactionViewModel> TransactionList { get; }
 
-        public int TransactionCount
+        public ICommand AddTransaction => new RelayCommand(AddNewTransaction);
+
+        public string TransactionCount
         {
             get => _transactionCount;
-            set => Set(ref _transactionCount, value);
+            set
+            {
+                _transactionCount = value;
+                GetItemCount();
+            }
+        }
+        public string GetItemCount()
+        {
+            var count = $"{TransactionList.Count}";
+            return count;
         }
 
         public TransactionViewModel SelectedTransaction { get; set; }
@@ -55,14 +60,17 @@ namespace QAShopWPF.ViewModel.Transaction
                                                                       c.InvoiceNumber.Contains(searchString) ||
                                                                       c.TransactionDate.Date.Day.ToString().Contains(searchString) ||
                                                                       c.TransactionDate.Date.Month.ToString().Contains(searchString) ||
-                                                                      c.PersonLink.GetFullName().Contains(searchString) ||
+                                                                      c.PersonLink.FirstName.Contains(searchString) ||
+                                                                      c.PersonLink.LastName.Contains(searchString) ||
                                                                       c.TransactionTypeLink.Type.Contains(searchString));
 
             foreach (var transaction in transactions)
             {
-                var transactionModel = new TransactionViewModel(transaction.TransactionId, transaction.InvoiceNumber, transaction.TransactionDate,
-                    transaction.Subtotal, transaction.Total, transaction.Tax, transaction.PersonLink.GetFullName(), transaction.TransactionTypeLink.Type,
+                var transactionModel = new TransactionViewModel(transaction.TransactionId, transaction.InvoiceNumber, 
+                    transaction.TransactionDate, transaction.Subtotal, transaction.Total, 
+                    transaction.Tax, transaction.PersonLink.GetFullName(), transaction.TransactionTypeLink.Type,
                     transaction.PersonId, transaction.TransactionTypeId);
+
                 TransactionList.Add(transactionModel);
             }
         }
@@ -75,6 +83,14 @@ namespace QAShopWPF.ViewModel.Transaction
                 _searchText = value;
                 SearchTransaction(_searchText);
             }
+        }
+
+        public void AddNewTransaction()
+        {
+            _addNewTransactionView = new AddNewTransactionView();
+            _addNewTransactionView.Owner = Application.Current.MainWindow;
+            _addNewTransactionView.DataContext = this;
+            _addNewTransactionView.ShowDialog();
         }
     }
 }

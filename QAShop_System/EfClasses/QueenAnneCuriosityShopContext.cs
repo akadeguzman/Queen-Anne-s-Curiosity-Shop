@@ -23,6 +23,7 @@ namespace QAShop_System.EfClasses
         public DbSet<ItemVendor> ItemVendors { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<ItemAvailability> ItemAvailabilities { get; set; }
+        public DbSet<PurchasingAgent> PurchasingAgents { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -51,6 +52,7 @@ namespace QAShop_System.EfClasses
             modelBuilder.ApplyConfiguration(new TransactionConfig());
             modelBuilder.ApplyConfiguration(new TransactionTypeConfig());
             modelBuilder.ApplyConfiguration(new VendorConfig());
+            modelBuilder.ApplyConfiguration(new PurchasingAgentConfig());
         }
     }
 }

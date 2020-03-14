@@ -8,8 +8,8 @@
              mc:Ignorable="d"
              Height="Auto"
              Width="Auto"
-             d:DesignHeight="450" d:DesignWidth="497"
-             DataContext="{Binding Path=AddressViewModel, Source={StaticResource Locator}}">
+             d:DesignHeight="450" d:DesignWidth="600"
+             DataContext="{Binding Path=TransactionListViewModel, Source={StaticResource Locator}}">
     <Grid>
         <GroupBox
             Width="Auto"
@@ -22,8 +22,8 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
-                            Width="32"
-                            Height="32"
+                            Width="25"
+                            Height="25"
                             VerticalAlignment="Center"
                             Kind="Shop" />
                         <TextBlock
@@ -34,7 +34,7 @@
                         <TextBlock
                             Margin="8,0,0,0"
                             VerticalAlignment="Center"
-                            Text="{Binding Path= ,StringFormat={}({0})}" />
+                            Text="{Binding Path=TransactionCount}"/>
 
                     </StackPanel>
                 </DataTemplate>
@@ -70,7 +70,7 @@
 						materialDesign:HintAssist.Hint="Search Transaction"
 						BorderThickness="0"
 						Foreground="Black"
-						Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged, Delay=1000}"/>
+						Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged, Delay=500}"/>
 						
                 </Grid>
 
@@ -86,22 +86,17 @@
 					CanUserResizeColumns="True"
 					CanUserResizeRows="False"
 					IsReadOnly="True"
-					ItemsSource="{Binding Transactions}"
+					ItemsSource="{Binding TransactionList}"
 					
-					SelectedItem="{Binding Path=SelectedProduct}"
+					SelectedItem="{Binding Path=SelectedTransaction}"
 				    ScrollViewer.CanContentScroll="True"
                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
 					VirtualizingPanel.IsVirtualizing="True"
 					VirtualizingPanel.VirtualizationMode="Standard"
                     RowHeight="35">
-                    <DataGrid.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Command="{Binding ContextMenuHistoryCommand}" Header="Transaction" />
-                        </ContextMenu>
-                    </DataGrid.ContextMenu>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Name}" Header="Transaction ID">
+                        <DataGridTextColumn Binding="{Binding Path=TransactionId}" Header="Transaction ID">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
@@ -110,7 +105,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Description}" Header="Invoice No.">
+                        <DataGridTextColumn Binding="{Binding Path=InvoiceNumber}" Header="Invoice No.">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -119,7 +114,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding OrderingNumber}" Header="Date">
+                        <DataGridTextColumn Binding="{Binding Path=Person}" Header="Person">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -128,7 +123,25 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Category}" Header="Subtotal">
+                        <DataGridTextColumn Binding="{Binding Path=TransactionType}" Header="Type">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="Border.BorderBrush" Value="Transparent" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Path=TransactionDate}" Header="Date">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="Border.BorderBrush" Value="Transparent" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Path=Subtotal}" Header="Subtotal">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Left" />
@@ -136,7 +149,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Location}" Header="Tax">
+                        <DataGridTextColumn Binding="{Binding Path=Tax}" Header="Tax">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Left" />
@@ -144,12 +157,11 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Stocks}" Header="Total">
+                        <DataGridTextColumn Binding="{Binding Path=Total}" Header="Total">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Left" />
                                     <Setter Property="VerticalAlignment" Value="Center" />
-                                    <Setter Property="Foreground" Value="{Binding Stocks}" />
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
@@ -160,7 +172,8 @@
                         HorizontalAlignment="Right"
                         Height="50"
                         Width="170"
-                        Margin="10, 10, 10, 0">
+                        Margin="10, 10, 10, 0"
+                        Command="{Binding Path=AddTransaction}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Kind="ShoppingCartPlus"

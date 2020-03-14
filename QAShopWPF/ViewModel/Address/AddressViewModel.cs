@@ -78,68 +78,12 @@ namespace QAShopWPF.ViewModel.Address
             ZipCode = address.ZipCode;
         }
 
-        #endregion
-        
-        private AddressService _addressService;
-        private AddressViewModel _selectedMovie;
-        private string _searchText;
-        private int _addressCount;
-
         public AddressViewModel()
         {
-            GenerateAddress();
+            
         }
 
-        private void GenerateAddress()
-        {
-            AddressList.Clear();
-
-            var address = _addressService.GetAddresses()
-                .Select(c =>
-                    new AddressViewModel(c)).ToList();
-
-
-            AddressList = new ObservableCollection<AddressViewModel>(address);
-            AddressCount = AddressList.Count;
-        }
-
-
-        public ObservableCollection<AddressViewModel> AddressList { get; set; } = new ObservableCollection<AddressViewModel>();
-
-        public int AddressCount
-        {
-            get => _addressCount;
-            set => Set(ref _addressCount, value);
-        }
-
-        public AddressViewModel SelectedMovie { get; set; }
-
-        public void SearchAddress(string searchString)
-        {
-            AddressList.Clear();
-
-            var addresses = _addressService.GetAddresses().Where(c => c.City.Contains(searchString) ||
-                                                                      c.AddressId.ToString().Contains(searchString) ||
-                                                                      c.State.Contains(searchString) ||
-                                                                      c.ZipCode.ToString().Contains(searchString));
-
-            foreach (var address in addresses)
-            {
-                var movieModel = new AddressViewModel(address.AddressId, address.City, address.State,
-                    address.ZipCode);
-                AddressList.Add(movieModel);
-            }
-        }
-
-        public string SearchText
-        {
-            get => _searchText;
-            set
-            {
-                _searchText = value;
-                SearchAddress(_searchText);
-            }
-        }
+        #endregion
 
     }
 }

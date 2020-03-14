@@ -11,6 +11,7 @@ namespace QAShopWPF.ViewModel.Shipment
         private ShipmentService _shipmentService;
         private ShipmentViewModel _selectedShipment;
         private string _searchText;
+        private string _shipmentCount;
 
         public ShipmentListViewModel(ShipmentService shipmentService)
         {
@@ -18,17 +19,7 @@ namespace QAShopWPF.ViewModel.Shipment
 
             var shipment = _shipmentService.GetShipments()
                 .Select(c =>
-                    new ShipmentViewModel(
-                        c.ShipmentId,
-                        c.CountryOfOrigin,
-                        c.Destination,
-                        c.ShipperInvoiceNumber,
-                        c.DepartureDate,
-                        c.ArrivalDate,
-                        c.InsuredValue,
-                        c.InsurerName,
-                        c.ShipperLink.ShipperName,
-                        c.ShipperId)).ToList();
+                    new ShipmentViewModel(c)).ToList();
 
             ShipmentList = new ObservableCollection<ShipmentViewModel>(shipment);
 
@@ -38,6 +29,21 @@ namespace QAShopWPF.ViewModel.Shipment
         public ObservableCollection<ShipmentViewModel> ShipmentList { get; }
 
         public ShipmentViewModel SelectedShipment { get; set; }
+
+        public string ShipmentCount
+        {
+            get => _shipmentCount;
+            set
+            {
+                _shipmentCount = value;
+                GetShipmentCount();
+            }
+        }
+        public string GetShipmentCount()
+        {
+            var count = $"{ShipmentList.Count}";
+            return count;
+        }
 
         public void SearchShipment(string searchString)
         {
