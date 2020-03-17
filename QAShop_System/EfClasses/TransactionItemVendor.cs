@@ -8,6 +8,9 @@ namespace QAShop_System.EfClasses
     {
         public int TransactionItemVendorId { get; set; }
         public int Quantity { get; set; }
+        public int Subtotal { get; set; }
+        public int Tax { get; set; }
+        public int Total { get; set; }
 
         public int TransactionId { get; set; }
         public Transaction TransactionLink { get; set; }

@@ -16,5 +16,14 @@ namespace ServiceLayer
         {
             return _context.PurchasingAgents;
         }
+
+        public void AddAddress(Address address)
+        {
+            using (var context = new QueenAnneCuriosityShopContext())
+            {
+                _context.Addresses.Add(address);
+                _context.SaveChanges();
+            }
+        }
     }
 }

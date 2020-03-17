@@ -13,9 +13,7 @@ namespace QAShopWPF.ViewModel.Transaction
         private int _transactionId;
         private string _invoiceNumber;
         private DateTime _transactionDate;
-        private int _subtotal;
         private int _total;
-        private int _tax;
         private string _person;
         private string _transactionType;
 
@@ -49,33 +47,13 @@ namespace QAShopWPF.ViewModel.Transaction
             }
         }
 
-        public int Subtotal
-        {
-            get => (_subtotal);
-            internal set
-            {
-                _subtotal = value;
-                RaisePropertyChanged(nameof(Subtotal));
-            }
-        }
-
         public int Total
         {
-            get => (_total);
+            get => _total;
             internal set
             {
                 _total = value;
                 RaisePropertyChanged(nameof(Total));
-            }
-        }
-
-        public int Tax
-        {
-            get => (_tax);
-            internal set
-            {
-                _tax = value;
-                RaisePropertyChanged(nameof(Tax));
             }
         }
 
@@ -102,14 +80,12 @@ namespace QAShopWPF.ViewModel.Transaction
         public int PersonId { get; set; }
         public int TransactionTypeId { get; set; }
 
-        public TransactionViewModel(int transactionId, string invoiceNumber, DateTime transactionDate, int subtotal, int total, int tax, string person, string transactionType, int personId, int transactionTypeId)
+        public TransactionViewModel(int transactionId, string invoiceNumber, DateTime transactionDate, int total, string person, string transactionType, int personId, int transactionTypeId)
         {
             TransactionId = transactionId;
             InvoiceNumber = invoiceNumber;
             TransactionDate = transactionDate;
-            Subtotal = subtotal;
             Total = total;
-            Tax = tax;
             Person = person;
             TransactionType = transactionType;
             PersonId = personId;
@@ -121,9 +97,7 @@ namespace QAShopWPF.ViewModel.Transaction
             TransactionId = transaction.TransactionId;
             InvoiceNumber = transaction.InvoiceNumber;
             TransactionDate = transaction.TransactionDate;
-            Subtotal = transaction.Subtotal;
             Total = transaction.Total;
-            Tax = transaction.Tax;
             Person = transaction.PersonLink.GetFullName();
             TransactionType = transaction.TransactionTypeLink.Type;
             PersonId = transaction.PersonId;

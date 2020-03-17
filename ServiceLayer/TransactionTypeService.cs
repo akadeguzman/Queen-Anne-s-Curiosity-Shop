@@ -13,7 +13,7 @@ namespace ServiceLayer
             _context = context;
         }
 
-        public IQueryable<TransactionType> GeTransactionTypes()
+        public IQueryable<TransactionType> GetTransactionTypes()
         {
             return _context.TransactionTypes;
         }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace QAShop_System.Migrations
 {
-    public partial class QAShopSystem : Migration
+    public partial class V1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -149,7 +149,7 @@ namespace QAShop_System.Migrations
                     PhoneNumber = table.Column<string>(nullable: true),
                     PersonTypeId = table.Column<int>(nullable: false),
                     AddressId = table.Column<int>(nullable: false),
-                    AdditionalContactId = table.Column<int>(nullable: false)
+                    AdditionalContactId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -225,6 +225,25 @@ namespace QAShop_System.Migrations
                         principalTable: "Vendor",
                         principalColumn: "VendorId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PurchasingAgent",
+                columns: table => new
+                {
+                    PurchasingAgentId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PersonId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PurchasingAgent", x => x.PurchasingAgentId);
+                    table.ForeignKey(
+                        name: "FK_PurchasingAgent_Person_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Person",
+                        principalColumn: "PersonId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -318,15 +337,25 @@ namespace QAShop_System.Migrations
                 {
                     ProcurementId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Condition = table.Column<string>(nullable: true),
+                    ArrivalDate = table.Column<DateTime>(nullable: false),
+                    DepartureDate = table.Column<DateTime>(nullable: false),
                     ShipmentItemVendorId = table.Column<int>(nullable: false),
-                    PersonId = table.Column<int>(nullable: false)
+                    ReceivingClerkId = table.Column<int>(nullable: false),
+                    PurchasingAgentId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Procurement", x => x.ProcurementId);
                     table.ForeignKey(
-                        name: "FK_Procurement_Person_PersonId",
-                        column: x => x.PersonId,
+                        name: "FK_Procurement_PurchasingAgent_PurchasingAgentId",
+                        column: x => x.PurchasingAgentId,
+                        principalTable: "PurchasingAgent",
+                        principalColumn: "PurchasingAgentId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Procurement_Person_ReceivingClerkId",
+                        column: x => x.ReceivingClerkId,
                         principalTable: "Person",
                         principalColumn: "PersonId",
                         onDelete: ReferentialAction.Restrict);
@@ -374,14 +403,24 @@ namespace QAShop_System.Migrations
                 column: "PersonTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Procurement_PersonId",
+                name: "IX_Procurement_PurchasingAgentId",
                 table: "Procurement",
-                column: "PersonId");
+                column: "PurchasingAgentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Procurement_ReceivingClerkId",
+                table: "Procurement",
+                column: "ReceivingClerkId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Procurement_ShipmentItemVendorId",
                 table: "Procurement",
                 column: "ShipmentItemVendorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PurchasingAgent_PersonId",
+                table: "PurchasingAgent",
+                column: "PersonId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Shipment_ShipperId",
@@ -426,6 +465,9 @@ namespace QAShop_System.Migrations
 
             migrationBuilder.DropTable(
                 name: "TransactionItemVendor");
+
+            migrationBuilder.DropTable(
+                name: "PurchasingAgent");
 
             migrationBuilder.DropTable(
                 name: "ShipmentItemVendor");

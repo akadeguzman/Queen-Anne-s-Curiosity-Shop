@@ -10,8 +10,8 @@ using QAShop_System.EfClasses;
 namespace QAShop_System.Migrations
 {
     [DbContext(typeof(QueenAnneCuriosityShopContext))]
-    [Migration("20200228141251_QAShopSystem")]
-    partial class QAShopSystem
+    [Migration("20200316080700_V1")]
+    partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -147,7 +147,7 @@ namespace QAShop_System.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AdditionalContactId")
+                    b.Property<int?>("AdditionalContactId")
                         .HasColumnType("int");
 
                     b.Property<int>("AddressId")
@@ -198,7 +198,19 @@ namespace QAShop_System.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("PersonId")
+                    b.Property<DateTime>("ArrivalDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Condition")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DepartureDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PurchasingAgentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReceivingClerkId")
                         .HasColumnType("int");
 
                     b.Property<int>("ShipmentItemVendorId")
@@ -206,11 +218,30 @@ namespace QAShop_System.Migrations
 
                     b.HasKey("ProcurementId");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("PurchasingAgentId");
+
+                    b.HasIndex("ReceivingClerkId");
 
                     b.HasIndex("ShipmentItemVendorId");
 
                     b.ToTable("Procurement");
+                });
+
+            modelBuilder.Entity("QAShop_System.EfClasses.PurchasingAgent", b =>
+                {
+                    b.Property<int>("PurchasingAgentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PurchasingAgentId");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("PurchasingAgent");
                 });
 
             modelBuilder.Entity("QAShop_System.EfClasses.Shipment", b =>
@@ -432,8 +463,7 @@ namespace QAShop_System.Migrations
                 {
                     b.HasOne("QAShop_System.EfClasses.Person", "AdditionalContactLink")
                         .WithMany("Persons")
-                        .HasForeignKey("AdditionalContactId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("AdditionalContactId");
 
                     b.HasOne("QAShop_System.EfClasses.Address", "AddressLink")
                         .WithMany("Persons")
@@ -450,9 +480,15 @@ namespace QAShop_System.Migrations
 
             modelBuilder.Entity("QAShop_System.EfClasses.Procurement", b =>
                 {
-                    b.HasOne("QAShop_System.EfClasses.Person", "PersonLink")
+                    b.HasOne("QAShop_System.EfClasses.PurchasingAgent", "PurchasingAgentLink")
                         .WithMany("Procurements")
-                        .HasForeignKey("PersonId")
+                        .HasForeignKey("PurchasingAgentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("QAShop_System.EfClasses.Person", "ReceivingClerkLink")
+                        .WithMany("Procurements")
+                        .HasForeignKey("ReceivingClerkId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -460,6 +496,15 @@ namespace QAShop_System.Migrations
                         .WithMany("Procurements")
                         .HasForeignKey("ShipmentItemVendorId")
                         .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("QAShop_System.EfClasses.PurchasingAgent", b =>
+                {
+                    b.HasOne("QAShop_System.EfClasses.Person", "PersonLink")
+                        .WithMany("PurchasingAgents")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

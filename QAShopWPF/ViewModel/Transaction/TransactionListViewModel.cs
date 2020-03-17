@@ -67,8 +67,7 @@ namespace QAShopWPF.ViewModel.Transaction
             foreach (var transaction in transactions)
             {
                 var transactionModel = new TransactionViewModel(transaction.TransactionId, transaction.InvoiceNumber, 
-                    transaction.TransactionDate, transaction.Subtotal, transaction.Total, 
-                    transaction.Tax, transaction.PersonLink.GetFullName(), transaction.TransactionTypeLink.Type,
+                    transaction.TransactionDate, transaction.Total, transaction.PersonLink.GetFullName(), transaction.TransactionTypeLink.Type,
                     transaction.PersonId, transaction.TransactionTypeId);
 
                 TransactionList.Add(transactionModel);

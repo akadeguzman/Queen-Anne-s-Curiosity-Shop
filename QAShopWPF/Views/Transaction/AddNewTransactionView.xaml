@@ -4,9 +4,288 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QAShopWPF.Views.Transaction"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="AddNewTransactionView" Height="450" Width="800">
+        Height="Auto"
+        Width="Auto"
+        d:DesignHeight="634"
+        d:DesignWidth="790"
+        DataContext="{Binding Path=AddTransactionViewModel, Source={StaticResource Locator}}" >
     <Grid>
-        
+        <GroupBox Header="Add Transaction" Style="{DynamicResource MaterialDesignCardGroupBox}">
+            <!--Header-->
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="30"
+                            VerticalAlignment="Center"
+                            Kind="BriefcaseAdd" />
+                        <TextBlock Text="New Transaction"
+                                   FontSize="15"
+                                   Margin="15,5,0,5" />
+                    </StackPanel>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+            <!--end Header-->
+
+            <Grid Height="Auto"
+                  Width="Auto">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Margin="5">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock
+                                Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                Text="Transaction Details"
+                                Foreground="White"
+                                FontSize="20"
+                                Margin="10,0,0,0"
+                                FontWeight="DemiBold" />
+                            <GridSplitter BorderBrush="White" BorderThickness="1" Width="480"
+                                          HorizontalAlignment="Center"
+                                          Style="{StaticResource MaterialDesignGridSplitter}"
+                                          Margin="10,0,10,0" />
+
+                            <StackPanel Margin="10,12,10,0">
+                                <TextBlock
+                                    Text="Invoice Number"
+                                    FontSize="15"
+                                    Foreground="Orange"
+                                    FontWeight="Medium"
+                                    Margin="0,0,0,3" />
+                                <TextBox
+                                    BorderBrush="White" BorderThickness="1"
+                                    Padding="3,0,3,0"
+                                    Text="{Binding FirstName}"
+                                    Height="30"
+                                    Foreground="White" />
+                            </StackPanel>
+
+                            <StackPanel Margin="10,5,10,0">
+                                <TextBlock
+                                    Text="Customer"
+                                    FontSize="15"
+                                    Foreground="Orange"
+                                    FontWeight="Medium"
+                                    Margin="0,0,0,0" />
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="60" />
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox
+                                        materialDesign:HintAssist.Hint="Select Customer"
+                                        HorizontalAlignment="Stretch"
+                                        Foreground="White"
+                                        BorderBrush="White"
+                                        BorderThickness="1"
+                                        FontSize="15"
+                                        Margin="0,2,0,0"
+                                        Grid.Column="0"
+                                        ItemsSource="{Binding Persons}"
+                                        SelectedItem="{Binding SelectedPerson}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Path=Type}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel />
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                    <Button
+                                        Grid.Column="1"
+                                        Width="Auto"
+                                        Margin="5"
+                                        Command="{Binding }"
+                                        ToolTip="New Customer">
+
+                                        <materialDesign:PackIcon
+                                            Kind="PersonAdd" />
+                                    </Button>
+
+                                </Grid>
+
+                                <StackPanel Margin="0,10,0,0">
+                                    <TextBlock
+                                        Text="Purchase Date"
+                                        FontSize="15"
+                                        Foreground="Orange"
+                                        FontWeight="Medium"
+                                        Margin="0,0,0,3" />
+                                    <DatePicker BorderBrush="White" BorderThickness="1"
+                                                Padding="3,0,3,0"
+                                                Text="{Binding Path=TransactionDate}"
+                                                Height="30"
+                                                Foreground="White" />
+
+                                </StackPanel>
+
+                            </StackPanel>
+
+
+                            <StackPanel Margin="10,10,10,0">
+                                <TextBlock
+                                    Text="Transaction Type"
+                                    FontSize="15"
+                                    Foreground="Orange"
+                                    FontWeight="Medium"
+                                    Margin="0,0,0,0" />
+
+
+                                <ComboBox
+                                    materialDesign:HintAssist.Hint="Select Type"
+                                    HorizontalAlignment="Stretch"
+                                    Foreground="White"
+                                    BorderBrush="White"
+                                    BorderThickness="1"
+
+                                    FontSize="15"
+                                    Margin="0,2,0,0"
+                                    ItemsSource="{Binding TransactionTypes}"
+                                    SelectedItem="{Binding SelectedTransactionType}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding City}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                    <ComboBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <VirtualizingStackPanel />
+                                        </ItemsPanelTemplate>
+                                    </ComboBox.ItemsPanel>
+                                </ComboBox>
+                            </StackPanel>
+
+
+                        </StackPanel>
+
+                        <!--RIGHT SIDE-->
+
+                        <local:TransactionItemVendorView Grid.Column="1" Margin="0,10,0,0" DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext, Mode=OneWay}"/>
+                    </Grid>
+
+                </StackPanel>
+
+                <Grid Grid.Row="1" Margin="0,15,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Column="0" Grid.ColumnSpan="2">
+                        <TextBlock
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                            Text="Summary"
+                            Foreground="White"
+                            FontSize="20"
+                            Margin="10,0,0,0"
+                            FontWeight="DemiBold" />
+                        <GridSplitter BorderBrush="White" BorderThickness="1" Width="750"
+                                      HorizontalAlignment="Center"
+                                      Style="{StaticResource MaterialDesignGridSplitter}"
+                                      Margin="10,0,10,0" />
+
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Grid.Row="1">
+                        <StackPanel Margin="10,5,10,0">
+                            <TextBlock
+                                Text="Customer Name"
+                                FontSize="15"
+                                Foreground="Orange"
+                                FontWeight="Medium"
+                                Margin="0,0,0,3" />
+                            <TextBlock
+                                Padding="3,0,3,0"
+                                Text="{Binding Path=SelectedPerson}"
+                                Height="30"
+                                Foreground="White" />
+                        </StackPanel>
+                        <StackPanel Margin="10,5,10,0">
+                            <TextBlock
+                                Text="Invoice Number"
+                                FontSize="15"
+                                Foreground="Orange"
+                                FontWeight="Medium"
+                                Margin="0,0,0,3" />
+                            <TextBlock
+                                Padding="3,0,3,0"
+                                Text="{Binding Path=InvoiceNumber}"
+                                Height="30"
+                                Foreground="White" />
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <StackPanel Margin="10,5,10,0" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
+                        <TextBlock
+                            Text="Total"
+                            FontSize="30"
+                            Foreground="Orange"
+                            FontWeight="Bold"
+                            Margin="0,0,0,3" />
+                        <TextBox
+                            BorderBrush="White" BorderThickness="1"
+                            Padding="3,0,3,0"
+                            Text="{Binding Path=Total}"
+                            Height="60"
+                            Foreground="White" />
+                    </StackPanel>
+
+                </Grid>
+
+                <!--Buttons-->
+                <DockPanel
+                    Grid.Row="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Margin="5,0,0,5">
+
+                    <Button
+                        Width="100"
+                        Height="30"
+                        Margin="4"
+                        HorizontalAlignment="Right"
+                        Command="{Binding Path=AddPerson}"
+                        Content="Save"
+                        Style="{StaticResource MaterialDesignRaisedButton}" />
+
+                    <Button
+                        Width="100"
+                        Height="30"
+                        Margin="4"
+                        HorizontalAlignment="Right"
+                        Command="{Binding CloseCommand}"
+                        Content="Cancel"
+                        Style="{StaticResource MaterialDesignFlatButton}" />
+
+                </DockPanel>
+                <!--end Buttons-->
+            </Grid>
+        </GroupBox>
+
     </Grid>
 </Window>
