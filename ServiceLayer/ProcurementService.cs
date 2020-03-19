@@ -18,8 +18,12 @@ namespace ServiceLayer
         {
             return _context.Procurements
                 .Include(c => c.ShipmentItemLink)
+                .Include(c=>c.ShipmentItemLink)
+                .ThenInclude(c=>c.ShipmentLink)
+                .ThenInclude(c=>c.ShipperLink)
                 .Include(c => c.ReceivingClerkLink)
-                .Include(c => c.PurchasingAgentLink);
+                .Include(c => c.PurchasingAgentLink)
+                .ThenInclude(c=>c.PersonLink);
         }
 
         public void UpdateProcurement(int procurementId, 

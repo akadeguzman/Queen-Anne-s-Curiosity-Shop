@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using QAShopWPF.ViewModel.Address;
 using QAShopWPF.ViewModel.Item;
 using QAShopWPF.Views.Person;
 using ServiceLayer;
@@ -12,10 +13,8 @@ namespace QAShopWPF.ViewModel.Person
     public class PersonListViewModel
     {
         private PersonService _personService;
-        private PersonViewModel _selectedPerson;
         private string _searchText;
         private string _personCount;
-        private AddNewPersonView _addNewPersonView;
 
         public PersonListViewModel(PersonService personService)
         {
@@ -47,9 +46,7 @@ namespace QAShopWPF.ViewModel.Person
         }
 
         public PersonViewModel SelectedPerson { get; set; }
-
-        public ICommand AddPerson => new RelayCommand(AddNewPerson);
-
+        
         public void SearchPerson(string searchString)
         {
             PersonList.Clear();
@@ -77,14 +74,6 @@ namespace QAShopWPF.ViewModel.Person
                 _searchText = value;
                 SearchPerson(_searchText);
             }
-        }
-
-        public void AddNewPerson()
-        {
-            _addNewPersonView = new AddNewPersonView();
-            _addNewPersonView.Owner = Application.Current.MainWindow;
-            _addNewPersonView.DataContext = this;
-            _addNewPersonView.ShowDialog();
         }
     }
 }

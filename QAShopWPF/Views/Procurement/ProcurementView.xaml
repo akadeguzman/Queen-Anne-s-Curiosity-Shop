@@ -8,8 +8,7 @@
              mc:Ignorable="d" 
              Height="Auto"
              Width="Auto"
-             d:DesignHeight="450" d:DesignWidth="502.5"
-             DataContext="{Binding Path=ProcurementListViewModel, Source={StaticResource Locator}}">
+             d:DesignHeight="450" d:DesignWidth="502.5">
     <Grid>
         <GroupBox
             Width="Auto"
@@ -141,6 +140,24 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
                         <DataGridTextColumn Binding="{Binding Path=DepartureDate}" Header="Departure Date">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="Border.BorderBrush" Value="Transparent" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Path=Shipper}" Header="Shipper">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="Border.BorderBrush" Value="Transparent" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Path=ShippedFrom}" Header="Shipped From">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Stretch" />

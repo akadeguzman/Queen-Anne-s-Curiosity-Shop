@@ -7,8 +7,7 @@ namespace QAShopWPF.ViewModel.Vendor
 {
     public class VendorListViewModel
     {
-        private VendorService _vendorService;
-        private VendorViewModel _selectedVendor;
+        private readonly VendorService _vendorService;
         private string _searchText;
 
         public VendorListViewModel(VendorService vendorService)
@@ -17,12 +16,7 @@ namespace QAShopWPF.ViewModel.Vendor
 
             var vendor = _vendorService.GetVendors()
                 .Select(c =>
-                    new VendorViewModel(
-                        c.VendorId,
-                        c.FirstName,
-                        c.LastName,
-                        c.ContactNumber,
-                        c.CompanyName)).ToList();
+                    new VendorViewModel(c)).ToList();
 
             VendorList = new ObservableCollection<VendorViewModel>(vendor);
 

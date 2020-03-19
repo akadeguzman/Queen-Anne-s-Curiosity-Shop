@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using QAShopWPF.ViewModel.Person;
+using ServiceLayer;
 
 namespace QAShopWPF.Views.Person
 {
@@ -17,9 +19,27 @@ namespace QAShopWPF.Views.Person
     /// </summary>
     public partial class AddNewPersonView : Window
     {
-        public AddNewPersonView()
+        private PersonService _personService;
+        private PersonTypeService _personTypeService;
+        private AddressService _addressService;
+        private PersonListViewModel _personListViewModel;
+
+        private AddPersonViewModel _toAddPerson;
+
+        public AddNewPersonView(PersonListViewModel personListViewModel, AddressService addressService, PersonTypeService personTypeService, PersonService personService)
         {
             InitializeComponent();
+
+            _toAddPerson = new AddPersonViewModel(personService, personTypeService, addressService);
+
+            _personService = personService;
+            _personListViewModel = personListViewModel;
+            _personTypeService = personTypeService;
+            _addressService = addressService;
+
+            DataContext = _toAddPerson;
+
         }
+
     }
 }

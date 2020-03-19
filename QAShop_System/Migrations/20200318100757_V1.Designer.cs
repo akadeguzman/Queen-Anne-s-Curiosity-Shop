@@ -10,7 +10,7 @@ using QAShop_System.EfClasses;
 namespace QAShop_System.Migrations
 {
     [DbContext(typeof(QueenAnneCuriosityShopContext))]
-    [Migration("20200316080700_V1")]
+    [Migration("20200318100757_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -341,12 +341,6 @@ namespace QAShop_System.Migrations
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Subtotal")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Tax")
-                        .HasColumnType("int");
-
                     b.Property<int>("Total")
                         .HasColumnType("int");
 
@@ -376,6 +370,15 @@ namespace QAShop_System.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Subtotal")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tax")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Total")
                         .HasColumnType("int");
 
                     b.Property<int>("TransactionId")

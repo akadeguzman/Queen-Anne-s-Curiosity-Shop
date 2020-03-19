@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using QAShop_System.EfClasses;
 
 namespace ServiceLayer
@@ -35,15 +36,5 @@ namespace ServiceLayer
             _context.SaveChanges();
         }
 
-
-        public void DeletePersonType(int personTypeId)
-        {
-            var personList = _context.Persons.Where(c => c.PersonTypeId == personTypeId);
-
-            _context.Persons.RemoveRange(personList);
-
-            _context.PersonTypes.Remove(_context.PersonTypes.Find(personTypeId));
-            _context.SaveChanges();
-        }
     }
 }

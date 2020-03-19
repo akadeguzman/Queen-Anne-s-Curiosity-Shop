@@ -254,8 +254,6 @@ namespace QAShop_System.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InvoiceNumber = table.Column<string>(nullable: true),
                     TransactionDate = table.Column<DateTime>(nullable: false),
-                    Subtotal = table.Column<int>(nullable: false),
-                    Tax = table.Column<int>(nullable: false),
                     Total = table.Column<int>(nullable: false),
                     PersonId = table.Column<int>(nullable: false),
                     TransactionTypeId = table.Column<int>(nullable: false)
@@ -311,6 +309,9 @@ namespace QAShop_System.Migrations
                     TransactionItemVendorId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantity = table.Column<int>(nullable: false),
+                    Subtotal = table.Column<int>(nullable: false),
+                    Tax = table.Column<int>(nullable: false),
+                    Total = table.Column<int>(nullable: false),
                     TransactionId = table.Column<int>(nullable: false),
                     ItemVendorId = table.Column<int>(nullable: false)
                 },

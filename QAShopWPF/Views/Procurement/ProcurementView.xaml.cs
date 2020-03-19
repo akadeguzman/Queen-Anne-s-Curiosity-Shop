@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QAShopWPF.ViewModel.Procurement;
+using ServiceLayer;
 
 namespace QAShopWPF.Views.Procurement
 {
@@ -18,9 +20,23 @@ namespace QAShopWPF.Views.Procurement
     /// </summary>
     public partial class ProcurementView : UserControl
     {
-        public ProcurementView()
+        private ProcurementService _procurementService;
+        private ProcurementListViewModel _procurementListViewModel;
+        private ShipmentItemVendorService _shipmentItemVendorService;
+        private PersonService _personService;
+        private PurchasingAgentService _purchasingAgentService;
+
+        public ProcurementView(ProcurementListViewModel procurementListViewModel, ShipmentItemVendorService shipmentItemVendorService, PersonService personService, PurchasingAgentService purchasingAgentService, ProcurementService procurementService)
         {
             InitializeComponent();
+
+            _procurementService = procurementService;
+            _shipmentItemVendorService = shipmentItemVendorService;
+            _personService = personService;
+            _purchasingAgentService = purchasingAgentService;
+            _procurementListViewModel = new ProcurementListViewModel(procurementService);
+
+            DataContext = _procurementListViewModel;
         }
     }
 }

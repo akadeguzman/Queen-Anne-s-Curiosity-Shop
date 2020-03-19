@@ -339,12 +339,6 @@ namespace QAShop_System.Migrations
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Subtotal")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Tax")
-                        .HasColumnType("int");
-
                     b.Property<int>("Total")
                         .HasColumnType("int");
 
@@ -374,6 +368,15 @@ namespace QAShop_System.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Subtotal")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tax")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Total")
                         .HasColumnType("int");
 
                     b.Property<int>("TransactionId")

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 using QAShop_System.EfClasses;
 using QAShopWPF.Views.Transaction;
 using ServiceLayer;
@@ -13,66 +14,62 @@ namespace QAShopWPF.ViewModel.Transaction
         private TransactionItemVendorService _transactionItemVendorService;
         private TransactionService _transactionService;
         private ItemVendorService _itemVendorService;
-        //private  _addNewTransactionView;
 
-        public AddTransactionItemVendorViewModel(TransactionService transactionService, TransactionTypeService transactionTypeService, PersonService personService)
+        public AddTransactionItemVendorViewModel(TransactionService transactionService, ItemVendorService itemVendorService)
         {
-            var blankTransaction = new QAShop_System.EfClasses.Transaction();
-            TransactionViewModel = new TransactionViewModel(blankTransaction.TransactionId, blankTransaction.InvoiceNumber, blankTransaction.TransactionDate,
-                blankTransaction.Total, "", "", blankTransaction.PersonId, blankTransaction.TransactionTypeId);
+            var blankTransactionItemVendor = new QAShop_System.EfClasses.TransactionItemVendor();
+            TransactionItemVendorViewModel = new TransactionItemVendorViewModel(blankTransactionItemVendor.TransactionItemVendorId,
+                blankTransactionItemVendor.Quantity, blankTransactionItemVendor.Subtotal, blankTransactionItemVendor.Tax, blankTransactionItemVendor.Total,
+                blankTransactionItemVendor.TransactionId, blankTransactionItemVendor.ItemVendorId);
 
             _transactionService = transactionService;
-            _transactionTypeService = transactionTypeService;
-            _personService = personService;
+            _itemVendorService = itemVendorService;
 
-            Persons = new ObservableCollection<QAShop_System.EfClasses.Person>(_personService.GetPersons());
-            SelectedPerson = Persons.First();
+            ItemVendors = new ObservableCollection<ItemVendor>(_itemVendorService.GetItemVendors());
+            SelectedItemVendor = ItemVendors.First();
 
-            TransactionTypes = new ObservableCollection<TransactionType>(_transactionTypeService.GetTransactionTypes());
-            SelectedTransactionType = TransactionTypes.First();
+            Transactions = new ObservableCollection<QAShop_System.EfClasses.Transaction>(_transactionService.GetTransactions());
+            SelectedTransaction = Transactions.First();
 
 
 
         }
 
-        public TransactionViewModel TransactionViewModel { get; }
+        public TransactionItemVendorViewModel TransactionItemVendorViewModel { get; }
 
-        public ObservableCollection<QAShop_System.EfClasses.Person> Persons { get; }
-        public ObservableCollection<TransactionType> TransactionTypes { get; }
+        public ObservableCollection<ItemVendor> ItemVendors { get; }
+        public ObservableCollection<QAShop_System.EfClasses.Transaction> Transactions { get; }
 
-        public QAShop_System.EfClasses.Person SelectedPerson { get; set; }
-        public TransactionType SelectedTransactionType { get; set; }
+        public ItemVendor SelectedItemVendor { get; set; }
+        public QAShop_System.EfClasses.Transaction SelectedTransaction { get; set; }
 
-        public string InvoiceNumber { get; set; }
-        public DateTime TransactionDate { get; set; }
+        public int Quantity { get; set; }
+        public int Subtotal { get; set; }
+        public int Tax { get; set; }
         public int Total { get; set; }
 
         public ICommand AddItem => new RelayCommand(Add);
-        public ICommand CloseCommand => new RelayCommand(Close);
-
-        public void Close()
-        {
-            _addNewTransactionView.Close();
-        }
+        
         public void Add()
         {
-            var transactionToAdd = new QAShop_System.EfClasses.Transaction();
-            transactionToAdd.InvoiceNumber = InvoiceNumber;
-            transactionToAdd.TransactionDate = TransactionDate;
-            transactionToAdd.Total = Total;
-            transactionToAdd.PersonId = SelectedPerson.PersonId;
-            transactionToAdd.TransactionTypeId = SelectedTransactionType.TransactionTypeId;
+            var transactionItemVendorToAdd = new TransactionItemVendor();
+            transactionItemVendorToAdd.Quantity = Quantity;
+            transactionItemVendorToAdd.Subtotal = Subtotal;
+            transactionItemVendorToAdd.Tax = Tax;
+            transactionItemVendorToAdd.Total = Total;
+            transactionItemVendorToAdd.ItemVendorId = SelectedItemVendor.ItemVendorId;
+            transactionItemVendorToAdd.TransactionId = SelectedTransaction.TransactionId;
+            
 
-            _transactionService.AddTransaction(transactionToAdd);
+            _transactionItemVendorService.AddTransactionItemVendor(transactionItemVendorToAdd);
 
-            TransactionViewModel.TransactionId = transactionToAdd.TransactionId;
-            TransactionViewModel.InvoiceNumber = transactionToAdd.InvoiceNumber;
-            TransactionViewModel.TransactionDate = transactionToAdd.TransactionDate;
-            TransactionViewModel.Total = transactionToAdd.Total;
-            TransactionViewModel.PersonId = transactionToAdd.PersonId;
-            TransactionViewModel.TransactionTypeId = transactionToAdd.TransactionTypeId;
-
-
+            TransactionItemVendorViewModel.TransactionItemVendorId = transactionItemVendorToAdd.TransactionItemVendorId;
+            TransactionItemVendorViewModel.Quantity = transactionItemVendorToAdd.Quantity;
+            TransactionItemVendorViewModel.Subtotal = transactionItemVendorToAdd.Subtotal;
+            TransactionItemVendorViewModel.Tax = transactionItemVendorToAdd.Tax;
+            TransactionItemVendorViewModel.Total = transactionItemVendorToAdd.Total;
+            TransactionItemVendorViewModel.ItemVendorId = transactionItemVendorToAdd.ItemVendorId;
+            TransactionItemVendorViewModel.TransactionId = transactionItemVendorToAdd.TransactionId;
         }
     }
 }

@@ -8,8 +8,7 @@
              mc:Ignorable="d" 
             Height="Auto"
              Width="Auto"
-             d:DesignHeight="450" d:DesignWidth="764.662"
-             DataContext="{Binding Path=ShipmentListViewModel, Source={StaticResource Locator}}">
+             d:DesignHeight="450" d:DesignWidth="764.662">
     <Grid>
         <GroupBox
             Width="Auto"

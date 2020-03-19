@@ -10,10 +10,10 @@
         Width="Auto"
         MinHeight="300"
         MinWidth="420"
-        WindowStartupLocation="CenterScreen"
-        WindowStyle="None" 
+        WindowStyle="None"
         d:DesignHeight="300" 
-        d:DesignWidth="420">
+        d:DesignWidth="420"
+        DataContext="{Binding Path=AddNewAddressViewModel, Source={StaticResource Locator}}">
     <Grid>
         <GroupBox Header="Add Address" Style="{DynamicResource MaterialDesignCardGroupBox}">
             <!--Header-->
@@ -50,7 +50,7 @@
                         <TextBox
                             BorderBrush="White" BorderThickness="1"
                             Padding="3,0,3,0"
-                            Text="{Binding}"
+                            Text="{Binding Path=City}"
                             Foreground="White"
                             Height="30"
                         />
@@ -70,7 +70,7 @@
                             <TextBox
                                 BorderBrush="White" BorderThickness="1"
                                 Padding="3,0,3,0"
-                                Text="{Binding}"
+                                Text="{Binding Path=ZipCode}"
                                 Height="30"
                                 Foreground="White"
                             />
@@ -85,7 +85,7 @@
                             <TextBox
                                 BorderBrush="White" BorderThickness="1"
                                 Padding="3,0,3,0"
-                                Text="{Binding}"
+                                Text="{Binding Path=ZipCode}"
                                 Height="30"
                                 Foreground="White"
                             />
@@ -104,7 +104,7 @@
                         Height="30"
                         Margin="4"
                         HorizontalAlignment="Right"
-                        Command="{Binding OkCommand}"
+                        Command="{Binding AddAddress}"
                         Content="Save"
                         Style="{StaticResource MaterialDesignRaisedButton}" />
 
@@ -113,7 +113,7 @@
                         Height="30"
                         Margin="4"
                         HorizontalAlignment="Right"
-                        Command="{Binding CancelCommand}"
+                        Command="{Binding CloseCommand}"
                         Content="Cancel"
                         Style="{StaticResource MaterialDesignFlatButton}" />
 

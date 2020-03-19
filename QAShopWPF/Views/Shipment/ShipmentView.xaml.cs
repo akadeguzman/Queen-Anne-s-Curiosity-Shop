@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QAShopWPF.ViewModel.Shipment;
+using ServiceLayer;
 
 namespace QAShopWPF.Views.Shipment
 {
@@ -18,9 +20,19 @@ namespace QAShopWPF.Views.Shipment
     /// </summary>
     public partial class ShipmentView : UserControl
     {
-        public ShipmentView()
+        private ShipmentService _shipmentService;
+        private ShipmentListViewModel _shipmentListViewModel;
+        private ShipperService _shipperService;
+
+        public ShipmentView(ShipmentListViewModel shipmentListViewModel, ShipperService shipperService, ShipmentService shipmentService)
         {
             InitializeComponent();
+
+            _shipmentService = shipmentService;
+            _shipperService = shipperService;
+            _shipmentListViewModel = new ShipmentListViewModel(shipmentService);
+
+            DataContext = _shipmentListViewModel;
         }
     }
 }

@@ -109,6 +109,15 @@
                             <TextBlock Text="Procurements" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
+
+                    <!--TODO: Add vendor's tab-->
+
+                    <ListViewItem x:Name="Vendor" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="AccountBadgeHorizontal" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
+                            <TextBlock Text="Vendors" VerticalAlignment="Center"  Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
                 </ListView>
             </StackPanel>
         </Grid>

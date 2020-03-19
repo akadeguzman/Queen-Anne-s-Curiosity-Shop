@@ -16,6 +16,8 @@ namespace QAShopWPF.ViewModel.Procurement
         private string _condition;
         private DateTime _arrivalDate;
         private DateTime _departureDate;
+        private string _shipper;
+        private string _shippedFrom;
 
         public int ProcurementId
         {
@@ -74,6 +76,26 @@ namespace QAShopWPF.ViewModel.Procurement
             }
         }
 
+        public string Shipper
+        {
+            get => _shipper;
+            internal set
+            {
+                _shipper = value;
+                RaisePropertyChanged(nameof(Shipper));
+            }
+        }
+
+        public string ShippedFrom
+        {
+            get => _shippedFrom;
+            internal set
+            {
+                _shippedFrom = value;
+                RaisePropertyChanged(nameof(ShippedFrom));
+            }
+        }
+
         public int ShipmentItemVendorId { get; set; }
         public int ReceivingClerkId { get; set; }
         public int PurchasingAgentId { get; set; }
@@ -86,7 +108,9 @@ namespace QAShopWPF.ViewModel.Procurement
             int receivingClerkId, 
             int purchasingAgentId,
             DateTime arrivalDate,
-            DateTime departureDate)
+            DateTime departureDate,
+            string shipper,
+            string shippedFrom)
         {
             ProcurementId = procurementId;
             Condition = condition;
@@ -97,6 +121,8 @@ namespace QAShopWPF.ViewModel.Procurement
             PurchasingAgentId = purchasingAgentId;
             ArrivalDate = arrivalDate;
             DepartureDate = departureDate;
+            Shipper = shipper;
+            ShippedFrom = shippedFrom;
         }
 
 
@@ -109,6 +135,10 @@ namespace QAShopWPF.ViewModel.Procurement
             ShipmentItemVendorId = procurement.ShipmentItemVendorId;
             ReceivingClerkId = procurement.ReceivingClerkId;
             PurchasingAgentId = procurement.PurchasingAgentId;
+            DepartureDate = procurement.DepartureDate;
+            ArrivalDate = procurement.ArrivalDate;
+            Shipper = procurement.ShipmentItemLink.ShipmentLink.ShipperLink.ShipperName;
+            ShippedFrom = procurement.ShipmentItemLink.ShipmentLink.CountryOfOrigin;
         }
 
         public ProcurementViewModel()

@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QAShopWPF.ViewModel.Item;
+using ServiceLayer;
 
 namespace QAShopWPF.Views.Item
 {
@@ -18,9 +20,21 @@ namespace QAShopWPF.Views.Item
     /// </summary>
     public partial class ItemView : UserControl
     {
-        public ItemView()
+        private ItemService _itemService;
+        private ItemListViewModel _itemListViewModel;
+        private ItemAvailabilityService _itemAvailabilityService;
+        private ItemTypeService _itemTypeService;
+
+        public ItemView(ItemListViewModel itemListViewModel, ItemTypeService itemTypeService, ItemAvailabilityService itemAvailabilityService, ItemService itemService)
         {
             InitializeComponent();
+
+            _itemService = itemService;
+            _itemAvailabilityService = itemAvailabilityService;
+            _itemTypeService = itemTypeService;
+            _itemListViewModel = new ItemListViewModel(itemService);
+
+            DataContext = _itemListViewModel;
         }
     }
 }

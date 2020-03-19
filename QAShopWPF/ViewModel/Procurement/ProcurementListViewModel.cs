@@ -55,13 +55,15 @@ namespace QAShopWPF.ViewModel.Procurement
                                                                       c.PurchasingAgentLink.PersonLink.FirstName.Contains(searchString) ||
                                                                       c.PurchasingAgentLink.PersonLink.LastName.Contains(searchString) ||
                                                                       c.ShipmentItemLink.ShipmentLink.ShipperLink.ShipperName.Contains(searchString) ||
-                                                                      c.Condition.Contains(searchString));
+                                                                      c.Condition.Contains(searchString) ||
+                                                                      c.ShipmentItemLink.ShipmentLink.CountryOfOrigin.Contains(searchString) ||
+                                                                      c.ShipmentItemLink.ShipmentLink.ShipperLink.ShipperName.Contains(searchString));
 
             foreach (var procurement in procurements)
             {
                 var procurementModel = new ProcurementViewModel(procurement.ProcurementId, procurement.Condition, procurement.ReceivingClerkLink.GetFullName(),
                     procurement.PurchasingAgentLink.PersonLink.GetFullName(), procurement.ShipmentItemVendorId, procurement.ReceivingClerkId, procurement.PurchasingAgentId,
-                    procurement.ArrivalDate, procurement.DepartureDate);
+                    procurement.ArrivalDate, procurement.DepartureDate, procurement.ShipmentItemLink.ShipmentLink.ShipperLink.ShipperName, procurement.ShipmentItemLink.ShipmentLink.CountryOfOrigin);
                 ProcurementList.Add(procurementModel);
             }
         }
