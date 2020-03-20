@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using QAShopWPF.ViewModel.Address;
+using ServiceLayer;
 
 namespace QAShopWPF.Views.Address
 {
@@ -17,9 +19,32 @@ namespace QAShopWPF.Views.Address
     /// </summary>
     public partial class AddNewAddressView : Window
     {
-        public AddNewAddressView()
+        private AddressListViewModel _addressListViewModel;
+        private AddressService _addressService;
+
+        private AddNewAddressViewModel _toAddAddress;
+
+        public AddNewAddressView(AddressListViewModel addressListViewModel, AddressService addressService)
         {
             InitializeComponent();
+
+            _toAddAddress = new AddNewAddressViewModel(addressService);
+            _addressListViewModel = addressListViewModel;
+            _addressService = addressService;
+
+            DataContext = _toAddAddress;
+        }
+
+        private void BtnAddAddress_Click(object sender, RoutedEventArgs e)
+        {
+            _toAddAddress.Add();
+            _addressListViewModel.AddressList.Insert(0, _toAddAddress.AddressViewModel);
+            Close();
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

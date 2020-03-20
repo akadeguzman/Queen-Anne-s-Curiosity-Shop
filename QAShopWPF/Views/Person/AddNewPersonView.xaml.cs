@@ -9,7 +9,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using QAShopWPF.ViewModel.Address;
 using QAShopWPF.ViewModel.Person;
+using QAShopWPF.Views.Address;
 using ServiceLayer;
 
 namespace QAShopWPF.Views.Person
@@ -22,11 +24,12 @@ namespace QAShopWPF.Views.Person
         private PersonService _personService;
         private PersonTypeService _personTypeService;
         private AddressService _addressService;
+        private AddressListViewModel _addressListViewModel;
         private PersonListViewModel _personListViewModel;
 
         private AddPersonViewModel _toAddPerson;
 
-        public AddNewPersonView(PersonListViewModel personListViewModel, AddressService addressService, PersonTypeService personTypeService, PersonService personService)
+        public AddNewPersonView(PersonListViewModel personListViewModel, AddressService addressService, PersonTypeService personTypeService, PersonService personService, AddressListViewModel addressListViewModel)
         {
             InitializeComponent();
 
@@ -36,10 +39,28 @@ namespace QAShopWPF.Views.Person
             _personListViewModel = personListViewModel;
             _personTypeService = personTypeService;
             _addressService = addressService;
+            _addressListViewModel = new AddressListViewModel(addressService);
+            
 
             DataContext = _toAddPerson;
-
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _toAddPerson.Add();
+            _personListViewModel.PersonList.Insert(0, _toAddPerson.PersonViewModel);
+            Close();
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void BtnNewAddress_Click(object sender, RoutedEventArgs e)
+        {
+            var addNewAddress = new AddNewAddressView(_addressListViewModel, _addressService);
+            addNewAddress.Show();
+        }
     }
 }

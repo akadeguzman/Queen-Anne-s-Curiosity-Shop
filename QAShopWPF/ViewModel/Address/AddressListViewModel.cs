@@ -17,11 +17,7 @@ namespace QAShopWPF.ViewModel.Address
 
             var address = _addressService.GetAddresses()
                 .Select(c =>
-                    new AddressViewModel(
-                        c.AddressId,
-                        c.City,
-                        c.State,
-                        c.ZipCode)).ToList();
+                    new AddressViewModel(c)).ToList();
 
 
             AddressList = new ObservableCollection<AddressViewModel>(address);

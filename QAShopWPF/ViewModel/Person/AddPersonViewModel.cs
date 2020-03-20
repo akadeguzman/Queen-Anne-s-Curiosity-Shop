@@ -32,13 +32,10 @@ namespace QAShopWPF.ViewModel.Person
             _addressService = addressService;
 
             PersonTypes = new ObservableCollection<PersonType>(_personTypeService.GetPersonTypes());
-            SelectedPersonType = PersonTypes.First();
-
+            
             Address = new ObservableCollection<QAShop_System.EfClasses.Address>(_addressService.GetAddresses());
-            SelectedAddress = Address.First();
 
             AdditionalContacts = new ObservableCollection<QAShop_System.EfClasses.Person>(_personService.GetPersons());
-            SelectedAdditionalContacts = AdditionalContacts.First();
         }
 
         public PersonViewModel PersonViewModel { get; }
@@ -54,13 +51,6 @@ namespace QAShopWPF.ViewModel.Person
         public QAShop_System.EfClasses.Address SelectedAddress { get; set; }
         public QAShop_System.EfClasses.Person SelectedAdditionalContacts { get; set; }
 
-        public ICommand AddPerson => new RelayCommand(Add);
-        public ICommand CloseCommand => new RelayCommand(Close);
-
-        public void Close()
-        {
-            _addNewPersonView.Close();
-        }
         public void Add()
         {
             var personToAdd = new QAShop_System.EfClasses.Person();

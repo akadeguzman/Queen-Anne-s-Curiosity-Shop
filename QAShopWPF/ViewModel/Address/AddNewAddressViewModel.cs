@@ -10,7 +10,7 @@ namespace QAShopWPF.ViewModel.Address
         private readonly AddressListViewModel _addressListViewModel;
         private AddressService _addressService;
         private AddNewAddressView _addNewAddressView;
-
+        
 
         public AddNewAddressViewModel(AddressService addressService)
         {
@@ -27,16 +27,12 @@ namespace QAShopWPF.ViewModel.Address
         public string State { get; set; }
         public string ZipCode { get; set; }
         
-        public ICommand AddAddress => new RelayCommand(Add);
-        public ICommand CloseCommand => new RelayCommand(Close);
-
-        public void Close()
-        {
-            _addNewAddressView.Close();
-        }
         public void Add()
         {
-            var addressToAdd = new QAShop_System.EfClasses.Address {City = City, State = State, ZipCode = ZipCode};
+            var addressToAdd = new QAShop_System.EfClasses.Address();
+            addressToAdd.City = City;
+            addressToAdd.State = State;
+            addressToAdd.ZipCode = ZipCode;
 
             _addressService.AddAddress(addressToAdd);
 

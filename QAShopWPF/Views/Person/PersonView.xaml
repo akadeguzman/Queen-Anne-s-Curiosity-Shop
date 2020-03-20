@@ -163,8 +163,7 @@
                         HorizontalAlignment="Right"
                         Height="50"
                         Width="170"
-                        Margin="10, 10, 10, 0"
-                        Command="{Binding Path=AddPerson}">
+                        Margin="10, 10, 10, 0" Click="Button_Click">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Kind="PersonAdd"
@@ -179,8 +178,6 @@
                 </Button>
 
             </Grid>
-
-
         </GroupBox>
     </Grid>
 </UserControl>

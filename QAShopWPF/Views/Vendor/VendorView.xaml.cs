@@ -32,5 +32,39 @@ namespace QAShopWPF.Views.Vendor
 
             DataContext = _vendorListViewModel;
         }
+
+        private void BtnAddVendor_Click(object sender, RoutedEventArgs e)
+        {
+            var addVendorWindow = new AddVendorView(_vendorListViewModel, _vendorService);
+            addVendorWindow.Show();
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DataGrid.SelectedItem != null)
+            {
+                BtnDeleteVendor.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                BtnDeleteVendor.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void BtnDeleteVendor_OnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (_vendorListViewModel.SelectedVendor == null) return;
+                else _vendorService.DeleteVendor(_vendorListViewModel.SelectedVendor.VendorId);
+
+                _vendorListViewModel.VendorList.Remove(_vendorListViewModel.SelectedVendor);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+        }
     }
 }

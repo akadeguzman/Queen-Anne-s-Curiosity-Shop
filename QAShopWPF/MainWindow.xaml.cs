@@ -123,7 +123,7 @@ namespace QAShopWPF
         {
 
             UserControl transaction = new TransactionView(_transactionListViewModel, _transactionService, _personService, _transactionTypeService);
-            UserControl person = new PersonView(_personListViewModel, _personTypeService, _addressService, _personService);
+            UserControl person = new PersonView(_personListViewModel, _personTypeService, _addressService, _personService, _addressListViewModel);
             UserControl item = new ItemView(_itemListViewModel, _itemTypeService, _itemAvailabilityService, _itemService);
             UserControl procurement = new ProcurementView(_procurementListViewModel, _shipmentItemVendorService, _personService, _purchasingAgentService, _procurementService);
             UserControl shipment = new ShipmentView(_shipmentListViewModel, _shipperService, _shipmentService);

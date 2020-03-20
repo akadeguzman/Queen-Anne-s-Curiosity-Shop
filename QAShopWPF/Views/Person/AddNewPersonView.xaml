@@ -8,8 +8,7 @@
         mc:Ignorable="d"
         Height="600"
         Width="400" 
-        d:DesignHeight="600"
-        DataContext="{Binding Path=AddPersonViewModel, Source={StaticResource Locator}}">
+        d:DesignHeight="600">
     <Grid>
         <GroupBox Header="Add Person" Style="{DynamicResource MaterialDesignCardGroupBox}">
             <!--Header-->
@@ -188,7 +187,7 @@
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding City}" />
+                                            <TextBlock Text="{Binding Path=City}" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
@@ -199,11 +198,11 @@
                                 </ComboBox.ItemsPanel>
                             </ComboBox>
                             <Button
+                                x:Name="BtnNewAddress"
                                 Grid.Column="1"
                                 Width="Auto"
                                 Margin="5"
-                                Command="{Binding }"
-                                ToolTip="Add Address">
+                                ToolTip="Add Address" Click="BtnNewAddress_Click">
                                 
                                 <materialDesign:PackIcon 
                                     Kind="AddLocation"/>
@@ -218,48 +217,30 @@
                             Foreground="Orange"
                             FontWeight="Medium"
                             Margin="0,0,0,0" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="60"/>
-                            </Grid.ColumnDefinitions>
-                            <ComboBox
-                                materialDesign:HintAssist.Hint="Select Type"
-                                HorizontalAlignment="Stretch"
-                                Foreground="White"
-                                BorderBrush="White"
-                                BorderThickness="1"
+                        <ComboBox
+                            materialDesign:HintAssist.Hint="Select Type"
+                            HorizontalAlignment="Stretch"
+                            Foreground="White"
+                            BorderBrush="White"
+                            BorderThickness="1"
 
-                                FontSize="15"
-                                Margin="0,2,0,0"
-                                ItemsSource="{Binding AdditionalContacts}"
-                                SelectedItem="{Binding SelectedAdditionalContacts}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding LastName}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                                <ComboBox.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <VirtualizingStackPanel />
-                                    </ItemsPanelTemplate>
-                                </ComboBox.ItemsPanel>
-                            </ComboBox>
-                            <Button
-                                Grid.Column="1"
-                                Width="Auto"
-                                Margin="5"
-                                Command="{Binding ShowNewProductUnitPopUpCommand}"
-                                ToolTip="Add Address">
-
-                                <materialDesign:PackIcon 
-                                    Kind="PersonAdd"
-                                    Height="Auto"
-                                    Width="Auto"/>
-                            </Button>
-                        </Grid>
+                            FontSize="15"
+                            Margin="0,2,0,0"
+                            ItemsSource="{Binding AdditionalContacts}"
+                            SelectedItem="{Binding SelectedAdditionalContacts}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding LastName}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
                     </StackPanel>
 
 
@@ -278,18 +259,17 @@
                         Height="30"
                         Margin="4"
                         HorizontalAlignment="Right"
-                        Command="{Binding Path=AddPerson}"
                         Content="Save"
-                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                        Style="{StaticResource MaterialDesignRaisedButton}" Click="Button_Click" />
 
                     <Button
+                        x:Name="BtnCancel"
                         Width="100"
                         Height="30"
                         Margin="4"
                         HorizontalAlignment="Right"
-                        Command="{Binding CloseCommand}"
                         Content="Cancel"
-                        Style="{StaticResource MaterialDesignFlatButton}" />
+                        Style="{StaticResource MaterialDesignFlatButton}" Click="BtnCancel_Click" />
 
                 </DockPanel>
                 <!--end Buttons-->
