@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using QAShopWPF.ViewModel;
 using QAShopWPF.ViewModel.Vendor;
 using ServiceLayer;
 
@@ -19,25 +20,17 @@ namespace QAShopWPF.Views.Vendor
     /// </summary>
     public partial class AddVendorView : Window
     {
-        private VendorListViewModel _vendorListViewModel;
-        private VendorService _vendorService;
-
-        private AddVendorViewModel _vendorToAdd;
-
-        public AddVendorView(VendorListViewModel vendorListViewModel, VendorService vendorService)
+        public AddVendorView()
         {
             InitializeComponent();
-
-            _vendorToAdd = new AddVendorViewModel(vendorService);
-            _vendorListViewModel = vendorListViewModel;
-
-            DataContext = _vendorToAdd;
+            
+            DataContext = QAShopService.AddVendorViewModel;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _vendorToAdd.Add();
-            _vendorListViewModel.VendorList.Insert(0, _vendorToAdd.VendorViewModel);
+            QAShopService.AddVendorViewModel.Add();
+            QAShopService.VendorListViewModel.VendorList.Insert(0, QAShopService.AddVendorViewModel.VendorViewModel);
             Close();
         }
 

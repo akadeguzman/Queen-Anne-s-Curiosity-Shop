@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using QAShop_System.EfClasses;
+using QAShopWPF.ViewModel;
 using QAShopWPF.ViewModel.Address;
 using QAShopWPF.ViewModel.Item;
 using QAShopWPF.ViewModel.Person;
@@ -35,73 +36,73 @@ namespace QAShopWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private AddressService _addressService;
+        //private AddressService _addressService;
         
-        private TransactionService _transactionService;
-        private TransactionItemVendorService _transacItemVendorService;
-        private TransactionTypeService _transactionTypeService;
+        //private TransactionService _transactionService;
+        //private TransactionItemVendorService _transacItemVendorService;
+        //private TransactionTypeService _transactionTypeService;
 
-        private PersonService _personService;
-        private PersonTypeService _personTypeService;
-        private PurchasingAgentService _purchasingAgentService;
+        //private PersonService _personService;
+        //private PersonTypeService _personTypeService;
+        //private PurchasingAgentService _purchasingAgentService;
 
-        private ItemService _itemService;
-        private ItemTypeService _itemTypeService;
-        private ItemAvailabilityService _itemAvailabilityService;
+        //private ItemService _itemService;
+        //private ItemTypeService _itemTypeService;
+        //private ItemAvailabilityService _itemAvailabilityService;
 
-        private ProcurementService _procurementService;
+        //private ProcurementService _procurementService;
 
-        private ShipmentService _shipmentService;
-        private ShipmentItemVendorService _shipmentItemVendorService;
-        private ShipperService _shipperService;
+        //private ShipmentService _shipmentService;
+        //private ShipmentItemVendorService _shipmentItemVendorService;
+        //private ShipperService _shipperService;
 
-        private VendorService _vendorService;
+        //private VendorService _vendorService;
 
-        //====================================================================
+        ////====================================================================
 
-        private AddressListViewModel _addressListViewModel;
-        private AddNewAddressViewModel _addNewAddressViewModel;
+        //private AddressListViewModel _addressListViewModel;
+        //private AddNewAddressViewModel _addNewAddressViewModel;
 
-        private TransactionListViewModel _transactionListViewModel;
-        private AddTransactionViewModel _addTransactionViewModel;
+        //private TransactionListViewModel _transactionListViewModel;
+        //private AddTransactionViewModel _addTransactionViewModel;
 
-        private PersonListViewModel _personListViewModel;
-        private AddPersonViewModel _addPersonViewModel;
+        //private PersonListViewModel _personListViewModel;
+        //private AddPersonViewModel _addPersonViewModel;
 
-        private ItemListViewModel _itemListViewModel;
-        private AddItemViewModel _addItemViewModel;
+        //private ItemListViewModel _itemListViewModel;
+        //private AddItemViewModel _addItemViewModel;
 
-        private ProcurementListViewModel _procurementListViewModel;
-        private ShipmentListViewModel _shipmentListViewModel;
+        //private ProcurementListViewModel _procurementListViewModel;
+        //private ShipmentListViewModel _shipmentListViewModel;
 
-        private VendorListViewModel _vendorListViewModel;
+        //private VendorListViewModel _vendorListViewModel;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            _addressService = new AddressService(new QueenAnneCuriosityShopContext());
+            //_addressService = new AddressService(new QueenAnneCuriosityShopContext());
 
-            _transactionService = new TransactionService(new QueenAnneCuriosityShopContext());
-            _transacItemVendorService = new TransactionItemVendorService(new QueenAnneCuriosityShopContext());
-            _transactionTypeService = new TransactionTypeService(new QueenAnneCuriosityShopContext());
+            //_transactionService = new TransactionService(new QueenAnneCuriosityShopContext());
+            //_transacItemVendorService = new TransactionItemVendorService(new QueenAnneCuriosityShopContext());
+            //_transactionTypeService = new TransactionTypeService(new QueenAnneCuriosityShopContext());
 
-            _personService = new PersonService(new QueenAnneCuriosityShopContext());
-            _personTypeService = new PersonTypeService(new QueenAnneCuriosityShopContext());
-            _purchasingAgentService = new PurchasingAgentService(new QueenAnneCuriosityShopContext());
+            //_personService = new PersonService(new QueenAnneCuriosityShopContext());
+            //_personTypeService = new PersonTypeService(new QueenAnneCuriosityShopContext());
+            //_purchasingAgentService = new PurchasingAgentService(new QueenAnneCuriosityShopContext());
 
-            _itemService = new ItemService(new QueenAnneCuriosityShopContext());
-            _itemTypeService = new ItemTypeService(new QueenAnneCuriosityShopContext());
-            _itemAvailabilityService = new ItemAvailabilityService(new QueenAnneCuriosityShopContext());
+            //_itemService = new ItemService(new QueenAnneCuriosityShopContext());
+            //_itemTypeService = new ItemTypeService(new QueenAnneCuriosityShopContext());
+            //_itemAvailabilityService = new ItemAvailabilityService(new QueenAnneCuriosityShopContext());
 
 
-            _procurementService = new ProcurementService(new QueenAnneCuriosityShopContext());
+            //_procurementService = new ProcurementService(new QueenAnneCuriosityShopContext());
 
-            _shipmentService = new ShipmentService(new QueenAnneCuriosityShopContext());
-            _shipmentItemVendorService = new ShipmentItemVendorService(new QueenAnneCuriosityShopContext());
-            _shipperService = new ShipperService(new QueenAnneCuriosityShopContext());
+            //_shipmentService = new ShipmentService(new QueenAnneCuriosityShopContext());
+            //_shipmentItemVendorService = new ShipmentItemVendorService(new QueenAnneCuriosityShopContext());
+            //_shipperService = new ShipperService(new QueenAnneCuriosityShopContext());
 
-            _vendorService = new VendorService(new QueenAnneCuriosityShopContext());
+            //_vendorService = new VendorService(new QueenAnneCuriosityShopContext());
         }
 
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
@@ -122,12 +123,12 @@ namespace QAShopWPF
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            UserControl transaction = new TransactionView(_transactionListViewModel, _transactionService, _personService, _transactionTypeService);
-            UserControl person = new PersonView(_personListViewModel, _personTypeService, _addressService, _personService, _addressListViewModel);
-            UserControl item = new ItemView(_itemListViewModel, _itemTypeService, _itemAvailabilityService, _itemService);
-            UserControl procurement = new ProcurementView(_procurementListViewModel, _shipmentItemVendorService, _personService, _purchasingAgentService, _procurementService);
-            UserControl shipment = new ShipmentView(_shipmentListViewModel, _shipperService, _shipmentService);
-            UserControl vendor = new VendorView(_vendorListViewModel, _vendorService);
+            UserControl transaction = new TransactionView(QAShopService.TransactionListViewModel, QAShopService.TransactionService, QAShopService.PersonService, QAShopService.TransactionTypeService);
+            UserControl person = new PersonView(QAShopService.PersonListViewModel, QAShopService.PersonTypeService, QAShopService.AddressService, QAShopService.PersonService, QAShopService.AddressListViewModel);
+            UserControl item = new ItemView(QAShopService.ItemListViewModel, QAShopService.ItemTypeService, QAShopService.ItemAvailabilityService, QAShopService.ItemService);
+            UserControl procurement = new ProcurementView(QAShopService.ProcurementListViewModel, QAShopService.ShipmentItemVendorService, QAShopService.PersonService, QAShopService.PurchasingAgentService, QAShopService.ProcurementService);
+            UserControl shipment = new ShipmentView(QAShopService.ShipmentListViewModel, QAShopService.ShipperService, QAShopService.ShipmentService);
+            UserControl vendor = new VendorView();
 
             GridMain.Children.Clear();
 
