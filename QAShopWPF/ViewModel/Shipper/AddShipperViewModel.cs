@@ -1,9 +1,15 @@
-﻿namespace QAShopWPF.ViewModel.Shipper
+﻿using ServiceLayer;
+
+namespace QAShopWPF.ViewModel.Shipper
 {
     public class AddShipperViewModel
     {
-        public AddShipperViewModel()
+        private ShipperService _shipperService;
+
+        public AddShipperViewModel(ShipperService shipperService)
         {
+            _shipperService = shipperService;
+
             var blankShipper = new QAShop_System.EfClasses.Shipper();
             ShipperViewModel = new ShipperViewModel(blankShipper.ShipperId, blankShipper.ShipperName, blankShipper.ShipperContact, blankShipper.ShipperContact);
 
@@ -24,7 +30,7 @@
             shipperToAd.ShipperFax = ShipperFax;
 
 
-            QAShopService.ShipperService.AddShipper(shipperToAd);
+            _shipperService.AddShipper(shipperToAd);
 
             ShipperViewModel.ShipperId = shipperToAd.ShipperId;
             ShipperViewModel.ShipperName = shipperToAd.ShipperName;

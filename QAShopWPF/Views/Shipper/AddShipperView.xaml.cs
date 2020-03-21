@@ -11,6 +11,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using QAShopWPF.ViewModel;
+using QAShopWPF.ViewModel.Shipment;
+using QAShopWPF.ViewModel.Shipper;
+using ServiceLayer;
 
 namespace QAShopWPF.Views.Shipper
 {
@@ -19,20 +22,30 @@ namespace QAShopWPF.Views.Shipper
     /// </summary>
     public partial class AddShipperView : Window
     {
-        public AddShipperView()
+        private AddShipperViewModel _shipperToAdd;
+        private ShipperService _shipperService;
+        private AddShipmentViewModel _addShipmentViewModel;
+        private ShipperListViewModel _shipperListViewModel;
+
+        public AddShipperView(ShipperService shipperService, AddShipmentViewModel addShipmentViewModel, ShipperListViewModel shipperListViewModel)
         {
+            _shipperService = shipperService;
+            _addShipmentViewModel = addShipmentViewModel;
+            _shipperListViewModel = shipperListViewModel;
+
             InitializeComponent();
 
-            DataContext = QAShopService.AddShipperViewModel;
+            _shipperToAdd = new AddShipperViewModel(shipperService);
+            DataContext = _shipperToAdd;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            QAShopService.AddShipperViewModel.Add();
-            QAShopService.ShipperViewModel.ShipperList.Insert(0, QAShopService.AddShipperViewModel.ShipperViewModel);
+            _shipperToAdd.Add();
+           _shipperListViewModel.ShipperList.Insert(0, _shipperToAdd.ShipperViewModel);
 
-            var shipperToAdd = QAShopService.ShipperService.GetShippers().ToList().Last();
-            QAShopService.AddShipmentViewModel.Shippers.Add(shipperToAdd);
+            var shipperToAdd = _shipperService.GetShippers().ToList().Last();
+            _addShipmentViewModel.Shippers.Add(shipperToAdd);
             Close();
         }
 

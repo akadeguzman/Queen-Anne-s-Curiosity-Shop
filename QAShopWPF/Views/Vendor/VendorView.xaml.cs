@@ -21,16 +21,24 @@ namespace QAShopWPF.Views.Vendor
     /// </summary>
     public partial class VendorView : UserControl
     {
+        private readonly VendorListViewModel _vendorListViewModel;
+        private readonly VendorService _vendorService;
 
-        public VendorView()
+        public VendorView(VendorListViewModel vendorListViewModel, VendorService vendorService)
         {
+
             InitializeComponent();
-            DataContext = QAShopService.VendorListViewModel;
+            _vendorService = vendorService;
+            _vendorListViewModel = new VendorListViewModel(vendorService);
+            
+
+
+            DataContext = _vendorListViewModel;
         }
 
         private void BtnAddVendor_Click(object sender, RoutedEventArgs e)
         {
-            var addVendorWindow = new AddVendorView();
+            var addVendorWindow = new AddVendorView(_vendorService, _vendorListViewModel);
             addVendorWindow.Show();
         }
 
@@ -50,10 +58,10 @@ namespace QAShopWPF.Views.Vendor
         {
             try
             {
-                if (QAShopService.VendorListViewModel.SelectedVendor == null) return;
-                else QAShopService.VendorService.DeleteVendor(QAShopService.VendorListViewModel.SelectedVendor.VendorId);
+                if (_vendorListViewModel.SelectedVendor == null) return;
+                else _vendorService.DeleteVendor(_vendorListViewModel.SelectedVendor.VendorId);
 
-                QAShopService.VendorListViewModel.VendorList.Remove(QAShopService.VendorListViewModel.SelectedVendor);
+                _vendorListViewModel.VendorList.Remove(_vendorListViewModel.SelectedVendor);
             }
             catch (Exception exception)
             {

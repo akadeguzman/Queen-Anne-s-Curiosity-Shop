@@ -34,7 +34,6 @@
         </EventTrigger>
     </Window.Triggers>
 
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>

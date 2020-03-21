@@ -23,17 +23,27 @@ namespace QAShopWPF.Views.Person
     /// </summary>
     public partial class PersonView : UserControl
     {
-        
-        public PersonView()
-        {
-            InitializeComponent();
+        private PersonService _personService;
+        private PersonTypeService _personTypeService;
+        private AddressService _addressService;
+        private PersonListViewModel _personListViewModel;
+        private AddressListViewModel _addressListViewModel;
 
-            DataContext = QAShopService.PersonListViewModel;
+        public PersonView(PersonListViewModel personListViewModel, AddPersonViewModel addPersonViewModel, PersonService personService, PersonTypeService personTypeService, AddressService addressService, AddressListViewModel addressListViewModel)
+        {
+            _personService = personService;
+            _personTypeService = personTypeService;
+            _addressService = addressService;
+            InitializeComponent();
+            _personListViewModel = new PersonListViewModel(personService);
+            _addressListViewModel = new AddressListViewModel(addressService);
+
+            DataContext = _personListViewModel;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var addPerson = new AddNewPersonView();
+            var addPerson = new AddNewPersonView(_personService, _personTypeService, _addressService, _personListViewModel, _addressListViewModel);
             addPerson.Show();
         }
     }

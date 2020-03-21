@@ -22,17 +22,33 @@ namespace QAShopWPF.Views.Person
     /// </summary>
     public partial class AddNewPersonView : Window
     {
-        public AddNewPersonView()
+        private AddPersonViewModel _personToAdd;
+        private PersonService _personService;
+        private PersonTypeService _personTypeService;
+        private AddressService _addressService;
+        private PersonListViewModel _personListViewModel;
+        private AddressListViewModel _addressListViewModel;
+
+
+        public AddNewPersonView(PersonService personService, PersonTypeService personTypeService, AddressService addressService, PersonListViewModel personListViewModel, AddressListViewModel addressListViewModel)
         {
             InitializeComponent();
 
-            DataContext = QAShopService.AddPersonViewModel;
+            _personService = personService;
+            _personTypeService = personTypeService;
+            _addressService = addressService;
+            _personListViewModel = personListViewModel;
+            _addressListViewModel = addressListViewModel;
+
+            _personToAdd = new AddPersonViewModel(personTypeService, addressService, personService);
+
+            DataContext = _personToAdd;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            QAShopService.AddPersonViewModel.Add();
-            QAShopService.PersonListViewModel.PersonList.Insert(0, QAShopService.AddPersonViewModel.PersonViewModel);
+            _personToAdd.Add();
+            _personListViewModel.PersonList.Insert(0, _personToAdd.PersonViewModel);
             Close();
         }
 
@@ -43,7 +59,7 @@ namespace QAShopWPF.Views.Person
 
         private void BtnNewAddress_Click(object sender, RoutedEventArgs e)
         {
-            var addNewAddress = new AddNewAddressView();
+            var addNewAddress = new AddNewAddressView(_addressService, _addressListViewModel, _personToAdd);
             addNewAddress.Show();
         }
     }

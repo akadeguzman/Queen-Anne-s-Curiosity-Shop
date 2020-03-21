@@ -11,7 +11,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using QAShopWPF.ViewModel;
 using QAShopWPF.ViewModel.Shipment;
+using QAShopWPF.ViewModel.Shipper;
 using QAShopWPF.Views.Shipper;
+using ServiceLayer;
 
 namespace QAShopWPF.Views.Shipment
 {
@@ -20,19 +22,30 @@ namespace QAShopWPF.Views.Shipment
     /// </summary>
     public partial class AddShipmentView : Window
     {
+        private AddShipmentViewModel _shipmentToAdd;
+        private ShipmentListViewModel _shipmentListViewModel;
+        private ShipmentService _shipmentService;
+        private ShipperService _shipperService;
+        private ShipperListViewModel _shipperListViewModel;
 
-        public AddShipmentView()
+        public AddShipmentView(ShipmentService shipmentService, ShipperService shipperService)
         {
             InitializeComponent();
 
-            DataContext = QAShopService.AddShipmentViewModel;
+            _shipmentService = shipmentService;
+            _shipperService = shipperService;
+            _shipmentListViewModel = new ShipmentListViewModel(_shipmentService);
+            _shipperListViewModel = new ShipperListViewModel(_shipperService);
+
+            _shipmentToAdd = new AddShipmentViewModel(shipperService, shipmentService);
+            DataContext = _shipmentToAdd;
 
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            QAShopService.AddShipmentViewModel.Add();
-            QAShopService.ShipmentListViewModel.ShipmentList.Insert(0, QAShopService.AddShipmentViewModel.ShipmentViewModel);
+            _shipmentToAdd.Add();
+            _shipmentListViewModel.ShipmentList.Insert(0, _shipmentToAdd.ShipmentViewModel);
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -42,7 +55,7 @@ namespace QAShopWPF.Views.Shipment
 
         private void BtnAddShipper_Click(object sender, RoutedEventArgs e)
         {
-            var addShipperWindow = new AddShipperView();
+            var addShipperWindow = new AddShipperView(_shipperService, _shipmentToAdd, _shipperListViewModel);
             addShipperWindow.Show();
         }
     }

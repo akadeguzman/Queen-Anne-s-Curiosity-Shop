@@ -18,11 +18,7 @@ namespace QAShopWPF.ViewModel.Shipper
 
             var shipper = _shipperService.GetShippers()
                 .Select(c =>
-                    new ShipperViewModel(
-                        c.ShipperId,
-                        c.ShipperName,
-                        c.ShipperContact,
-                        c.ShipperFax)).ToList();
+                    new ShipperViewModel(c)).ToList();
 
             ShipperList = new ObservableCollection<ShipperViewModel>(shipper);
 

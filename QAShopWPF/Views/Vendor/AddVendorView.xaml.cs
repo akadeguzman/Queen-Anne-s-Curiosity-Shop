@@ -20,17 +20,25 @@ namespace QAShopWPF.Views.Vendor
     /// </summary>
     public partial class AddVendorView : Window
     {
-        public AddVendorView()
+        private AddVendorViewModel _vendorToAdd;
+        private VendorService _vendorService;
+        private VendorListViewModel _vendorListViewModel;
+
+        public AddVendorView(VendorService vendorService, VendorListViewModel vendorListViewModel)
         {
+            _vendorListViewModel = vendorListViewModel;
             InitializeComponent();
+
+            _vendorService = vendorService;
+            _vendorToAdd = new AddVendorViewModel(vendorService);
             
-            DataContext = QAShopService.AddVendorViewModel;
+            DataContext = _vendorToAdd;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            QAShopService.AddVendorViewModel.Add();
-            QAShopService.VendorListViewModel.VendorList.Insert(0, QAShopService.AddVendorViewModel.VendorViewModel);
+            _vendorToAdd.Add();
+            _vendorListViewModel.VendorList.Insert(0, _vendorToAdd.VendorViewModel);
             Close();
         }
 

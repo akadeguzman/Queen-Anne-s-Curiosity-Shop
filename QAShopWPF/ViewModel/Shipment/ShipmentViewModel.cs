@@ -141,67 +141,6 @@ namespace QAShopWPF.ViewModel.Shipment
         }
 
         #endregion
-
-
-        private ShipmentService _shipmentService;
-        private ShipmentViewModel _selectedShipment;
-        private string _searchText;
-        private int _shipmentCount;
-
-        public ShipmentViewModel()
-        {
-            GenerateShipments();
-        }
-
-        public void GenerateShipments()
-        {
-            var shipment = _shipmentService.GetShipments()
-                .Select(c =>
-                    new ShipmentViewModel(c)).ToList();
-
-            ShipmentList = new ObservableCollection<ShipmentViewModel>(shipment);
-            ShipmentCount = ShipmentList.Count;
-        }
-
-
-        public ObservableCollection<ShipmentViewModel> ShipmentList { get; set; } = new ObservableCollection<ShipmentViewModel>();
-
-        public int ShipmentCount
-        {
-            get => _shipmentCount;
-            set => Set(ref _shipmentCount, value);
-        }
-
-        public ShipmentViewModel SelectedShipment { get; set; }
-
-        public void SearchShipment(string searchString)
-        {
-            ShipmentList.Clear();
-
-            var shipments = _shipmentService.GetShipments().Where(c => c.ShipperId.ToString().Contains(searchString) ||
-                                                                      c.CountryOfOrigin.Contains(searchString) ||
-                                                                      c.InsurerName.Contains(searchString) ||
-                                                                      c.ShipperLink.ShipperName.Contains(searchString) ||
-                                                                      c.ShipperInvoiceNumber.Contains(searchString) ||
-                                                                      c.ShipmentId.ToString().Contains(searchString));
-
-            foreach (var shipment in shipments)
-            {
-                var shipmentModel = new ShipmentViewModel(shipment.ShipmentId, shipment.CountryOfOrigin, shipment.Destination,
-                    shipment.ShipperInvoiceNumber, shipment.DepartureDate, shipment.ArrivalDate, shipment.InsuredValue, shipment.InsurerName,
-                    shipment.ShipperLink.ShipperName, shipment.ShipperId);
-                ShipmentList.Add(shipmentModel);
-            }
-        }
-
-        public string SearchText
-        {
-            get => _searchText;
-            set
-            {
-                _searchText = value;
-                SearchShipment(_searchText);
-            }
-        }
+        
     }
 }

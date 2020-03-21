@@ -10,7 +10,7 @@ using QAShop_System.EfClasses;
 namespace QAShop_System.Migrations
 {
     [DbContext(typeof(QueenAnneCuriosityShopContext))]
-    [Migration("20200318100757_V1")]
+    [Migration("20200321094550_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

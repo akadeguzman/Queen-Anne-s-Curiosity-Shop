@@ -7,8 +7,12 @@ namespace QAShopWPF.ViewModel.Address
 {
     public class AddNewAddressViewModel
     {
-        public AddNewAddressViewModel()
+        private AddressService _addressService;
+
+        public AddNewAddressViewModel(AddressService addressService)
         {
+            _addressService = addressService;
+
             var blankAddress = new QAShop_System.EfClasses.Address();
             AddressViewModel = new AddressViewModel(blankAddress.AddressId, blankAddress.City, blankAddress.State, blankAddress.ZipCode);
 
@@ -27,7 +31,7 @@ namespace QAShopWPF.ViewModel.Address
             addressToAdd.State = State;
             addressToAdd.ZipCode = ZipCode;
 
-            QAShopService.AddressService.AddAddress(addressToAdd);
+            _addressService.AddAddress(addressToAdd);
 
             AddressViewModel.AddressId = addressToAdd.AddressId;
             AddressViewModel.City = City;

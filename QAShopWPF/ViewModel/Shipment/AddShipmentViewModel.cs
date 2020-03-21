@@ -1,21 +1,29 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using ServiceLayer;
 
 namespace QAShopWPF.ViewModel.Shipment
 {
     public class AddShipmentViewModel
     {
+        private ShipperService _shipperService;
+        private ShipmentService _shipmentService;
 
-        public AddShipmentViewModel()
+        public AddShipmentViewModel(ShipperService shipperService, ShipmentService shipmentService)
         {
+            _shipperService = shipperService;
+            _shipmentService = shipmentService;
+
             var blankShipment = new QAShop_System.EfClasses.Shipment();
-            ShipmentViewModel = new ShipmentViewModel(blankShipment.ShipmentId, blankShipment.CountryOfOrigin, blankShipment.Destination, blankShipment.ShipperInvoiceNumber,
-                blankShipment.DepartureDate, blankShipment.ArrivalDate, blankShipment.InsuredValue, blankShipment.InsurerName, blankShipment.ShipperLink.ShipperName, blankShipment.ShipperId);
+            ShipmentViewModel = new ShipmentViewModel(blankShipment.ShipmentId, blankShipment.CountryOfOrigin,
+                blankShipment.Destination, blankShipment.ShipperInvoiceNumber,
+                blankShipment.DepartureDate, blankShipment.ArrivalDate,
+                blankShipment.InsuredValue, blankShipment.InsurerName,
+                "", blankShipment.ShipperId);
 
-            Shippers = new ObservableCollection<QAShop_System.EfClasses.Shipper>(QAShopService.ShipperService.GetShippers());
-            SelectedShipper = Shippers.First();
-
+            Shippers = new ObservableCollection<QAShop_System.EfClasses.Shipper>(_shipperService.GetShippers());
+            
         }
 
         public ShipmentViewModel ShipmentViewModel { get; }
@@ -39,13 +47,14 @@ namespace QAShopWPF.ViewModel.Shipment
             shipmentToAdd.CountryOfOrigin = CountryOfOrigin;
             shipmentToAdd.Destination = Destination;
             shipmentToAdd.ShipperInvoiceNumber = ShipperInvoiceNumber;
+            shipmentToAdd.ShipperId = SelectedShipper.ShipperId;
             shipmentToAdd.DepartureDate = DepartureDate;
             shipmentToAdd.ArrivalDate = ArrivalDate;
             shipmentToAdd.InsuredValue = InsuredValue;
             shipmentToAdd.InsurerName = InsurerName;
 
 
-            QAShopService.ShipmentService.AddShipment(shipmentToAdd);
+           _shipmentService.AddShipment(shipmentToAdd);
 
             ShipmentViewModel.ShipmentId = shipmentToAdd.ShipmentId;
             ShipmentViewModel.CountryOfOrigin = shipmentToAdd.CountryOfOrigin;
@@ -53,6 +62,7 @@ namespace QAShopWPF.ViewModel.Shipment
             ShipmentViewModel.ShipperInvoiceNumber = shipmentToAdd.ShipperInvoiceNumber;
             ShipmentViewModel.DepartureDate = shipmentToAdd.DepartureDate;
             ShipmentViewModel.ArrivalDate = shipmentToAdd.ArrivalDate;
+            ShipmentViewModel.Shipper = shipmentToAdd.ShipperLink.ShipperName;
             ShipmentViewModel.InsuredValue = shipmentToAdd.InsuredValue;
             ShipmentViewModel.InsurerName = shipmentToAdd.InsurerName;
         }

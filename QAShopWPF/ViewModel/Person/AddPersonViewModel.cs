@@ -15,18 +15,25 @@ namespace QAShopWPF.ViewModel.Person
 {
     public class AddPersonViewModel
     {
+        private PersonTypeService _personTypeService;
+        private AddressService _addressService;
+        private PersonService _personService;
 
-        public AddPersonViewModel()
+        public AddPersonViewModel(PersonTypeService personTypeService, AddressService addressService, PersonService personService)
         {
+            _addressService = addressService;
+            _personService = personService;
+            _personTypeService = personTypeService;
+
             var blankPerson = new QAShop_System.EfClasses.Person();
             PersonViewModel = new PersonViewModel(blankPerson.PersonId, blankPerson.LastName, blankPerson.FirstName, blankPerson.PhoneNumber, "", "", "", blankPerson.PersonTypeId, blankPerson.AddressId, blankPerson.AdditionalContactId);
 
 
-            PersonTypes = new ObservableCollection<PersonType>(QAShopService.PersonTypeService.GetPersonTypes());
+            PersonTypes = new ObservableCollection<PersonType>(_personTypeService.GetPersonTypes());
             
-            Address = new ObservableCollection<QAShop_System.EfClasses.Address>(QAShopService.AddressService.GetAddresses());
+            Address = new ObservableCollection<QAShop_System.EfClasses.Address>(_addressService.GetAddresses());
 
-            AdditionalContacts = new ObservableCollection<QAShop_System.EfClasses.Person>(QAShopService.PersonService.GetPersons());
+            AdditionalContacts = new ObservableCollection<QAShop_System.EfClasses.Person>(_personService.GetPersons());
         }
 
         public PersonViewModel PersonViewModel { get; }
@@ -52,7 +59,7 @@ namespace QAShopWPF.ViewModel.Person
             personToAdd.PersonTypeId = SelectedPersonType.PersonTypeId;
             personToAdd.AdditionalContactId = SelectedAdditionalContacts.PersonTypeId;
 
-            QAShopService.PersonService.AddPerson(personToAdd);
+            _personService.AddPerson(personToAdd);
 
             PersonViewModel.PersonId = personToAdd.PersonId;
             PersonViewModel.LastName = LastName;

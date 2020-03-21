@@ -13,8 +13,8 @@ namespace QAShopWPF.ViewModel.Transaction
 {
     public class TransactionListViewModel : ObservableObject
     {
-        private TransactionService _transactionService;
         private TransactionViewModel _selectedTransaction;
+        private TransactionService _transactionService;
         private string _searchText;
         private string _transactionCount;
 

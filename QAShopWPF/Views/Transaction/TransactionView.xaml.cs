@@ -21,11 +21,17 @@ namespace QAShopWPF.Views.Transaction
     /// </summary>
     public partial class TransactionView : UserControl
     {
-        public TransactionView()
+        private TransactionService _transactionService;
+        private TransactionListViewModel _transactionListViewModel;
+
+        public TransactionView(TransactionService transactionService)
         {
+            _transactionService = transactionService;
+            _transactionListViewModel = new TransactionListViewModel(transactionService);
+
             InitializeComponent();
 
-            DataContext = QAShopService.TransactionListViewModel;
+            DataContext = _transactionListViewModel;
         }
     }
 }

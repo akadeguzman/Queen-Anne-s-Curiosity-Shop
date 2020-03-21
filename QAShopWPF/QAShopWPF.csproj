@@ -21,14 +21,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\Logo.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <ProjectReference Include="..\QAShop_System\QAShop_System.csproj" />
+    <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\QAShop_System\QAShop_System.csproj" />
-    <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj" />
+    <Resource Include="Images\Logo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
