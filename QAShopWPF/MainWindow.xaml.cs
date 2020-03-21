@@ -60,7 +60,7 @@ namespace QAShopWPF
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            UserControl transaction = new TransactionView(QAShopService.TransactionListViewModel, QAShopService.TransactionService, QAShopService.PersonService, QAShopService.TransactionTypeService);
+            UserControl transaction = new TransactionView();
             UserControl person = new PersonView();
             UserControl item = new ItemView(QAShopService.ItemListViewModel, QAShopService.ItemTypeService, QAShopService.ItemAvailabilityService, QAShopService.ItemService);
             UserControl procurement = new ProcurementView(QAShopService.ProcurementListViewModel, QAShopService.ShipmentItemVendorService, QAShopService.PersonService, QAShopService.PurchasingAgentService, QAShopService.ProcurementService);

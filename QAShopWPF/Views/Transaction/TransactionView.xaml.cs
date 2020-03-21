@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QAShopWPF.ViewModel;
 using QAShopWPF.ViewModel.Transaction;
 using ServiceLayer;
 
@@ -20,23 +21,11 @@ namespace QAShopWPF.Views.Transaction
     /// </summary>
     public partial class TransactionView : UserControl
     {
-        private TransactionListViewModel _transactionListViewModel;
-        private TransactionService _transactionService;
-        private PersonService _personService;
-        private TransactionTypeService _transactionTypeService;
-
-        public TransactionView(TransactionListViewModel transactionListViewModel,
-            TransactionService transactionService, PersonService personService,
-            TransactionTypeService transactionTypeService)
+        public TransactionView()
         {
             InitializeComponent();
 
-            _transactionService = transactionService;
-            _personService = personService;
-            _transactionTypeService = transactionTypeService;
-            _transactionListViewModel = new TransactionListViewModel(transactionService);
-
-            DataContext = _transactionListViewModel;
+            DataContext = QAShopService.TransactionListViewModel;
         }
     }
 }

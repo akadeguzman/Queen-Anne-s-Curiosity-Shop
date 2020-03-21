@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using QAShopWPF.ViewModel;
 using QAShopWPF.ViewModel.Shipment;
+using QAShopWPF.Views.Shipper;
 
 namespace QAShopWPF.Views.Shipment
 {
@@ -19,27 +20,30 @@ namespace QAShopWPF.Views.Shipment
     /// </summary>
     public partial class AddShipmentView : Window
     {
-        private AddShipmentViewModel _shipmentToAdd;
 
         public AddShipmentView()
         {
             InitializeComponent();
 
-            _shipmentToAdd = new AddShipmentViewModel();
-
-            DataContext = _shipmentToAdd;
+            DataContext = QAShopService.AddShipmentViewModel;
 
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            _shipmentToAdd.Add();
-            QAShopService.ShipmentListViewModel.ShipmentList.Insert(0, _shipmentToAdd.ShipmentViewModel);
+            QAShopService.AddShipmentViewModel.Add();
+            QAShopService.ShipmentListViewModel.ShipmentList.Insert(0, QAShopService.AddShipmentViewModel.ShipmentViewModel);
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void BtnAddShipper_Click(object sender, RoutedEventArgs e)
+        {
+            var addShipperWindow = new AddShipperView();
+            addShipperWindow.Show();
         }
     }
 }

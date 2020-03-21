@@ -11,7 +11,6 @@
 
         public ShipperViewModel ShipperViewModel { get; }
 
-        public int ShipperId { get; set; }
         public string ShipperName { get; set; }
         public string ShipperContact { get; set; }
         public string ShipperFax { get; set; }

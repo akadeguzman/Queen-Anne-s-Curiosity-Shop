@@ -4,6 +4,7 @@ using QAShopWPF.ViewModel.Item;
 using QAShopWPF.ViewModel.Person;
 using QAShopWPF.ViewModel.Procurement;
 using QAShopWPF.ViewModel.Shipment;
+using QAShopWPF.ViewModel.Shipper;
 using QAShopWPF.ViewModel.Transaction;
 using QAShopWPF.ViewModel.Vendor;
 using ServiceLayer;
@@ -14,6 +15,7 @@ namespace QAShopWPF.ViewModel
     {
         //Services
         public static AddressService AddressService = new AddressService(new QueenAnneCuriosityShopContext());
+
         public static TransactionService TransactionService = new TransactionService(new QueenAnneCuriosityShopContext());
 
         public static TransactionItemVendorService TransacItemVendorService = new TransactionItemVendorService(new QueenAnneCuriosityShopContext());
@@ -50,7 +52,12 @@ namespace QAShopWPF.ViewModel
         public static AddItemViewModel AddItemViewModel = new AddItemViewModel(ItemService, ItemAvailabilityService, ItemTypeService);
 
         public static ProcurementListViewModel ProcurementListViewModel = new ProcurementListViewModel(ProcurementService);
+
         public static ShipmentListViewModel ShipmentListViewModel = new ShipmentListViewModel(ShipmentService);
+        public static AddShipmentViewModel AddShipmentViewModel = new AddShipmentViewModel();
+
+        public static AddShipperViewModel AddShipperViewModel = new AddShipperViewModel();
+        public static ShipperViewModel ShipperViewModel = new ShipperViewModel();
 
         public static VendorListViewModel VendorListViewModel = new VendorListViewModel(VendorService);
         public static AddVendorViewModel AddVendorViewModel = new AddVendorViewModel(VendorService);

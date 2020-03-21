@@ -17,7 +17,6 @@ namespace QAShopWPF.ViewModel.Transaction
         private TransactionViewModel _selectedTransaction;
         private string _searchText;
         private string _transactionCount;
-        private AddNewTransactionView _addNewTransactionView;
 
         public TransactionListViewModel(TransactionService transactionService)
         {
@@ -32,9 +31,7 @@ namespace QAShopWPF.ViewModel.Transaction
 
 
         public ObservableCollection<TransactionViewModel> TransactionList { get; }
-
-        public ICommand AddTransaction => new RelayCommand(AddNewTransaction);
-
+        
         public string TransactionCount
         {
             get => _transactionCount;
@@ -84,12 +81,5 @@ namespace QAShopWPF.ViewModel.Transaction
             }
         }
 
-        public void AddNewTransaction()
-        {
-            _addNewTransactionView = new AddNewTransactionView();
-            _addNewTransactionView.Owner = Application.Current.MainWindow;
-            _addNewTransactionView.DataContext = this;
-            _addNewTransactionView.ShowDialog();
-        }
     }
 }
