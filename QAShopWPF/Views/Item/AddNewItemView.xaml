@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:QAShopWPF.Views.Item"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Height="Auto" 
-        Width="400" 
-        d:DesignHeight="715"
-        DataContext="{Binding Path=AddItemViewModel, Source={StaticResource Locator}}">
+        Height="720" 
+        Width="400"
+        WindowStartupLocation="CenterScreen"
+        d:DesignHeight="720">
     <Grid>
         <GroupBox Header="Add Person" Style="{DynamicResource MaterialDesignCardGroupBox}">
             <!--Header-->
@@ -35,7 +35,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Margin="10">
+                <StackPanel Grid.Row="0" Margin="10" CanVerticallyScroll="True">
 
                     <TextBlock
                         Style="{StaticResource MaterialDesignCaptionTextBlock}"
@@ -74,7 +74,7 @@
                             Margin="0,0,0,3" />
                         <DatePicker BorderBrush="White" BorderThickness="1"
                                     Padding="3,0,3,0"
-                                    Text="{Binding Path=PurchaseDate}"
+                                    DisplayDate="{Binding Path=PurchaseDate}"
                                     Height="30"
                                     Foreground="White">
                         </DatePicker>
@@ -96,7 +96,7 @@
                             BorderThickness="1"
                             FontSize="15"
                             Margin="0,2,0,0"
-                            ItemsSource="{Binding ItemTypes}"
+                            ItemsSource="{Binding Path=ItemTypes}"
                             SelectedItem="{Binding SelectedItemType}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -128,7 +128,7 @@
                             BorderThickness="1"
                             FontSize="15"
                             Margin="0,2,0,0"
-                            ItemsSource="{Binding ItemAvailabilities}"
+                            ItemsSource="{Binding Path=ItemAvailabilities}"
                             SelectedItem="{Binding SelectedItemAvailability}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -244,22 +244,22 @@
                     Margin="5,0,0,5">
 
                     <Button
+                        x:Name="BtnAddItem"
                         Width="100"
                         Height="30"
                         Margin="4"
                         HorizontalAlignment="Right"
-                        Command="{Binding Path=AddItem}"
                         Content="Save"
-                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                        Style="{StaticResource MaterialDesignRaisedButton}" Click="BtnAddItem_Click" />
 
                     <Button
+                        x:Name="BtnCancel"
                         Width="100"
                         Height="30"
                         Margin="4"
                         HorizontalAlignment="Right"
-                        Command="{Binding CloseCommand}"
                         Content="Cancel"
-                        Style="{StaticResource MaterialDesignFlatButton}" />
+                        Style="{StaticResource MaterialDesignFlatButton}" Click="BtnCancel_Click" />
 
                 </DockPanel>
                 <!--end Buttons-->

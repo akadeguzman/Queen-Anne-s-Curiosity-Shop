@@ -4,10 +4,12 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Images\IconLogo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\Logo.png" />
+    <None Remove="Images\LogoAsset 5.png" />
+    <None Remove="Images\LogoBackground.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,7 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\Logo.png">
+    <Resource Include="Images\LogoAsset 5.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\LogoBackground.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -32,13 +32,8 @@ namespace QAShopWPF.ViewModel.Item
             _itemAvailabilityService = itemAvailabilityService;
 
             ItemTypes = new ObservableCollection<ItemType>(_itemTypeService.GetItemTypes());
-            SelectedItemType = ItemTypes.First();
 
             ItemAvailabilities = new ObservableCollection<ItemAvailability>(_itemAvailabilityService.GetItemAvailabilities());
-            SelectedItemAvailability = ItemAvailabilities.First();
-
-
-
         }
 
         public ItemViewModel ItemViewModel { get; }
@@ -57,13 +52,6 @@ namespace QAShopWPF.ViewModel.Item
         public int LocalCurrency { get; set; }
         public int ExchangeRate { get; set; }
 
-        public ICommand AddItem => new RelayCommand(Add);
-        public ICommand CloseCommand => new RelayCommand(Close);
-
-        public void Close()
-        {
-            _addNewItemView.Close();
-        }
         public void Add()
         {
             var itemToAdd = new QAShop_System.EfClasses.Item();
@@ -87,8 +75,12 @@ namespace QAShopWPF.ViewModel.Item
             ItemViewModel.City = itemToAdd.City;
             ItemViewModel.LocalCurrency = itemToAdd.LocalCurrency;
             ItemViewModel.ExchangeRate = itemToAdd.ExchangeRate;
+
             ItemViewModel.ItemTypeId = itemToAdd.ItemTypeId;
+            ItemViewModel.ItemType = itemToAdd.ItemTypeLink.Type;
+
             ItemViewModel.ItemAvailabilityId = itemToAdd.ItemAvailabilityId;
+            ItemViewModel.ItemAvailability = itemToAdd.ItemAvailabilityLink.Status;
 
         }
 

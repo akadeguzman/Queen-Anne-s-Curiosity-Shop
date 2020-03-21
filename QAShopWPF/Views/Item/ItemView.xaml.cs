@@ -36,5 +36,11 @@ namespace QAShopWPF.Views.Item
 
             DataContext = _itemListViewModel;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var addItem = new AddNewItemView(_itemListViewModel, _itemService, _itemAvailabilityService, _itemTypeService);
+            addItem.Show();
+        }
     }
 }

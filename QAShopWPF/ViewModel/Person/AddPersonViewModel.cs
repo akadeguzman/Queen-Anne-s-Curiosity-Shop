@@ -66,8 +66,13 @@ namespace QAShopWPF.ViewModel.Person
             PersonViewModel.FirstName = FirstName;
             PersonViewModel.PhoneNumber = PhoneNumber;
             PersonViewModel.AddressId = SelectedAddress.AddressId;
+            PersonViewModel.Address = SelectedAddress.City;
+            
             PersonViewModel.PersonTypeId = SelectedPersonType.PersonTypeId;
+            PersonViewModel.PersonType = SelectedPersonType.Type;
+
             PersonViewModel.AdditionalContactId = SelectedAdditionalContacts.PersonTypeId;
+            PersonViewModel.AdditionalContact = SelectedAdditionalContacts.GetFullName();
         }
     }
 }

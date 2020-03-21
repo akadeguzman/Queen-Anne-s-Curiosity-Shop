@@ -33,9 +33,9 @@ namespace QAShopWPF.ViewModel.Shipper
             _shipperService.AddShipper(shipperToAd);
 
             ShipperViewModel.ShipperId = shipperToAd.ShipperId;
-            ShipperViewModel.ShipperName = shipperToAd.ShipperName;
-            ShipperViewModel.ShipperContact = shipperToAd.ShipperContact;
-            ShipperViewModel.ShipperFax = shipperToAd.ShipperFax;
+            ShipperViewModel.ShipperName = ShipperName;
+            ShipperViewModel.ShipperContact = ShipperContact;
+            ShipperViewModel.ShipperFax = ShipperFax;
         }
     }
 }

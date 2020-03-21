@@ -126,7 +126,7 @@
                         <TextBox
                             BorderBrush="White" BorderThickness="1"
                             Padding="3,0,3,0"
-                            Text="{Binding Path=Desination}"
+                            Text="{Binding Path=Destination}"
                             Height="30"
                             Foreground="White" />
 
@@ -154,7 +154,7 @@
 
                                 FontSize="15"
                                 Margin="0,2,0,0"
-                                ItemsSource="{Binding Path=Shippers, UpdateSourceTrigger=PropertyChanged}"
+                                ItemsSource="{Binding Path=Shippers}"
                                 SelectedItem="{Binding Path=SelectedShipper}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -222,7 +222,7 @@
                         <TextBox
                             BorderBrush="White" BorderThickness="1"
                             Padding="3,0,3,0"
-                            Text="{Binding Path=InsurerValue}"
+                            Text="{Binding Path=InsuredValue}"
                             Height="30"
                             Foreground="White" />
 

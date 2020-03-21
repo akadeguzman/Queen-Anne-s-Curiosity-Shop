@@ -28,13 +28,13 @@ namespace QAShopWPF.Views.Shipment
         private ShipperService _shipperService;
         private ShipperListViewModel _shipperListViewModel;
 
-        public AddShipmentView(ShipmentService shipmentService, ShipperService shipperService)
+        public AddShipmentView(ShipmentListViewModel shipmentListViewModel, ShipmentService shipmentService, ShipperService shipperService)
         {
             InitializeComponent();
 
             _shipmentService = shipmentService;
             _shipperService = shipperService;
-            _shipmentListViewModel = new ShipmentListViewModel(_shipmentService);
+            _shipmentListViewModel = shipmentListViewModel;
             _shipperListViewModel = new ShipperListViewModel(_shipperService);
 
             _shipmentToAdd = new AddShipmentViewModel(shipperService, shipmentService);
@@ -46,6 +46,7 @@ namespace QAShopWPF.Views.Shipment
         {
             _shipmentToAdd.Add();
             _shipmentListViewModel.ShipmentList.Insert(0, _shipmentToAdd.ShipmentViewModel);
+            Close();
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)

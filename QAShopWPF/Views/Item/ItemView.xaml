@@ -184,7 +184,7 @@
                         HorizontalAlignment="Right"
                         Height="50"
                         Width="170"
-                        Margin="10, 10, 10, 0">
+                        Margin="10, 10, 10, 0" Click="Button_Click">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Kind="TagAdd"

@@ -29,11 +29,12 @@ namespace QAShopWPF.Views.Shipper
 
         public AddShipperView(ShipperService shipperService, AddShipmentViewModel addShipmentViewModel, ShipperListViewModel shipperListViewModel)
         {
+            InitializeComponent();
+
             _shipperService = shipperService;
             _addShipmentViewModel = addShipmentViewModel;
             _shipperListViewModel = shipperListViewModel;
 
-            InitializeComponent();
 
             _shipperToAdd = new AddShipperViewModel(shipperService);
             DataContext = _shipperToAdd;

@@ -179,11 +179,12 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <Button Grid.Row="2"
+                <Button x:Name="BtnAddShipment"
+                        Grid.Row="2"
                         HorizontalAlignment="Right"
                         Height="50"
                         Width="170"
-                        Margin="10, 10, 10, 0">
+                        Margin="10, 10, 10, 0" Click="BtnAddShipment_Click">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Kind="LibraryAdd"

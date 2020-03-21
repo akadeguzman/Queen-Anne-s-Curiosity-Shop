@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mime;
 using System.Windows;
 using System.Windows.Controls;
 using QAShop_System.EfClasses;
@@ -139,10 +140,11 @@ namespace QAShopWPF
             UserControl item = new ItemView(_itemListViewModel, _itemTypeService, _itemAvailabilityService, _itemService);
             UserControl procurement = new ProcurementView(_procurementListViewModel, _shipmentItemVendorService, _personService, _purchasingAgentService, _procurementService);
 
-            UserControl shipment = new ShipmentView(_shipmentListViewModel, _shipperService, _shipmentService);
+            UserControl shipment = new ShipmentView(_shipperService, _shipmentService);
             UserControl vendor = new VendorView(_vendorListViewModel, _vendorService);
 
             GridMain.Children.Clear();
+            ImageBackground.Visibility = Visibility.Hidden;
             switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
             {
                 case "Transaction":

@@ -62,9 +62,10 @@ namespace QAShopWPF.ViewModel.Shipment
             ShipmentViewModel.ShipperInvoiceNumber = shipmentToAdd.ShipperInvoiceNumber;
             ShipmentViewModel.DepartureDate = shipmentToAdd.DepartureDate;
             ShipmentViewModel.ArrivalDate = shipmentToAdd.ArrivalDate;
-            ShipmentViewModel.Shipper = shipmentToAdd.ShipperLink.ShipperName;
             ShipmentViewModel.InsuredValue = shipmentToAdd.InsuredValue;
             ShipmentViewModel.InsurerName = shipmentToAdd.InsurerName;
+            ShipmentViewModel.Shipper = SelectedShipper.ShipperName;
+            ShipmentViewModel.ShipperId = SelectedShipper.ShipperId;
         }
     }
 }
