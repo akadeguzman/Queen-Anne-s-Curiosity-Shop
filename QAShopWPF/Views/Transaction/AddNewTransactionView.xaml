@@ -9,8 +9,7 @@
         Height="Auto"
         Width="Auto"
         d:DesignHeight="634"
-        d:DesignWidth="790"
-        DataContext="{Binding Path=AddTransactionViewModel, Source={StaticResource Locator}}" >
+        d:DesignWidth="790">
     <Grid>
         <GroupBox Header="Add Transaction" Style="{DynamicResource MaterialDesignCardGroupBox}">
             <!--Header-->

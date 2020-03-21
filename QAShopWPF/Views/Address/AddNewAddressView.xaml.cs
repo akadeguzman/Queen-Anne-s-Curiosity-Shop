@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using QAShopWPF.ViewModel;
 using QAShopWPF.ViewModel.Address;
+using QAShopWPF.ViewModel.Person;
+using QAShopWPF.Views.Person;
 using ServiceLayer;
 
 namespace QAShopWPF.Views.Address
@@ -19,26 +24,26 @@ namespace QAShopWPF.Views.Address
     /// </summary>
     public partial class AddNewAddressView : Window
     {
-        private AddressListViewModel _addressListViewModel;
-        private AddressService _addressService;
-
+        
         private AddNewAddressViewModel _toAddAddress;
+        private AddNewPersonView _addNewPersonView;
 
-        public AddNewAddressView(AddressListViewModel addressListViewModel, AddressService addressService)
+        public AddNewAddressView(AddNewPersonView addNewPersonView)
         {
+            _addNewPersonView = addNewPersonView;
+
             InitializeComponent();
-
-            _toAddAddress = new AddNewAddressViewModel(addressService);
-            _addressListViewModel = addressListViewModel;
-            _addressService = addressService;
-
+            
+            _toAddAddress = new AddNewAddressViewModel();
             DataContext = _toAddAddress;
         }
 
         private void BtnAddAddress_Click(object sender, RoutedEventArgs e)
         {
             _toAddAddress.Add();
-            _addressListViewModel.AddressList.Insert(0, _toAddAddress.AddressViewModel);
+            QAShopService.AddressListViewModel.AddressList.Insert(0, _toAddAddress.AddressViewModel);
+            var addressToAdd = QAShopService.AddressService.GetAddresses().ToList().Last();
+            QAShopService.AddPersonViewModel.Address.Add(addressToAdd);
             Close();
         }
 

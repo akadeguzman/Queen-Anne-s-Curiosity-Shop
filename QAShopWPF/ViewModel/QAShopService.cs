@@ -38,13 +38,13 @@ namespace QAShopWPF.ViewModel
 
         //View Models
         public static AddressListViewModel AddressListViewModel = new AddressListViewModel(AddressService);
-        public static AddNewAddressViewModel AddNewAddressViewModel = new AddNewAddressViewModel(AddressService);
+        public static AddNewAddressViewModel AddNewAddressViewModel = new AddNewAddressViewModel();
 
         public static TransactionListViewModel TransactionListViewModel = new TransactionListViewModel(TransactionService);
         public static AddTransactionViewModel AddTransactionViewModel = new AddTransactionViewModel(TransactionService, TransactionTypeService, PersonService);
 
         public static PersonListViewModel PersonListViewModel = new PersonListViewModel(PersonService);
-        public static AddPersonViewModel AddPersonViewModel = new AddPersonViewModel(PersonService, PersonTypeService, AddressService);
+        public static AddPersonViewModel AddPersonViewModel = new AddPersonViewModel();
 
         public static ItemListViewModel ItemListViewModel = new ItemListViewModel(ItemService);
         public static AddItemViewModel AddItemViewModel = new AddItemViewModel(ItemService, ItemAvailabilityService, ItemTypeService);

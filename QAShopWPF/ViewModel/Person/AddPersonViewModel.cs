@@ -15,27 +15,18 @@ namespace QAShopWPF.ViewModel.Person
 {
     public class AddPersonViewModel
     {
-        private readonly PersonListViewModel _personListViewModel;
-        private PersonService _personService;
-        private PersonTypeService _personTypeService;
-        private AddressService _addressService;
-        private AddNewPersonView _addNewPersonView;
 
-
-        public AddPersonViewModel(PersonService personService, PersonTypeService personTypeService, AddressService addressService)
+        public AddPersonViewModel()
         {
             var blankPerson = new QAShop_System.EfClasses.Person();
             PersonViewModel = new PersonViewModel(blankPerson.PersonId, blankPerson.LastName, blankPerson.FirstName, blankPerson.PhoneNumber, "", "", "", blankPerson.PersonTypeId, blankPerson.AddressId, blankPerson.AdditionalContactId);
 
-            _personService = personService;
-            _personTypeService = personTypeService;
-            _addressService = addressService;
 
-            PersonTypes = new ObservableCollection<PersonType>(_personTypeService.GetPersonTypes());
+            PersonTypes = new ObservableCollection<PersonType>(QAShopService.PersonTypeService.GetPersonTypes());
             
-            Address = new ObservableCollection<QAShop_System.EfClasses.Address>(_addressService.GetAddresses());
+            Address = new ObservableCollection<QAShop_System.EfClasses.Address>(QAShopService.AddressService.GetAddresses());
 
-            AdditionalContacts = new ObservableCollection<QAShop_System.EfClasses.Person>(_personService.GetPersons());
+            AdditionalContacts = new ObservableCollection<QAShop_System.EfClasses.Person>(QAShopService.PersonService.GetPersons());
         }
 
         public PersonViewModel PersonViewModel { get; }
@@ -61,7 +52,7 @@ namespace QAShopWPF.ViewModel.Person
             personToAdd.PersonTypeId = SelectedPersonType.PersonTypeId;
             personToAdd.AdditionalContactId = SelectedAdditionalContacts.PersonTypeId;
 
-            _personService.AddPerson(personToAdd);
+            QAShopService.PersonService.AddPerson(personToAdd);
 
             PersonViewModel.PersonId = personToAdd.PersonId;
             PersonViewModel.LastName = LastName;
