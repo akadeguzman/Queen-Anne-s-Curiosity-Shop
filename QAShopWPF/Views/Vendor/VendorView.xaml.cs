@@ -24,14 +24,12 @@ namespace QAShopWPF.Views.Vendor
         private readonly VendorListViewModel _vendorListViewModel;
         private readonly VendorService _vendorService;
 
-        public VendorView(VendorListViewModel vendorListViewModel, VendorService vendorService)
+        public VendorView(VendorService vendorService)
         {
 
             InitializeComponent();
             _vendorService = vendorService;
             _vendorListViewModel = new VendorListViewModel(vendorService);
-            
-
 
             DataContext = _vendorListViewModel;
         }
@@ -47,10 +45,12 @@ namespace QAShopWPF.Views.Vendor
             if (DataGrid.SelectedItem != null)
             {
                 BtnDeleteVendor.Visibility = Visibility.Visible;
+                BtnEditVendor.Visibility = Visibility.Visible;
             }
             else
             {
                 BtnDeleteVendor.Visibility = Visibility.Collapsed;
+                BtnEditVendor.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -68,6 +68,12 @@ namespace QAShopWPF.Views.Vendor
                 Console.WriteLine(exception);
                 throw;
             }
+        }
+
+        private void BtnEditVendor_OnClick(object sender, RoutedEventArgs e)
+        {
+           var editWindow = new EditVendorView(_vendorListViewModel, _vendorListViewModel.SelectedVendor, _vendorService);
+           editWindow.Show();
         }
     }
 }

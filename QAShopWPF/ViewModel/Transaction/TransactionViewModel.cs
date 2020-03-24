@@ -104,10 +104,6 @@ namespace QAShopWPF.ViewModel.Transaction
             TransactionTypeId = transaction.TransactionTypeId;
         }
 
-        public TransactionViewModel()
-        {
-            
-        }
 
         #endregion
     }

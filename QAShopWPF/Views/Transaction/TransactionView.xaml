@@ -167,12 +167,13 @@
                     </DataGrid.Columns>
                 </DataGrid>
                     
-                <Button Grid.Row="2"
+                <Button x:Name="BtnAddTransaction"
+                    Grid.Row="2"
                         HorizontalAlignment="Right"
                         Height="50"
                         Width="170"
                         Margin="10, 10, 10, 0"
-                        Command="{Binding Path=AddTransaction}">
+                        Command="{Binding Path=AddTransaction}" Click="BtnAddTransaction_Click">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Kind="ShoppingCartPlus"

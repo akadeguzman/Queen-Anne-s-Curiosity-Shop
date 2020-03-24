@@ -43,15 +43,6 @@ namespace ServiceLayer
             _context.SaveChanges();
         }
 
-        public void DeleteTransaction(int transactionId)
-        {
-            var transactionItemVendor = _context.TransactionItemVendors.Where(c => c.TransactionId == transactionId);
-            
-            _context.TransactionItemVendors.RemoveRange(transactionItemVendor);
-
-            _context.Transactions.Remove(_context.Transactions.Find(transactionId));
-            _context.SaveChanges();
-        }
 
 
     }

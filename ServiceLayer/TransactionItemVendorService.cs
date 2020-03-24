@@ -17,7 +17,6 @@ namespace ServiceLayer
         public IQueryable<TransactionItemVendor> GetTransactionItemVendors()
         {
             return _context.TransactionItemVendors
-                .Include(c => c.TransactionLink)
                 .Include(c => c.ItemVendorLink);
         }
 
@@ -32,12 +31,12 @@ namespace ServiceLayer
 
         public void UpdateTransactionItemVendor(int transactionItemVendorId,
             int quantity,
-            int transactionId,
+           string transactionInvoiceNumber,
             int itemVendorId)
         {
             var transactionItemVendor = _context.TransactionItemVendors.Find(transactionItemVendorId);
             transactionItemVendor.Quantity = quantity;
-            transactionItemVendor.TransactionId = transactionId;
+            transactionItemVendor.TransactionInvoiceNumber = transactionInvoiceNumber;
             transactionItemVendor.ItemVendorId = itemVendorId;
 
             _context.SaveChanges();

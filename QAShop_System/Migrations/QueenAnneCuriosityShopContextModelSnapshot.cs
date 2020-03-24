@@ -379,8 +379,11 @@ namespace QAShop_System.Migrations
                     b.Property<int>("Total")
                         .HasColumnType("int");
 
-                    b.Property<int>("TransactionId")
+                    b.Property<int?>("TransactionId")
                         .HasColumnType("int");
+
+                    b.Property<string>("TransactionInvoiceNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TransactionItemVendorId");
 
@@ -556,11 +559,9 @@ namespace QAShop_System.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("QAShop_System.EfClasses.Transaction", "TransactionLink")
+                    b.HasOne("QAShop_System.EfClasses.Transaction", null)
                         .WithMany("TransactionItemVendors")
-                        .HasForeignKey("TransactionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TransactionId");
                 });
 #pragma warning restore 612, 618
         }

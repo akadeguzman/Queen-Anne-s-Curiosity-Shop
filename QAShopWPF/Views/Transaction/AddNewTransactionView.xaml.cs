@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using QAShopWPF.ViewModel.Transaction;
+using ServiceLayer;
 
 namespace QAShopWPF.Views.Transaction
 {
@@ -17,9 +19,37 @@ namespace QAShopWPF.Views.Transaction
     /// </summary>
     public partial class AddNewTransactionView : Window
     {
-        public AddNewTransactionView()
+        private AddTransactionViewModel _transactionToAdd;
+        private TransactionService _transactionService;
+        private TransactionTypeService _transactionTypeService;
+        private PersonService _personService;
+        private ItemVendorService _itemVendorService;
+        private TransactionItemVendorService _transactionItemVendorService;
+
+        public AddNewTransactionView(TransactionService transactionService, TransactionTypeService transactionTypeService, PersonService personService, ItemVendorService itemVendorService, TransactionItemVendorService transactionItemVendorService)
         {
             InitializeComponent();
+
+            _itemVendorService = itemVendorService;
+            _transactionService = transactionService;
+            _transactionTypeService = transactionTypeService;
+            _personService = personService;
+            _transactionItemVendorService = transactionItemVendorService;
+
+            _transactionToAdd = new AddTransactionViewModel(transactionService, transactionTypeService, personService);
+            DataContext = _transactionToAdd;
+
+        }
+
+        private void BtnAddItemsToTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            var addItemsToTransaction = new AddItemVendorToTransactionView( _transactionToAdd, _itemVendorService, _transactionItemVendorService);
+            addItemsToTransaction.Show();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TxtCustomer.Text = _transactionToAdd.SelectedPerson.GetFullName();
         }
     }
 }

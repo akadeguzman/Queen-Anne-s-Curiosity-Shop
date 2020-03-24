@@ -22,16 +22,30 @@ namespace QAShopWPF.Views.Transaction
     public partial class TransactionView : UserControl
     {
         private TransactionService _transactionService;
+        private TransactionTypeService _transactionTypeService;
+        private PersonService _personService;
+        private ItemVendorService _itemVendorService;
         private TransactionListViewModel _transactionListViewModel;
+        private TransactionItemVendorService _transactionItemVendorService;
 
-        public TransactionView(TransactionService transactionService)
+        public TransactionView(TransactionService transactionService, TransactionTypeService transactionTypeService, PersonService personService, ItemVendorService itemVendorService, TransactionItemVendorService transactionItemVendorService)
         {
             _transactionService = transactionService;
+            _transactionTypeService = transactionTypeService;
+            _personService = personService;
+            _transactionItemVendorService = transactionItemVendorService;
+            _itemVendorService = itemVendorService;
             _transactionListViewModel = new TransactionListViewModel(transactionService);
 
             InitializeComponent();
 
             DataContext = _transactionListViewModel;
+        }
+
+        private void BtnAddTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            var addTransaction = new AddNewTransactionView(_transactionService, _transactionTypeService, _personService, _itemVendorService, _transactionItemVendorService);
+            addTransaction.Show();
         }
     }
 }

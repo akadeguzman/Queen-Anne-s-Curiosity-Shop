@@ -14,7 +14,7 @@ namespace QAShopWPF.ViewModel.Vendor
         private string _firstName;
         private string _lastName;
         private string _contactNumber;
-        [CanBeNull] public string _companyName;
+        [CanBeNull] private string _companyName;
 
         public int VendorId
         {

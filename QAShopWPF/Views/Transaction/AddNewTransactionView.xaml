@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:QAShopWPF.Views.Transaction"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Height="Auto"
-        Width="Auto"
-        d:DesignHeight="634"
-        d:DesignWidth="790">
+        Height="635"
+        Width="750"
+        WindowStartupLocation="CenterScreen"
+        d:DesignHeight="635"
+        d:DesignWidth="750">
     <Grid>
         <GroupBox Header="Add Transaction" Style="{DynamicResource MaterialDesignCardGroupBox}">
             <!--Header-->
@@ -40,8 +41,8 @@
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="300"/>
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Grid.Column="0">
@@ -67,7 +68,7 @@
                                 <TextBox
                                     BorderBrush="White" BorderThickness="1"
                                     Padding="3,0,3,0"
-                                    Text="{Binding FirstName}"
+                                    Text="{Binding Path=InvoiceNumber, UpdateSourceTrigger=PropertyChanged}"
                                     Height="30"
                                     Foreground="White" />
                             </StackPanel>
@@ -94,12 +95,13 @@
                                         FontSize="15"
                                         Margin="0,2,0,0"
                                         Grid.Column="0"
-                                        ItemsSource="{Binding Persons}"
-                                        SelectedItem="{Binding SelectedPerson}">
+                                        ItemsSource="{Binding Path=Persons}"
+                                        SelectedItem="{Binding Path=SelectedPerson, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Path=Type}" />
+                                                    <TextBlock Text="{Binding Path=LastName, StringFormat={}{0} }"/>
+                                                    <TextBlock Text="{Binding Path=FirstName, StringFormat={} {0}}"/>
                                                 </StackPanel>
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
@@ -163,7 +165,7 @@
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding City}" />
+                                                <TextBlock Text="{Binding Path=Type}" />
                                             </StackPanel>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
@@ -179,20 +181,111 @@
                         </StackPanel>
 
                         <!--RIGHT SIDE-->
+                        <Grid Grid.Column="1" Margin="10,10,0,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="60" />
+                                </Grid.RowDefinitions>
 
-                        <local:TransactionItemVendorView Grid.Column="1" Margin="0,10,0,0" DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext, Mode=OneWay}"/>
+                                <Grid Background="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon
+                                        Width="25"
+                                        Height="25"
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="Black"
+                                        Kind="Magnify"
+                                        Opacity="0.2" />
+                                    <TextBox
+                                        Grid.Column="1"
+                                        Margin="5"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        HorizontalContentAlignment="Stretch"
+                                        VerticalContentAlignment="Center"
+                                        materialDesign:HintAssist.Hint="Search Transaction"
+                                        BorderThickness="0"
+                                        Foreground="Black"
+                                        Text="{Binding Path=SearchText, UpdateSourceTrigger=PropertyChanged, Delay=500}" />
+
+                                </Grid>
+
+                                <ListBox 
+                                    Margin="0,10,0,0"
+                                    Grid.Row="1"
+                                    Background="#292929" 
+                                    BorderBrush="#adadad"
+                                    BorderThickness="2"
+                                    HorizontalContentAlignment="Stretch"
+                                    ItemsSource="{Binding Path=TransactionItemVendors}"
+                                    SelectedItem="{Binding Path=SelectedMovie}">
+
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Padding="3" BorderBrush="Orange" BorderThickness="1" Margin="5">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0" FontSize="15" Text="{Binding Path=ItemName}"/>
+                                                    <StackPanel Grid.Column="1">
+                                                        <TextBlock FontSize="15" Text="Vendor:"/>
+                                                        <TextBlock FontSize="15" Text="{Binding Path=VendorName}"/>
+                                                    </StackPanel>
+                                                    <TextBlock Grid.Column="2" FontSize="15" Text="{Binding Path=Quantity, StringFormat=Qty:{}}"/>
+                                                    <TextBlock Grid.Column="3" FontSize="15" Text="{Binding Path=Total}"/>
+
+
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+
+                                <Button x:Name="BtnAddItemsToTransaction"
+                                        Grid.Row="2"
+                                        HorizontalAlignment="Right"
+                                        Height="40"
+                                        Width="130"
+                                        Margin="10, 10, 10, 0" Click="BtnAddItemsToTransaction_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Kind="ShoppingCartPlus"
+                                            VerticalContentAlignment="Center"
+                                            Height="20"
+                                            Width="20"
+                                            Margin="5,0,5,0" />
+                                        <TextBlock Text="Add Items"
+                                                   VerticalAlignment="Center" />
+
+                                    </StackPanel>
+                                </Button>
+
+                            </Grid>
+                        </Grid>
+
                     </Grid>
 
                 </StackPanel>
 
                 <Grid Grid.Row="1" Margin="0,15,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Column="0" Grid.ColumnSpan="2">
@@ -218,8 +311,9 @@
                                 FontWeight="Medium"
                                 Margin="0,0,0,3" />
                             <TextBlock
+                                x:Name="TxtCustomer"
                                 Padding="3,0,3,0"
-                                Text="{Binding Path=SelectedPerson}"
+                                FontSize="15"
                                 Height="30"
                                 Foreground="White" />
                         </StackPanel>
@@ -232,7 +326,8 @@
                                 Margin="0,0,0,3" />
                             <TextBlock
                                 Padding="3,0,3,0"
-                                Text="{Binding Path=InvoiceNumber}"
+                                FontSize="15"
+                                Text="{Binding Path=InvoiceNumber, UpdateSourceTrigger=PropertyChanged}"
                                 Height="30"
                                 Foreground="White" />
                         </StackPanel>
@@ -241,7 +336,7 @@
 
                     <StackPanel Margin="10,5,10,0" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
                         <TextBlock
-                            Text="Total"
+                            Text="Total:"
                             FontSize="30"
                             Foreground="Orange"
                             FontWeight="Bold"
@@ -249,8 +344,11 @@
                         <TextBox
                             BorderBrush="White" BorderThickness="1"
                             Padding="3,0,3,0"
-                            Text="{Binding Path=Total}"
-                            Height="60"
+                            FontSize="40"
+                            HorizontalContentAlignment="Right"
+                            FontWeight="DemiBold"
+                            Text="{Binding Path=Total, StringFormat={}{0:C}}"
+                            Height="70"
                             Foreground="White" />
                     </StackPanel>
 

@@ -37,6 +37,7 @@ namespace QAShopWPF
         private PurchasingAgentService _purchasingAgentService;
         private ItemService _itemService;
         private ItemTypeService _itemTypeService;
+        private ItemVendorService _itemVendorService;
         private ItemAvailabilityService _itemAvailabilityService;
         private ProcurementService _procurementService;
         private ShipmentService _shipmentService;
@@ -59,6 +60,7 @@ namespace QAShopWPF
             _personTypeService = new PersonTypeService(context);
             _purchasingAgentService = new PurchasingAgentService(context);
             _itemService = new ItemService(context);
+            _itemVendorService = new ItemVendorService(context);
             _itemTypeService = new ItemTypeService(context);
             _itemAvailabilityService = new ItemAvailabilityService(context);
             _procurementService = new ProcurementService(context);
@@ -66,6 +68,7 @@ namespace QAShopWPF
             _shipmentItemVendorService = new ShipmentItemVendorService(context);
             _shipperService = new ShipperService(context);
             _vendorService = new VendorService(context);
+
             
 
             //ViewModels
@@ -114,6 +117,7 @@ namespace QAShopWPF
         private ShipperListViewModel _shipperListViewModel;
 
         private VendorListViewModel _vendorListViewModel;
+        private VendorViewModel _vendorViewModel;
         private AddVendorViewModel _addVendorViewModel;
        
 
@@ -135,13 +139,13 @@ namespace QAShopWPF
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UserControl transaction = new TransactionView(_transactionService);
+            UserControl transaction = new TransactionView(_transactionService, _transactionTypeService, _personService, _itemVendorService, _transactionItemVendorService);
             UserControl person = new PersonView(_personListViewModel, _addPersonViewModel, _personService, _personTypeService, _addressService, _addressListViewModel);
             UserControl item = new ItemView(_itemListViewModel, _itemTypeService, _itemAvailabilityService, _itemService);
             UserControl procurement = new ProcurementView(_procurementListViewModel, _shipmentItemVendorService, _personService, _purchasingAgentService, _procurementService);
 
             UserControl shipment = new ShipmentView(_shipperService, _shipmentService);
-            UserControl vendor = new VendorView(_vendorListViewModel, _vendorService);
+            UserControl vendor = new VendorView(_vendorService);
 
             GridMain.Children.Clear();
             ImageBackground.Visibility = Visibility.Hidden;

@@ -12,11 +12,7 @@ namespace QAShop_System.EfCodes.Configurations
 
             builder.HasKey(c => c.TransactionItemVendorId);
             builder.Property(c => c.TransactionItemVendorId).ValueGeneratedOnAdd();
-
-            builder.HasOne(c => c.TransactionLink)
-                .WithMany(c => c.TransactionItemVendors)
-                .HasForeignKey(c => c.TransactionId);
-
+            
             builder.HasOne(c => c.ItemVendorLink)
                 .WithMany(c => c.TransactionItemVendors)
                 .HasForeignKey(c => c.ItemVendorId);

@@ -170,12 +170,7 @@ namespace QAShopWPF.ViewModel.Item
             ItemTypeId = item.ItemTypeId;
             ItemType = item.ItemTypeLink.Type;
         }
-
-        public ItemViewModel()
-        {
-            
-        }
-
+        
         #endregion
 
     }

@@ -312,8 +312,9 @@ namespace QAShop_System.Migrations
                     Subtotal = table.Column<int>(nullable: false),
                     Tax = table.Column<int>(nullable: false),
                     Total = table.Column<int>(nullable: false),
-                    TransactionId = table.Column<int>(nullable: false),
-                    ItemVendorId = table.Column<int>(nullable: false)
+                    TransactionInvoiceNumber = table.Column<string>(nullable: true),
+                    ItemVendorId = table.Column<int>(nullable: false),
+                    TransactionId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -329,7 +330,7 @@ namespace QAShop_System.Migrations
                         column: x => x.TransactionId,
                         principalTable: "Transaction",
                         principalColumn: "TransactionId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

@@ -1,4 +1,4 @@
-﻿<Window x:Class="QAShopWPF.Views.Vendor.AddVendorView"
+﻿<Window x:Class="QAShopWPF.Views.Vendor.EditVendorView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -16,7 +16,7 @@
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <GroupBox Header="Add Vendor" Style="{DynamicResource MaterialDesignCardGroupBox}">
+        <GroupBox Header="Edit Vendor" Style="{DynamicResource MaterialDesignCardGroupBox}">
             <!--Header-->
             <GroupBox.HeaderTemplate>
                 <DataTemplate>
@@ -27,7 +27,7 @@
                             VerticalAlignment="Center"
                             Kind="AccountBadgeHorizontal"
                             Margin="5,0,0,0"/>
-                        <TextBlock Text="Add Vendor"
+                        <TextBlock Text="Edit Vendor"
                                    FontSize="15"
                                    Margin="15,5,0,5"/>
                     </StackPanel>
@@ -119,12 +119,13 @@
                     VerticalAlignment="Bottom">
 
                     <Button
-                        Width="100"
+                        x:Name="SaveChanges"
+                        Width="130"
                         Height="30"
                         Margin="4"
                         HorizontalAlignment="Right"
-                        Content="Save"
-                        Style="{StaticResource MaterialDesignRaisedButton}" Click="Button_Click" />
+                        Content="Save Changes"
+                        Style="{StaticResource MaterialDesignRaisedButton}" Click="SaveChanges_Click" />
 
                     <Button
                         x:Name="BtnClose"

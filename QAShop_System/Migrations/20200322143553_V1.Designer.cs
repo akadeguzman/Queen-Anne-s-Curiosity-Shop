@@ -10,7 +10,7 @@ using QAShop_System.EfClasses;
 namespace QAShop_System.Migrations
 {
     [DbContext(typeof(QueenAnneCuriosityShopContext))]
-    [Migration("20200321094550_V1")]
+    [Migration("20200322143553_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -381,8 +381,11 @@ namespace QAShop_System.Migrations
                     b.Property<int>("Total")
                         .HasColumnType("int");
 
-                    b.Property<int>("TransactionId")
+                    b.Property<int?>("TransactionId")
                         .HasColumnType("int");
+
+                    b.Property<string>("TransactionInvoiceNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TransactionItemVendorId");
 
@@ -558,11 +561,9 @@ namespace QAShop_System.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("QAShop_System.EfClasses.Transaction", "TransactionLink")
+                    b.HasOne("QAShop_System.EfClasses.Transaction", null)
                         .WithMany("TransactionItemVendors")
-                        .HasForeignKey("TransactionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TransactionId");
                 });
 #pragma warning restore 612, 618
         }

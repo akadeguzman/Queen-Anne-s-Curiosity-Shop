@@ -22,6 +22,21 @@ namespace QAShopWPF.ViewModel.Vendor
 
         }
 
+        public void Sync()
+        {
+            VendorList.Clear();
+
+            var vendor = _vendorService.GetVendors()
+                .Select(c =>
+                    new VendorViewModel(c)).ToList();
+
+            foreach (var vendorViewModel in vendor)
+            {
+                VendorList.Add(vendorViewModel);
+            }
+            
+        }
+
 
         public ObservableCollection<VendorViewModel> VendorList { get; }
 
