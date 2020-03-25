@@ -260,7 +260,5 @@
                 <!--end Buttons-->
             </Grid>
         </GroupBox>
-
     </Grid>
-
 </Window>

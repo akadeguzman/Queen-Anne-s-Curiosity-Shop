@@ -56,7 +56,9 @@ namespace QAShopWPF.Views.Shipment
 
         private void BtnEditShipment_OnClick(object sender, RoutedEventArgs e)
         {
-            var editShipment = new EditShipmentView(_shipmentListViewModel, _shipmentListViewModel.SelectedShipment, _shipperService, _shipmentService);
+            var editShipment = new EditShipmentView(_shipmentListViewModel, _shipmentListViewModel.SelectedShipment,
+                _shipmentService, _shipperService);
+
             editShipment.Show();
         }
     }

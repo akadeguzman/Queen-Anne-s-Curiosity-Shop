@@ -9,7 +9,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using QAShopWPF.ViewModel.Person;
 using QAShopWPF.ViewModel.Shipment;
 using QAShopWPF.Views.Shipper;
 using ServiceLayer;
@@ -21,35 +20,31 @@ namespace QAShopWPF.Views.Shipment
     /// </summary>
     public partial class EditShipmentView : Window
     {
-        public EditShipmentView()
-        {
-            InitializeComponent();
-        }
-
         private EditShipmentViewModel _toEditShipment;
         private ShipmentListViewModel _shipmentListViewModel;
         private ShipperService _shipperService;
 
-        public EditShipmentView(ShipmentListViewModel shipmentListViewModel, ShipmentViewModel shipmentViewModel, ShipperService shipperService, ShipmentService shipmentService)
+        public EditShipmentView(ShipmentListViewModel shipmentListViewModel, ShipmentViewModel shipmentViewModel, ShipmentService shipmentService, ShipperService shipperService)
         {
-            _toEditShipment = new EditShipmentViewModel(shipmentViewModel, shipperService, shipmentService);
+            InitializeComponent();
             _shipmentListViewModel = shipmentListViewModel;
             _shipperService = shipperService;
+            _toEditShipment = new EditShipmentViewModel(shipmentViewModel, shipperService, shipmentService);
 
             DataContext = _toEditShipment;
         }
 
         private void BtnAddShipper_Click(object sender, RoutedEventArgs e)
         {
-            var addShipper = new AddShipperView(_shipperService, _toEditShipment);
-            addShipper.Show();
+            var addShipperView = new AddShipperView(_shipperService, _toEditShipment);
+            addShipperView.Show();
         }
 
         private void BtnSaveChanges_OnClick(object sender, RoutedEventArgs e)
         {
-            _toEditShipment.Edit();
-            _shipmentListViewModel.Sync();
-            Close();
+           _toEditShipment.Edit();
+           _shipmentListViewModel.Sync();
+           Close();
         }
 
         private void BtnCancel_OnClick(object sender, RoutedEventArgs e)
