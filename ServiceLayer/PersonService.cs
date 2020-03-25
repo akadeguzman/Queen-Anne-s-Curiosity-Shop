@@ -29,7 +29,7 @@ namespace ServiceLayer
             string phoneNumber,
             int personTypeId,
             int addressId,
-            int additionalContactId)
+            int? additionalContactId)
         {
             var person = _context.Persons.Find(personId);
             person.LastName = lastName;
@@ -42,22 +42,6 @@ namespace ServiceLayer
             _context.SaveChanges();
         }
 
-        public void UpdatePerson(int personId,
-            string lastName,
-            string firstName,
-            string phoneNumber,
-            int personTypeId,
-            int addressId)
-        {
-            var person = _context.Persons.Find(personId);
-            person.LastName = lastName;
-            person.FirstName = firstName;
-            person.PhoneNumber = phoneNumber;
-            person.PersonTypeId = personTypeId;
-            person.AddressId = addressId;
-
-            _context.SaveChanges();
-        }
 
         //----------------------------------
 

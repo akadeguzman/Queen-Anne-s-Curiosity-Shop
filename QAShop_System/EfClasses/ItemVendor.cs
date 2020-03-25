@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace QAShop_System.EfClasses
 {
@@ -6,6 +7,10 @@ namespace QAShop_System.EfClasses
     {
         public int ItemVendorId { get; set; }
         public int Price { get; set; }
+        public DateTime PurchaseDate { get; set; }
+        public string City { get; set; }
+        public int LocalCurrency { get; set; }
+        public int ExchangeRate { get; set; }
 
         public int VendorId { get; set; }
         public Vendor VendorLink { get; set; }

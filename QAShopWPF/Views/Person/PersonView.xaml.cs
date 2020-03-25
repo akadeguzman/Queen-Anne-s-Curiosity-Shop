@@ -29,7 +29,7 @@ namespace QAShopWPF.Views.Person
         private PersonListViewModel _personListViewModel;
         private AddressListViewModel _addressListViewModel;
 
-        public PersonView(PersonListViewModel personListViewModel, AddPersonViewModel addPersonViewModel, PersonService personService, PersonTypeService personTypeService, AddressService addressService, AddressListViewModel addressListViewModel)
+        public PersonView(PersonService personService, PersonTypeService personTypeService, AddressService addressService)
         {
             _personService = personService;
             _personTypeService = personTypeService;
@@ -45,6 +45,24 @@ namespace QAShopWPF.Views.Person
         {
             var addPerson = new AddNewPersonView(_personService, _personTypeService, _addressService, _personListViewModel, _addressListViewModel);
             addPerson.Show();
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DataGrid.SelectedItem != null)
+            {
+                BtnEdit.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                BtnEdit.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void BtnEdit_OnClick(object sender, RoutedEventArgs e)
+        {
+            var editPerson = new EditPersonView(_personListViewModel, _personListViewModel.SelectedPerson, _personService, _personTypeService, _addressService);
+            editPerson.Show();
         }
     }
 }

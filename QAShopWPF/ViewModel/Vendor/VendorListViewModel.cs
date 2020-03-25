@@ -19,8 +19,11 @@ namespace QAShopWPF.ViewModel.Vendor
                     new VendorViewModel(c)).ToList();
 
             VendorList = new ObservableCollection<VendorViewModel>(vendor);
+            VendorCount = VendorList.Count.ToString();
 
         }
+
+        public string VendorCount { get; }
 
         public void Sync()
         {

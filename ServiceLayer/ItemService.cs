@@ -23,23 +23,13 @@ namespace ServiceLayer
 
         public void UpdateItem(int itemId,
             string itemDescription,
-            DateTime purchaseDate,
-            int itemCost,
             int inventoryQuantity,
-            string city,
-            int localCurrency,
-            int exchangeRate,
             int itemAvailabilityId,
             int itemTypeId)
         {
             var item = _context.Items.Find(itemId);
             item.ItemDescription = itemDescription;
-            item.PurchaseDate = purchaseDate;
-            item.ItemCost = itemCost;
             item.InventoryQuantity = inventoryQuantity;
-            item.City = city;
-            item.LocalCurrency = localCurrency;
-            item.ExchangeRate = exchangeRate;
             item.ItemAvailabilityId = itemAvailabilityId;
             item.ItemTypeId = itemTypeId;
 

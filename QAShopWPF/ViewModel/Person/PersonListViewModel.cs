@@ -27,24 +27,23 @@ namespace QAShopWPF.ViewModel.Person
             PersonList = new ObservableCollection<PersonViewModel>(person);
         }
 
+        public void Sync()
+        {
+            PersonList.Clear();
+
+            var vendor = _personService.GetPersons()
+                .Select(c =>
+                    new PersonViewModel(c)).ToList();
+
+            foreach (var vendorViewModel in vendor)
+            {
+                PersonList.Add(vendorViewModel);
+            }
+
+        }
 
         public ObservableCollection<PersonViewModel> PersonList { get; }
-
-        public string PersonCount
-        {
-            get => _personCount;
-            set
-            {
-                _personCount = value;
-                GetPersonCount();
-            }
-        }
-        public string GetPersonCount()
-        {
-            var count = $"{PersonList.Count}";
-            return count;
-        }
-
+        
         public PersonViewModel SelectedPerson { get; set; }
         
         public void SearchPerson(string searchString)
@@ -60,7 +59,7 @@ namespace QAShopWPF.ViewModel.Person
             foreach (var person in persons)
             {
                 var personModel = new PersonViewModel(person.PersonId, person.LastName, person.FirstName,
-                    person.PhoneNumber, person.PersonTypeLink.Type, person.AddressLink.City, person.AdditionalContactLink?.GetFullName(), person.PersonTypeId,
+                    person.PhoneNumber, person.PersonTypeLink.Type, person.AddressLink.City, person.AdditionalContactLink.GetFullName(), person.PersonTypeId,
                     person.AddressId, person.AdditionalContactId);
                 PersonList.Add(personModel);
             }

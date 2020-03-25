@@ -27,13 +27,12 @@ namespace QAShopWPF.Views.Address
         
         private AddNewAddressViewModel _addressToAdd;
         private AddressService _addressService;
-        private AddressListViewModel _addressListViewModel;
         private AddPersonViewModel _addPersonViewModel;
+        private EditPersonViewModel _editPersonViewModel;
 
-        public AddNewAddressView(AddressService addressService, AddressListViewModel addressListViewModel, AddPersonViewModel addPersonViewModel)
+        public AddNewAddressView(AddressService addressService, AddPersonViewModel addPersonViewModel)
         {
             _addressService = addressService;
-            _addressListViewModel = addressListViewModel;
             _addPersonViewModel = addPersonViewModel;
 
             InitializeComponent();
@@ -42,14 +41,27 @@ namespace QAShopWPF.Views.Address
             DataContext = _addressToAdd;
         }
 
+        public AddNewAddressView(AddressService addressService, EditPersonViewModel editPersonViewModel)
+        {
+            _addressService = addressService;
+            _editPersonViewModel = editPersonViewModel;
+
+            InitializeComponent();
+
+            _addressToAdd = new AddNewAddressViewModel(addressService);
+            DataContext = _addressToAdd;
+        }
+
         private void BtnAddAddress_Click(object sender, RoutedEventArgs e)
         {
             _addressToAdd.Add();
-            _addressListViewModel.AddressList.Insert(0, _addressToAdd.AddressViewModel);
 
             //refreshing new the combo box items
             var addressToAdd = _addressService.GetAddresses().ToList().Last();
             _addPersonViewModel.Address.Add(addressToAdd);
+
+            var addressToEdit = _addressService.GetAddresses().ToList().Last();
+            _editPersonViewModel.Addresses.Add(addressToEdit);
             Close();
         }
 

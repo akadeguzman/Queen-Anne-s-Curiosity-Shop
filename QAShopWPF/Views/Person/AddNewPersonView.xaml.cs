@@ -59,7 +59,7 @@ namespace QAShopWPF.Views.Person
 
         private void BtnNewAddress_Click(object sender, RoutedEventArgs e)
         {
-            var addNewAddress = new AddNewAddressView(_addressService, _addressListViewModel, _personToAdd);
+            var addNewAddress = new AddNewAddressView(_addressService, _personToAdd);
             addNewAddress.Show();
         }
     }

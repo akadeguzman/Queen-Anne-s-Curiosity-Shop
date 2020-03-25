@@ -15,12 +15,7 @@ namespace QAShopWPF.ViewModel.Item
 
         private int _itemId;
         private string _itemDescription;
-        private DateTime _purchaseDate;
-        private int _itemCost;
         private int _inventoryQuantity;
-        private string _city;
-        private int _localCurrency;
-        private int _exchangeRate;
         private string _itemAvailability;
         private string _itemType;
 
@@ -44,26 +39,7 @@ namespace QAShopWPF.ViewModel.Item
             }
         }
 
-        public DateTime PurchaseDate
-        {
-            get => _purchaseDate;
-            internal set
-            {
-                _purchaseDate = value;
-                RaisePropertyChanged(nameof(PurchaseDate));
-            }
-        }
-
-        public int ItemCost
-        {
-            get => _itemCost;
-            internal set
-            {
-                _itemCost = value;
-                RaisePropertyChanged(nameof(ItemCost));
-            }
-        }
-
+        
         public int InventoryQuantity
         {
             get => _inventoryQuantity;
@@ -74,36 +50,7 @@ namespace QAShopWPF.ViewModel.Item
             }
         }
 
-        public string City
-        {
-            get => _city;
-            internal set
-            {
-                _city = value;
-                RaisePropertyChanged(nameof(City));
-            }
-        }
-
-        public int LocalCurrency
-        {
-            get => _localCurrency;
-            internal set
-            {
-                _localCurrency = value;
-                RaisePropertyChanged(nameof(LocalCurrency));
-            }
-        }
-
-        public int ExchangeRate
-        {
-            get => _exchangeRate;
-            internal set
-            {
-                _exchangeRate = value;
-                RaisePropertyChanged(nameof(ExchangeRate));
-            }
-        }
-
+        
         public string ItemAvailability
         {
             get => _itemAvailability;
@@ -130,12 +77,7 @@ namespace QAShopWPF.ViewModel.Item
         public ItemViewModel(
             int itemId,
             string itemDescription,
-            DateTime purchaseDate,
-            int itemCost,
             int inventoryQuantity,
-            string city,
-            int localCurrency,
-            int exchangeRate,
             string itemAvailability,
             string itemType,
             int itemAvailabilityId,
@@ -143,12 +85,8 @@ namespace QAShopWPF.ViewModel.Item
         {
             ItemId = itemId;
             ItemDescription = itemDescription;
-            PurchaseDate = purchaseDate;
-            ItemCost = itemCost;
             InventoryQuantity = inventoryQuantity;
-            City = city;
-            LocalCurrency = localCurrency;
-            ExchangeRate = exchangeRate;
+            
             ItemAvailabilityId = itemAvailabilityId;
             ItemAvailability = itemAvailability;
             ItemTypeId = itemTypeId;
@@ -159,12 +97,8 @@ namespace QAShopWPF.ViewModel.Item
         {
             ItemId = item.ItemId;
             ItemDescription = item.ItemDescription;
-            PurchaseDate = item.PurchaseDate;
-            ItemCost = item.ItemCost;
             InventoryQuantity = item.InventoryQuantity;
-            City = item.City;
-            LocalCurrency = item.LocalCurrency;
-            ExchangeRate = item.ExchangeRate;
+           
             ItemAvailabilityId = item.ItemAvailabilityId;
             ItemAvailability = item.ItemAvailabilityLink.Status;
             ItemTypeId = item.ItemTypeId;

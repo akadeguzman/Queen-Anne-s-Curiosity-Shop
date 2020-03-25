@@ -122,12 +122,7 @@ namespace QAShopWPF.ViewModel.Person
             AddressId = person.AddressId;
             AdditionalContactId = person.AdditionalContactId;
         }
-
-        public PersonViewModel()
-        {
-            
-        }
-
+        
         #endregion
     }
 }

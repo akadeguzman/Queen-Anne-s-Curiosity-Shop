@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using QAShop_System.EfClasses;
 
@@ -20,19 +21,25 @@ namespace ServiceLayer
                 .Include(c => c.ItemLink);
         }
 
-        public void UpdateItem(int itemVendorId, int personId, int itemId, int price)
+        public void UpdateItem(int itemVendorId, int personId, int itemId, int price, DateTime purchaseDate,
+            string city,
+            int localCurrency,
+            int exchangeRate)
         {
             var itemVendor = _context.ItemVendors.Find(itemVendorId);
-            
+            itemVendor.PurchaseDate = purchaseDate;
+            itemVendor.City = city;
+            itemVendor.LocalCurrency = localCurrency;
+            itemVendor.ExchangeRate = exchangeRate;
 
             _context.SaveChanges();
         }
 
-        public void AddItem(Item item)
+        public void AddItem(ItemVendor itemVendor)
         {
             using (var context = new QueenAnneCuriosityShopContext())
             {
-                _context.Items.Add(item);
+                _context.ItemVendors.Add(itemVendor);
                 _context.SaveChanges();
             }
         }

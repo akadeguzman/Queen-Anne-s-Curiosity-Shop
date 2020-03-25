@@ -24,6 +24,21 @@ namespace QAShopWPF.ViewModel.Address
             AddressCount = AddressList.Count;
         }
 
+        public void Sync()
+        {
+            AddressList.Clear();
+
+            var address = _addressService.GetAddresses()
+                .Select(c =>
+                    new AddressViewModel(c)).ToList();
+
+            foreach (var addressViewModel in address)
+            {
+                AddressList.Add(addressViewModel);
+            }
+
+        }
+
 
         public ObservableCollection<AddressViewModel> AddressList { get; }
 

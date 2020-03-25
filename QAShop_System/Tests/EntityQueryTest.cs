@@ -37,7 +37,7 @@ namespace QAShop_System.Tests
 
                 foreach (var item in items)
                 {
-                    Console.WriteLine($"{item.ItemId, 4} {item.ItemDescription, 4} {item.PurchaseDate, 4}");
+                    Console.WriteLine($"{item.ItemId, 4} {item.ItemDescription, 4}");
                 }
             }
         }

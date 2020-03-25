@@ -50,16 +50,13 @@ namespace QAShopWPF.ViewModel.Item
             ItemList.Clear();
 
             var items = _itemService.GetItems().Where(c => c.ItemId.ToString().Contains(searchString) ||
-                                                                      c.ItemDescription.Contains(searchString) ||
-                                                                      c.ItemTypeLink.Type.Contains(searchString) ||
-                                                                      c.City.Contains(searchString) ||
-                                                                      c.ItemAvailabilityLink.Status.Contains(searchString) ||
-                                                                      c.ItemCost.ToString().Contains(searchString));
+                                                           c.ItemDescription.Contains(searchString) ||
+                                                           c.ItemTypeLink.Type.Contains(searchString) ||
+                                                           c.ItemAvailabilityLink.Status.Contains(searchString));
 
             foreach (var item in items)
             {
-                var itemModel = new ItemViewModel(item.ItemId, item.ItemDescription, item.PurchaseDate,
-                    item.ItemCost, item.InventoryQuantity, item.City, item.LocalCurrency, item.ExchangeRate,
+                var itemModel = new ItemViewModel(item.ItemId, item.ItemDescription, item.InventoryQuantity,
                     item.ItemAvailabilityLink.Status, item.ItemTypeLink.Type, item.ItemAvailabilityId, item.ItemTypeId);
                 ItemList.Add(itemModel);
             }
