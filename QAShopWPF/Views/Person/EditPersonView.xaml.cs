@@ -27,8 +27,6 @@ namespace QAShopWPF.Views.Person
 
         private EditPersonViewModel _toEditPerson;
         private PersonListViewModel _personListViewModel;
-        private PersonService _personService;
-        private PersonTypeService _personTypeService;
         private AddressService _addressService;
 
         public EditPersonView(PersonListViewModel personListViewModel, PersonViewModel personViewModel, PersonService personService, PersonTypeService personTypeService, AddressService addressService) : this()
@@ -36,8 +34,6 @@ namespace QAShopWPF.Views.Person
             
             _toEditPerson = new EditPersonViewModel(personViewModel, personService, personTypeService, addressService);
             _personListViewModel = personListViewModel;
-            _personService = personService;
-            _personTypeService = personTypeService;
             _addressService = addressService;
             DataContext = _toEditPerson;
         }

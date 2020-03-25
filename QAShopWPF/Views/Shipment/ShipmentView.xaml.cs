@@ -40,5 +40,24 @@ namespace QAShopWPF.Views.Shipment
             var addShipment = new AddShipmentView(_shipmentListViewModel, _shipmentService, _shipperService);
             addShipment.Show();
         }
+
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DataGrid.SelectedItem == null)
+            {
+                BtnEditShipment.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                BtnEditShipment.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void BtnEditShipment_OnClick(object sender, RoutedEventArgs e)
+        {
+            var editShipment = new EditShipmentView(_shipmentListViewModel, _shipmentListViewModel.SelectedShipment, _shipperService, _shipmentService);
+            editShipment.Show();
+        }
     }
 }

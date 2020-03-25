@@ -92,7 +92,7 @@
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
 					VirtualizingPanel.IsVirtualizing="True"
 					VirtualizingPanel.VirtualizationMode="Standard"
-                    RowHeight="35">
+                    RowHeight="35" SelectionChanged="DataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Path=ShipmentId}" Header="Shipment ID">
                             <DataGridTextColumn.ElementStyle>
@@ -179,28 +179,48 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <Button x:Name="BtnAddShipment"
-                        Grid.Row="2"
-                        HorizontalAlignment="Right"
-                        Height="50"
-                        Width="170"
-                        Margin="10, 10, 10, 0" Click="BtnAddShipment_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon
-                            Kind="LibraryAdd"
-                            VerticalContentAlignment="Center"
-                            Height="20"
-                            Width="20"
-                            Margin="5,0,5,0"/>
-                        <TextBlock Text="Add Shipment"
-                                   VerticalAlignment="Center"/>
 
-                    </StackPanel>
-                </Button>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="BtnEditShipment"
+                            HorizontalAlignment="Right"
+                            Visibility="Collapsed"
+                            Height="40"
+                            Width="100"
+                            Background="White"
+                            BorderBrush="Transparent"
+                            Margin="10, 10, 10, 0" Click="BtnEditShipment_OnClick">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Kind="Edit"
+                                VerticalContentAlignment="Center"
+                                Height="20"
+                                Width="20"
+                                Margin="5,0,5,0"/>
+                            <TextBlock Text="Edit"
+                                       VerticalAlignment="Center"/>
 
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="BtnAddShipment"
+                            HorizontalAlignment="Right"
+                            Height="40"
+                            Width="170"
+                            Margin="10, 10, 10, 0" Click="BtnAddShipment_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Kind="LibraryAdd"
+                                VerticalContentAlignment="Center"
+                                Height="20"
+                                Width="20"
+                                Margin="5,0,5,0"/>
+                            <TextBlock Text="Add Shipment"
+                                       VerticalAlignment="Center"/>
+
+                        </StackPanel>
+                    </Button>
+                    
+                </StackPanel>
             </Grid>
-
-
         </GroupBox>
     </Grid>
 </UserControl>

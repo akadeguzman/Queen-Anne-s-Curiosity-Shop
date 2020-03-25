@@ -24,19 +24,21 @@ namespace ServiceLayer
             string countryOfOrigin,
             string destination,
             string shipperInvoiceNumber,
-            DateTime departureTime,
-            DateTime arrivalTime,
+            DateTime departureDate,
+            DateTime arrivalDate,
             int insuredValue,
-            string insurerName)
+            string insurerName,
+            int shipperId)
         {
             var shipment = _context.Shipments.Find(shipmentId);
             shipment.CountryOfOrigin = countryOfOrigin;
             shipment.Destination = destination;
             shipment.ShipperInvoiceNumber = shipperInvoiceNumber;
-            shipment.DepartureDate = departureTime;
-            shipment.ArrivalDate = arrivalTime;
+            shipment.DepartureDate = departureDate;
+            shipment.ArrivalDate = arrivalDate;
             shipment.InsuredValue = insuredValue;
             shipment.InsurerName = insurerName;
+            shipment.ShipperId = shipperId;
             _context.SaveChanges();
         }
 

@@ -1,0 +1,266 @@
+﻿<Window x:Class="QAShopWPF.Views.Shipment.EditShipmentView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QAShopWPF.Views.Shipment"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Height="700"
+        Width="400"
+        MinWidth="450"
+        MinHeight="700"
+        d:DesignHeight="700">
+    <Grid>
+        <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}">
+            <!--Header-->
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="30"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            Kind="TruckCheck" />
+                        <TextBlock Text="Edit Shipment"
+                                   FontSize="15"
+                                   Margin="15,5,0,5" />
+                    </StackPanel>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+            <!--end Header-->
+
+            <Grid Height="Auto"
+                  Width="Auto">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Margin="10">
+
+                    <TextBlock
+                        Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                        Text="Shipment Information"
+                        Foreground="White"
+                        FontSize="20"
+                        Margin="10,0,0,0"
+                        FontWeight="DemiBold" />
+                    <GridSplitter BorderBrush="White" BorderThickness="1" Width="480" HorizontalAlignment="Center"
+                                  Style="{StaticResource MaterialDesignGridSplitter}"
+                                  Margin="10,0,10,0" />
+
+                    <StackPanel Margin="10,5,10,0">
+                        <StackPanel Margin="0,5,0,0">
+                            <TextBlock
+                                Text="Shipment Invoice No."
+                                FontSize="15"
+                                Foreground="Orange"
+                                FontWeight="Medium"
+                                Margin="0,0,0,3" />
+                            <TextBox
+                                BorderBrush="White" BorderThickness="1"
+                                Padding="3,0,3,0"
+                                Text="{Binding Path=ShipperInvoiceNumber}"
+                                Height="30"
+                                Foreground="White" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Grid Margin="0,0,0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="10,5,5,0" Grid.Column="0">
+                            <TextBlock
+                                Text="Departure Date"
+                                FontSize="15"
+                                Foreground="Orange"
+                                FontWeight="Medium"
+                                Margin="0,0,0,3" />
+                            <TextBox
+                                BorderBrush="White" BorderThickness="1"
+                                Padding="3,0,3,0"
+                                Text="{Binding Path=DepartureDate}"
+                                Height="30"
+                                Foreground="White" />
+                        </StackPanel>
+                        <StackPanel Margin="5,5,10,0" Grid.Column="1">
+                            <TextBlock
+                                Text="Arrival Date"
+                                FontSize="15"
+                                Foreground="Orange"
+                                FontWeight="Medium"
+                                Margin="0,0,0,3" />
+                            <TextBox
+                                BorderBrush="White" BorderThickness="1"
+                                Padding="3,0,3,0"
+                                Text="{Binding Path=ArrivalDate}"
+                                Height="30"
+                                Foreground="White" />
+                        </StackPanel>
+                    </Grid>
+                    <StackPanel Margin="10,5,10,0">
+                        <TextBlock
+                            Text="Country of Origin"
+                            FontSize="15"
+                            Foreground="Orange"
+                            FontWeight="Medium"
+                            Margin="0,0,0,3" />
+                        <TextBox
+                            BorderBrush="White" BorderThickness="1"
+                            Padding="3,0,3,0"
+                            Text="{Binding Path=CountryOfOrigin}"
+                            Height="30"
+                            Foreground="White" />
+
+                    </StackPanel>
+                    <StackPanel Margin="10,5,10,0">
+                        <TextBlock
+                            Text="Destination"
+                            FontSize="15"
+                            Foreground="Orange"
+                            FontWeight="Medium"
+                            Margin="0,0,0,3" />
+                        <TextBox
+                            BorderBrush="White" BorderThickness="1"
+                            Padding="3,0,3,0"
+                            Text="{Binding Path=Destination}"
+                            Height="30"
+                            Foreground="White" />
+
+                    </StackPanel>
+
+                    <StackPanel Margin="10,5,10,0">
+                        <TextBlock
+                            Text="Shipper"
+                            FontSize="15"
+                            Foreground="Orange"
+                            FontWeight="Medium"
+                            Margin="0,0,0,0" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="60" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox
+                                x:Name="CmbAddress"
+                                materialDesign:HintAssist.Hint="Select Type"
+                                HorizontalAlignment="Stretch"
+                                Foreground="White"
+                                BorderBrush="White"
+                                BorderThickness="1"
+
+                                FontSize="15"
+                                Margin="0,2,0,0"
+                                ItemsSource="{Binding Path=Shippers}"
+                                SelectedItem="{Binding Path=SelectedShipper}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Path=ShipperName}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                            <Button
+                                x:Name="BtnAddShipper"
+                                Grid.Column="1"
+                                Width="Auto"
+                                Margin="5"
+                                ToolTip="Add Shipper" Click="BtnAddShipper_Click">
+
+                                <materialDesign:PackIcon
+                                    Kind="Plane" />
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+
+                    <!--Other Shipment Info-->
+                    <StackPanel Margin="0,40,0,0">
+                        <TextBlock
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                            Text="Other Shipment Information"
+                            Foreground="White"
+                            FontSize="20"
+                            Margin="10,0,0,0"
+                            FontWeight="DemiBold" />
+                        <GridSplitter BorderBrush="White" BorderThickness="1" Width="480" HorizontalAlignment="Center"
+                                      Style="{StaticResource MaterialDesignGridSplitter}"
+                                      Margin="10,0,10,0" />
+
+                    </StackPanel>
+
+                    <StackPanel Margin="10,5,10,0">
+                        <TextBlock
+                            Text="Insurer Name"
+                            FontSize="15"
+                            Foreground="Orange"
+                            FontWeight="Medium"
+                            Margin="0,0,0,3" />
+                        <TextBox
+                            BorderBrush="White" BorderThickness="1"
+                            Padding="3,0,3,0"
+                            Text="{Binding Path=InsurerName}"
+                            Height="30"
+                            Foreground="White" />
+
+                    </StackPanel>
+                    <StackPanel Margin="10,5,10,0">
+                        <TextBlock
+                            Text="Insured Value"
+                            FontSize="15"
+                            Foreground="Orange"
+                            FontWeight="Medium"
+                            Margin="0,0,0,3" />
+                        <TextBox
+                            BorderBrush="White" BorderThickness="1"
+                            Padding="3,0,3,0"
+                            Text="{Binding Path=InsuredValue}"
+                            Height="30"
+                            Foreground="White" />
+
+                    </StackPanel>
+
+
+                </StackPanel>
+
+                <!--Buttons-->
+                <DockPanel
+                    Grid.Row="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Margin="5,0,0,5">
+
+                    <Button
+                        x:Name="BtnSaveChanges"
+                        Width="120"
+                        Height="30"
+                        Margin="4"
+                        HorizontalAlignment="Right"
+                        Content="Save Changes"
+                        Style="{StaticResource MaterialDesignRaisedButton}" Click="BtnSaveChanges_OnClick" />
+
+                    <Button
+                        x:Name="BtnCancel"
+                        Width="100"
+                        Height="30"
+                        Margin="4"
+                        HorizontalAlignment="Right"
+                        Content="Cancel"
+                        Style="{StaticResource MaterialDesignFlatButton}" Click="BtnCancel_OnClick" />
+
+                </DockPanel>
+                <!--end Buttons-->
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+
+</Window>

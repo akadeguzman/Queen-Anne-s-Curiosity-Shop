@@ -8,7 +8,6 @@ namespace QAShopWPF.ViewModel.Person
 {
     public class EditPersonViewModel
     {
-        private PersonViewModel _vendorViewModel;
         private PersonService _personService;
         private AddressService _addressService;
         private PersonTypeService _personTypeService;

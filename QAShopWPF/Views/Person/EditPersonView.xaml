@@ -6,9 +6,11 @@
         xmlns:local="clr-namespace:QAShopWPF.Views.Person"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Height="600"
+        Height="610"
         Width="400" 
-        d:DesignHeight="600">
+        MinWidth="400"
+        MinHeight="610"
+        d:DesignHeight="610">
     <Grid>
         <GroupBox Header="Add Person" Style="{DynamicResource MaterialDesignCardGroupBox}">
             <!--Header-->

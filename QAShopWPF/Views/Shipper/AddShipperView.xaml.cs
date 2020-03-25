@@ -25,16 +25,25 @@ namespace QAShopWPF.Views.Shipper
         private AddShipperViewModel _shipperToAdd;
         private ShipperService _shipperService;
         private AddShipmentViewModel _addShipmentViewModel;
-        private ShipperListViewModel _shipperListViewModel;
+        private EditShipmentViewModel _editShipmentViewModel;
 
-        public AddShipperView(ShipperService shipperService, AddShipmentViewModel addShipmentViewModel, ShipperListViewModel shipperListViewModel)
+        public AddShipperView(ShipperService shipperService, AddShipmentViewModel addShipmentViewModel)
         {
             InitializeComponent();
 
             _shipperService = shipperService;
             _addShipmentViewModel = addShipmentViewModel;
-            _shipperListViewModel = shipperListViewModel;
 
+            _shipperToAdd = new AddShipperViewModel(shipperService);
+            DataContext = _shipperToAdd;
+        }
+
+        public AddShipperView(ShipperService shipperService, EditShipmentViewModel editShipmentViewModel)
+        {
+            InitializeComponent();
+
+            _shipperService = shipperService;
+            _editShipmentViewModel = editShipmentViewModel;
 
             _shipperToAdd = new AddShipperViewModel(shipperService);
             DataContext = _shipperToAdd;
@@ -43,10 +52,17 @@ namespace QAShopWPF.Views.Shipper
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             _shipperToAdd.Add();
-           _shipperListViewModel.ShipperList.Insert(0, _shipperToAdd.ShipperViewModel);
-
-            var shipperToAdd = _shipperService.GetShippers().ToList().Last();
-            _addShipmentViewModel.Shippers.Add(shipperToAdd);
+            if (_addShipmentViewModel == null)
+            {
+                var shipperToEdit = _shipperService.GetShippers().ToList().Last();
+                _editShipmentViewModel.Shippers.Add(shipperToEdit);
+            }
+            else
+            {
+                var shipperToAdd = _shipperService.GetShippers().ToList().Last();
+                _addShipmentViewModel.Shippers.Add(shipperToAdd);
+            }
+            
             Close();
         }
 

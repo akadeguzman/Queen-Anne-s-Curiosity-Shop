@@ -56,7 +56,7 @@ namespace QAShopWPF.Views.Shipment
 
         private void BtnAddShipper_Click(object sender, RoutedEventArgs e)
         {
-            var addShipperWindow = new AddShipperView(_shipperService, _shipmentToAdd, _shipperListViewModel);
+            var addShipperWindow = new AddShipperView(_shipperService, _shipmentToAdd);
             addShipperWindow.Show();
         }
     }

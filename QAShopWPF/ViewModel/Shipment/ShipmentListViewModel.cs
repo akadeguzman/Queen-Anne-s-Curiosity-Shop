@@ -24,7 +24,20 @@ namespace QAShopWPF.ViewModel.Shipment
             ShipmentList = new ObservableCollection<ShipmentViewModel>(shipment);
 
         }
+        public void Sync()
+        {
+            ShipmentList.Clear();
 
+            var shipments = _shipmentService.GetShipments()
+                .Select(c =>
+                    new ShipmentViewModel(c)).ToList();
+
+            foreach (var shipment in shipments)
+            {
+                ShipmentList.Add(shipment);
+            }
+
+        }
 
         public ObservableCollection<ShipmentViewModel> ShipmentList { get; }
 

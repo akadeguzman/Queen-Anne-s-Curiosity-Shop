@@ -57,11 +57,17 @@ namespace QAShopWPF.Views.Address
             _addressToAdd.Add();
 
             //refreshing new the combo box items
-            var addressToAdd = _addressService.GetAddresses().ToList().Last();
-            _addPersonViewModel.Address.Add(addressToAdd);
-
-            var addressToEdit = _addressService.GetAddresses().ToList().Last();
-            _editPersonViewModel.Addresses.Add(addressToEdit);
+            if (_addPersonViewModel == null)
+            {
+                var addressToEdit = _addressService.GetAddresses().ToList().Last();
+                _editPersonViewModel.Addresses.Add(addressToEdit);
+            }
+            else
+            {
+                var addressToAdd = _addressService.GetAddresses().ToList().Last();
+                _addPersonViewModel.Address.Add(addressToAdd);
+            }
+            
             Close();
         }
 

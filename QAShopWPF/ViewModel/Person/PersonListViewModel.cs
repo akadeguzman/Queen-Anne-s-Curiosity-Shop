@@ -31,13 +31,13 @@ namespace QAShopWPF.ViewModel.Person
         {
             PersonList.Clear();
 
-            var vendor = _personService.GetPersons()
+            var persons = _personService.GetPersons()
                 .Select(c =>
                     new PersonViewModel(c)).ToList();
 
-            foreach (var vendorViewModel in vendor)
+            foreach (var person in persons)
             {
-                PersonList.Add(vendorViewModel);
+                PersonList.Add(person);
             }
 
         }
