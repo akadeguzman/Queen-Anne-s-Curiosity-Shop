@@ -4,9 +4,9 @@ using QAShop_System.EfClasses;
 
 namespace QAShop_System.EfCodes.Configurations
 {
-    public class TransactionItemVendorConfig : IEntityTypeConfiguration<TransactionItemVendor>
+    public class TransactionItemVendorConfig : IEntityTypeConfiguration<TransactionItem>
     {
-        public void Configure(EntityTypeBuilder<TransactionItemVendor> builder)
+        public void Configure(EntityTypeBuilder<TransactionItem> builder)
         {
             builder.ToTable("TransactionItemVendor");
 

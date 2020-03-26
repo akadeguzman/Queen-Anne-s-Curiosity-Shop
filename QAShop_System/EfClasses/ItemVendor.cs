@@ -19,6 +19,6 @@ namespace QAShop_System.EfClasses
         public Item ItemLink { get; set; }
 
         public ICollection<ShipmentItemVendor> ShipmentItemVendors { get; set; }
-        public ICollection<TransactionItemVendor> TransactionItemVendors { get; set; }
+        public ICollection<TransactionItem> TransactionItemVendors { get; set; }
     }
 }

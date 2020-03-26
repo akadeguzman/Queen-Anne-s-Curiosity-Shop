@@ -15,7 +15,7 @@ using QAShopWPF.Annotations;
 
 namespace QAShopWPF.ViewModel.Transaction
 {
-    public class AddTransactionViewModel : INotifyPropertyChanged
+    public class AddTransactionViewModel
     {
         private readonly TransactionListViewModel _transactionListViewModel;
         private TransactionService _transactionService;
@@ -24,65 +24,40 @@ namespace QAShopWPF.ViewModel.Transaction
         {
             var blankTransaction = new QAShop_System.EfClasses.Transaction();
             TransactionViewModel = new TransactionViewModel(blankTransaction.TransactionId, blankTransaction.InvoiceNumber, blankTransaction.TransactionDate,
-                blankTransaction.Total, "","", blankTransaction.PersonId, blankTransaction.TransactionTypeId);
+                blankTransaction.Subtotal, blankTransaction.Tax, blankTransaction.Total, "", "", blankTransaction.PersonId, blankTransaction.TransactionTypeId);
             
             _transactionService = transactionService;
 
             Persons = new ObservableCollection<QAShop_System.EfClasses.Person>(personService.GetPersons());
-            SelectedPerson = Persons.First();
-
+            
             TransactionTypes = new ObservableCollection<TransactionType>(transactionTypeService.GetTransactionTypes());
 
-            TransactionItemVendors = new ObservableCollection<TransactionItemVendorViewModel>();
+            TransactionItems = new ObservableCollection<TransactionItemViewModel>();
         }
 
         public TransactionViewModel TransactionViewModel { get; }
 
         public ObservableCollection<QAShop_System.EfClasses.Person> Persons { get; }
         public ObservableCollection<TransactionType> TransactionTypes { get; }
-        public ObservableCollection<TransactionItemVendorViewModel> TransactionItemVendors { get; }
+        public ObservableCollection<TransactionItemViewModel> TransactionItems { get; }
 
         public QAShop_System.EfClasses.Person SelectedPerson { get; set; }
-
         public TransactionType SelectedTransactionType { get; set; }
 
-        private string _invoiceNumber;
-        public string InvoiceNumber
-        {
-            get => _invoiceNumber;
-            set
-            {
-                _invoiceNumber = value;
-                OnPropertyChanged(nameof(InvoiceNumber));
-            }
+        public string InvoiceNumber { get; set; }
+        public DateTime TransactionDate { get; set; } = DateTime.Now;
 
-        }
-        public DateTime TransactionDate { get; set; }
-
-        private int _total;
-        public int Total
-        {
-            get
-            {
-                foreach (var transactionItemVendor in TransactionItemVendors)
-                {
-                    _total += transactionItemVendor.Total;
-                }
-
-                return _total;
-            }
-            set
-            {
-                _total = value; 
-                OnPropertyChanged(nameof(Total));
-            }
-        }
+        public int? Subtotal { get; set; }
+        public int? Tax { get; set; }
+        public int? Total { get; set; }
 
         public void Add()
         {
             var transactionToAdd = new QAShop_System.EfClasses.Transaction();
             transactionToAdd.InvoiceNumber = InvoiceNumber;
             transactionToAdd.TransactionDate = TransactionDate;
+            transactionToAdd.Subtotal = Subtotal;
+            transactionToAdd.Tax = Tax;
             transactionToAdd.Total = Total;
             transactionToAdd.PersonId = SelectedPerson.PersonId;
             transactionToAdd.TransactionTypeId = SelectedTransactionType.TransactionTypeId;
@@ -92,6 +67,8 @@ namespace QAShopWPF.ViewModel.Transaction
             TransactionViewModel.TransactionId = transactionToAdd.TransactionId;
             TransactionViewModel.InvoiceNumber = transactionToAdd.InvoiceNumber;
             TransactionViewModel.TransactionDate = transactionToAdd.TransactionDate;
+            TransactionViewModel.Subtotal = transactionToAdd.Subtotal;
+            TransactionViewModel.Tax = transactionToAdd.Tax;
             TransactionViewModel.Total = transactionToAdd.Total;
 
             TransactionViewModel.PersonId = transactionToAdd.PersonId;
@@ -103,12 +80,5 @@ namespace QAShopWPF.ViewModel.Transaction
 
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

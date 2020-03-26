@@ -9,7 +9,10 @@ namespace QAShop_System.EfClasses
         public int TransactionId { get; set; }
         public string InvoiceNumber { get; set; }
         public DateTime TransactionDate { get; set; }
-        public int Total { get; set; }
+
+        public int? Subtotal { get; set; }
+        public int? Tax { get; set; }
+        public int? Total { get; set; }
         
         public int PersonId { get; set; }
         public Person PersonLink { get; set; }
@@ -17,6 +20,6 @@ namespace QAShop_System.EfClasses
         public int TransactionTypeId { get; set; }
         public TransactionType TransactionTypeLink { get; set; }
         
-        public ICollection<TransactionItemVendor> TransactionItemVendors { get; set; }
+        public ICollection<TransactionItem> TransactionItems { get; set; }
     }
 }

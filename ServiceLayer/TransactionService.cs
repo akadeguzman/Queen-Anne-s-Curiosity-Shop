@@ -32,13 +32,17 @@ namespace ServiceLayer
 
         public void UpdateTransaction(int transactionId,
             string invoiceNumber,
-            DateTime transactionDate,
-            int total)
+            DateTime transactionDate, int? subtotal, int? tax,
+            int? total, int personId, int transactionTypeId)
         {
             var transaction = _context.Transactions.Find(transactionId);
             transaction.InvoiceNumber = invoiceNumber;
             transaction.TransactionDate = transactionDate;
+            transaction.Subtotal = subtotal;
+            transaction.Tax = tax;
             transaction.Total = total;
+            transaction.PersonId = personId;
+            transaction.TransactionTypeId = transactionTypeId;
 
             _context.SaveChanges();
         }

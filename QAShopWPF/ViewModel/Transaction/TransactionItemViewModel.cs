@@ -3,8 +3,9 @@ using QAShop_System.EfClasses;
 
 namespace QAShopWPF.ViewModel.Transaction
 {
-    public class TransactionItemVendorViewModel : ObservableObject
+    public class TransactionItemViewModel : ObservableObject
     {
+        //TODO: Update this
         private int _transactionItemVendorId;
         private int _quantity;
         private int _subtotal;
@@ -96,7 +97,7 @@ namespace QAShopWPF.ViewModel.Transaction
 
         public int ItemVendorId { get; set; }
 
-        public TransactionItemVendorViewModel(int transactionItemVendorId, 
+        public TransactionItemViewModel(int transactionItemVendorId, 
             int quantity,int subtotal, 
             int tax, int total, string transactionInvoiceNumber, int itemVendorId)
         {
@@ -109,7 +110,7 @@ namespace QAShopWPF.ViewModel.Transaction
             ItemVendorId = itemVendorId;
         }
 
-        public TransactionItemVendorViewModel(TransactionItemVendor transactionItemVendor)
+        public TransactionItemViewModel(TransactionItem transactionItemVendor)
         {
             TransactionItemVendorId = transactionItemVendor.TransactionItemVendorId;
             Quantity = transactionItemVendor.Quantity;

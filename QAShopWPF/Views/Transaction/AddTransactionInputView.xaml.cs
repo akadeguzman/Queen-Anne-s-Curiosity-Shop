@@ -8,19 +8,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace QAShopWPF.Views.Transaction
 {
     /// <summary>
-    /// Interaction logic for TransactionItemVendorView.xaml
+    /// Interaction logic for AddTransactionInputView.xaml
     /// </summary>
-    public partial class TransactionItemVendorView : UserControl
+    public partial class AddTransactionInputView : Window
     {
-        public TransactionItemVendorView()
+        public AddTransactionInputView()
         {
             InitializeComponent();
+        }
+
+        private void BtnProceed_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

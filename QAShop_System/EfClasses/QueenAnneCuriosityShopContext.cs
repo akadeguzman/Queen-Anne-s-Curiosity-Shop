@@ -17,7 +17,7 @@ namespace QAShop_System.EfClasses
         public DbSet<Shipment> Shipments { get; set; }
         public DbSet<ShipmentItemVendor> ShipmentItemVendors { get; set; }
         public DbSet<Shipper> Shippers { get; set; }
-        public DbSet<TransactionItemVendor> TransactionItemVendors { get; set; }
+        public DbSet<TransactionItem> TransactionItemVendors { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionType> TransactionTypes { get; set; }
         public DbSet<ItemVendor> ItemVendors { get; set; }

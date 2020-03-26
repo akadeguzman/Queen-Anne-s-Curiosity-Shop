@@ -26,9 +26,9 @@ namespace QAShopWPF.Views.Transaction
         private PersonService _personService;
         private ItemVendorService _itemVendorService;
         private TransactionListViewModel _transactionListViewModel;
-        private TransactionItemVendorService _transactionItemVendorService;
+        private TransactionItemService _transactionItemVendorService;
 
-        public TransactionView(TransactionService transactionService, TransactionTypeService transactionTypeService, PersonService personService, ItemVendorService itemVendorService, TransactionItemVendorService transactionItemVendorService)
+        public TransactionView(TransactionService transactionService, TransactionTypeService transactionTypeService, PersonService personService, ItemVendorService itemVendorService, TransactionItemService transactionItemVendorService)
         {
             _transactionService = transactionService;
             _transactionTypeService = transactionTypeService;

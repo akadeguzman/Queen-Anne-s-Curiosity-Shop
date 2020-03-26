@@ -30,7 +30,7 @@ namespace QAShopWPF
     {
         private AddressService _addressService;
         private TransactionService _transactionService;
-        private TransactionItemVendorService _transactionItemVendorService;
+        private TransactionItemService _transactionItemVendorService;
         private TransactionTypeService _transactionTypeService;
         private PersonService _personService;
         private PersonTypeService _personTypeService;
@@ -54,7 +54,7 @@ namespace QAShopWPF
             //Services
             _addressService = new AddressService(context);
             _transactionService = new TransactionService(context);
-            _transactionItemVendorService = new TransactionItemVendorService(context);
+            _transactionItemVendorService = new TransactionItemService(context);
             _transactionTypeService = new TransactionTypeService(context);
             _personService = new PersonService(context);
             _personTypeService = new PersonTypeService(context);
