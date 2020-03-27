@@ -4,17 +4,17 @@ using QAShop_System.EfClasses;
 
 namespace QAShop_System.EfCodes.Configurations
 {
-    public class TransactionItemVendorConfig : IEntityTypeConfiguration<TransactionItem>
+    public class TransactionItemConfig : IEntityTypeConfiguration<TransactionItem>
     {
         public void Configure(EntityTypeBuilder<TransactionItem> builder)
         {
-            builder.ToTable("TransactionItemVendor");
+            builder.ToTable("TransactionItem");
 
-            builder.HasKey(c => c.TransactionItemVendorId);
-            builder.Property(c => c.TransactionItemVendorId).ValueGeneratedOnAdd();
+            builder.HasKey(c => c.TransactionItemId);
+            builder.Property(c => c.TransactionItemId).ValueGeneratedOnAdd();
             
             builder.HasOne(c => c.ItemVendorLink)
-                .WithMany(c => c.TransactionItemVendors)
+                .WithMany(c => c.TransactionItems)
                 .HasForeignKey(c => c.ItemVendorId);
         }
     }

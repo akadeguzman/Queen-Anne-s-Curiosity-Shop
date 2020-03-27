@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using QAShop_System.EfClasses;
+using QAShopWPF.ViewModel.Vendor;
 using ServiceLayer;
 
 namespace QAShopWPF.ViewModel.Item
@@ -8,8 +10,6 @@ namespace QAShopWPF.ViewModel.Item
     public class AddItemVendorViewModel
     {
         private ItemVendorService _itemVendorService;
-        private ItemService _itemService;
-        private VendorService _vendorService;
 
         public AddItemVendorViewModel(ItemVendorService itemVendorService, ItemService itemService, VendorService vendorService)
         {
@@ -17,21 +17,20 @@ namespace QAShopWPF.ViewModel.Item
             ItemVendorViewModel = new ItemVendorViewModel(blankItemVendor.ItemVendorId, blankItemVendor.Price, blankItemVendor.PurchaseDate,
                 blankItemVendor.City, blankItemVendor.LocalCurrency, blankItemVendor.ExchangeRate, blankItemVendor.ItemVendorId, blankItemVendor.ItemId, "", "" );
 
-            _itemService = itemService;
-            _vendorService = vendorService;
+            _itemVendorService = itemVendorService;
 
-            Items = new ObservableCollection<QAShop_System.EfClasses.Item>(_itemService.GetItems());
+            Items = new ObservableCollection<ItemViewModel>(itemService.GetItems().Select(c=>new ItemViewModel(c)));
 
-            Vendors = new ObservableCollection<QAShop_System.EfClasses.Vendor>(_vendorService.GetVendors());
+            Vendors = new ObservableCollection<VendorViewModel>(vendorService.GetVendors().Select(c=>new VendorViewModel(c)));
         }
 
         public ItemVendorViewModel ItemVendorViewModel { get; }
 
-        public ObservableCollection<QAShop_System.EfClasses.Item> Items { get; }
-        public ObservableCollection<QAShop_System.EfClasses.Vendor> Vendors { get; }
+        public ObservableCollection<ItemViewModel> Items { get; }
+        public ObservableCollection<VendorViewModel> Vendors { get; }
 
-        public QAShop_System.EfClasses.Item SelectedItem { get; set; }
-        public QAShop_System.EfClasses.Vendor SelectedVendor { get; set; }
+        public ItemViewModel SelectedItem { get; set; }
+        public VendorViewModel SelectedVendor { get; set; }
 
         public int Price { get; set; }
         public DateTime PurchaseDate { get; set; }

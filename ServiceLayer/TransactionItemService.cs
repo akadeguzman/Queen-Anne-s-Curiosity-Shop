@@ -16,7 +16,7 @@ namespace ServiceLayer
 
         public IQueryable<TransactionItem> GetTransactionItems()
         {
-            return _context.TransactionItemVendors
+            return _context.TransactionItems
                 .Include(c => c.ItemVendorLink);
         }
 
@@ -24,14 +24,14 @@ namespace ServiceLayer
         {
             using (var context = new QueenAnneCuriosityShopContext())
             {
-                _context.TransactionItemVendors.Add(transactionItemVendor);
+                _context.TransactionItems.Add(transactionItemVendor);
                 _context.SaveChanges();
             }
         }
         
         public void DeleteTransactionItem(int transactionItemVendorId)
         {
-            _context.TransactionItemVendors.Remove(_context.TransactionItemVendors.Find(transactionItemVendorId));
+            _context.TransactionItems.Remove(_context.TransactionItems.Find(transactionItemVendorId));
             _context.SaveChanges();
         }
     }

@@ -25,6 +25,20 @@ namespace QAShopWPF.ViewModel.Item
             ItemList = new ObservableCollection<ItemViewModel>(item);
         }
 
+        public void Sync()
+        {
+            ItemList.Clear();
+
+            var items = _itemService.GetItems()
+                .Select(c =>
+                    new ItemViewModel(c)).ToList();
+
+            foreach (var item in items)
+            {
+                ItemList.Add(item);
+            }
+
+        }
 
         public ObservableCollection<ItemViewModel> ItemList { get; }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using QAShopWPF.ViewModel.Item;
 using QAShopWPF.ViewModel.Person;
+using QAShopWPF.ViewModel.Transaction;
 using ServiceLayer;
 
 namespace QAShopWPF.Views.Item
@@ -22,6 +24,8 @@ namespace QAShopWPF.Views.Item
     {
         private AddItemViewModel _ItemToAdd;
         private ItemListViewModel _itemListViewModel;
+        private AddItemVendorViewModel _addItemVendorViewModel;
+        private ItemService _itemService;
 
         public AddNewItemView(ItemListViewModel itemListViewModel, ItemService itemService, ItemAvailabilityService itemAvailabilityService, ItemTypeService itemTypeService)
         {
@@ -32,10 +36,29 @@ namespace QAShopWPF.Views.Item
             DataContext = _ItemToAdd;
         }
 
+        public AddNewItemView(ItemService itemService, ItemAvailabilityService itemAvailabilityService, ItemTypeService itemTypeService, AddItemVendorViewModel addItemVendorViewModel)
+        {
+            InitializeComponent();
+            _addItemVendorViewModel = addItemVendorViewModel;
+            _ItemToAdd = new AddItemViewModel(itemService, itemAvailabilityService, itemTypeService);
+
+            DataContext = _ItemToAdd;
+        }
+
         private void BtnAddItem_Click(object sender, RoutedEventArgs e)
         {
             _ItemToAdd.Add();
-            _itemListViewModel.ItemList.Insert(0, _ItemToAdd.ItemViewModel);
+
+            if (_itemListViewModel != null)
+            {
+                _itemListViewModel.ItemList.Insert(0, _ItemToAdd.ItemViewModel);
+            }
+            else
+            {
+                var itemVendor = _itemService.GetItems().Select(c => new ItemViewModel(c)).Last();
+                _addItemVendorViewModel.Items.Add(itemVendor);
+            }
+            
             Close();
         }
 

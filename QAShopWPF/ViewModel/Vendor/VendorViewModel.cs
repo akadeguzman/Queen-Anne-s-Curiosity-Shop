@@ -13,6 +13,7 @@ namespace QAShopWPF.ViewModel.Vendor
         private int _vendorId;
         private string _firstName;
         private string _lastName;
+        private string _fullName;
         private string _contactNumber;
         [CanBeNull] private string _companyName;
 
@@ -60,6 +61,17 @@ namespace QAShopWPF.ViewModel.Vendor
 
         }
 
+        public string FullName
+        {
+            get => _fullName;
+            internal set
+            {
+                _fullName = value;
+                RaisePropertyChanged(nameof(FullName));
+            }
+
+        }
+
         [CanBeNull]
         public string CompanyName
         {
@@ -87,7 +99,8 @@ namespace QAShopWPF.ViewModel.Vendor
             FirstName = vendor.FirstName;
             LastName = vendor.LastName;
             ContactNumber = vendor.ContactNumber;
-            CompanyName = vendor.CompanyName;
+            CompanyName = vendor.CompanyName ?? $"(None/Individual)";
+            FullName = vendor.GetFullName();
         }
 
         #endregion

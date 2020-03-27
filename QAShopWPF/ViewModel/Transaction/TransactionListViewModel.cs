@@ -29,6 +29,20 @@ namespace QAShopWPF.ViewModel.Transaction
             TransactionList = new ObservableCollection<TransactionViewModel>(person);
         }
 
+        public void Sync()
+        {
+            TransactionList.Clear();
+
+            var transactions = _transactionService.GetTransactions()
+                .Select(c =>
+                    new TransactionViewModel(c)).ToList();
+
+            foreach (var transaction in transactions)
+            {
+                TransactionList.Add(transaction);
+            }
+
+        }
 
         public ObservableCollection<TransactionViewModel> TransactionList { get; }
         
@@ -63,9 +77,9 @@ namespace QAShopWPF.ViewModel.Transaction
 
             foreach (var transaction in transactions)
             {
-                var transactionModel = new TransactionViewModel(transaction.TransactionId, transaction.InvoiceNumber, 
-                    transaction.TransactionDate, transaction.Total, transaction.PersonLink.GetFullName(), transaction.TransactionTypeLink.Type,
-                    transaction.PersonId, transaction.TransactionTypeId);
+                var transactionModel = new TransactionViewModel(transaction.TransactionId, transaction.InvoiceNumber,
+                    transaction.TransactionDate, transaction.PersonLink.AdditionalContactLink.GetFullName(),transaction.Subtotal, transaction.Tax, transaction.Total, transaction.PersonLink.GetFullName(),
+                    transaction.TransactionTypeLink.Type, transaction.PersonId, transaction.TransactionTypeId);
 
                 TransactionList.Add(transactionModel);
             }

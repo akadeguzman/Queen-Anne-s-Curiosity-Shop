@@ -10,7 +10,8 @@
         Width="1080" 
         Title="Queen Anne's Curiosity Shop"
         Foreground="Black" 
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
     
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
@@ -105,14 +106,18 @@
                             <TextBlock Text="Items" FontWeight="DemiBold" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
+                    <ListViewItem x:Name="PurchasedItems" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="PackageVariant" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
+                            <TextBlock Text="Purchased Items" FontWeight="DemiBold" VerticalAlignment="Center"  Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
                     <ListViewItem x:Name="Procurement" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ScriptText" Height="25" Width="25" Margin="10" Foreground="#490b00"/>
                             <TextBlock Text="Procurements" FontWeight="DemiBold" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
-
-                    <!--TODO: Add vendor's tab-->
 
                     <ListViewItem x:Name="Vendor" Height="60">
                         <StackPanel Orientation="Horizontal">

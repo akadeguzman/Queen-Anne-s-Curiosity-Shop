@@ -44,8 +44,8 @@ namespace QAShopWPF.Views.Transaction
 
         private void BtnAddTransaction_Click(object sender, RoutedEventArgs e)
         {
-            var addTransaction = new AddNewTransactionView(_transactionService, _transactionTypeService, _personService, _itemVendorService, _transactionItemVendorService);
-            addTransaction.Show();
+            var addTransactionInput = new AddTransactionInputView(_transactionListViewModel, _transactionService, _transactionTypeService, _personService);
+            addTransactionInput.Show();
         }
     }
 }

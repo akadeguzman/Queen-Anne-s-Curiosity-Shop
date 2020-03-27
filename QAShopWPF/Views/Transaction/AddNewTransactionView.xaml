@@ -6,11 +6,9 @@
         xmlns:local="clr-namespace:QAShopWPF.Views.Transaction"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Height="635"
+        Height="700"
         Width="750"
-        WindowStartupLocation="CenterScreen"
-        d:DesignHeight="635"
-        d:DesignWidth="750">
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <GroupBox Header="Add Transaction" Style="{DynamicResource MaterialDesignCardGroupBox}">
             <!--Header-->
@@ -33,139 +31,73 @@
             <Grid Height="Auto"
                   Width="Auto">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="70" />
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Margin="5">
+                <Grid Grid.Row="0" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="320" />
+                    </Grid.ColumnDefinitions>
 
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="300" />
-                        </Grid.ColumnDefinitions>
+                    <!--LEFT SIDE-->
+                    <StackPanel Grid.Column="0">
+                        <TextBlock
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                            Text="Transaction Details"
+                            Foreground="White"
+                            FontSize="20"
+                            Margin="10,0,0,0"
+                            FontWeight="DemiBold" />
+                        <GridSplitter BorderBrush="White" BorderThickness="1" HorizontalAlignment="Stretch"
+                                      Style="{StaticResource MaterialDesignGridSplitter}"
+                                      Margin="10,0,10,0" />
 
-                        <StackPanel Grid.Column="0">
+                        <StackPanel Margin="10,12,10,0">
                             <TextBlock
-                                Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                                Text="Transaction Details"
-                                Foreground="White"
-                                FontSize="20"
-                                Margin="10,0,0,0"
-                                FontWeight="DemiBold" />
-                            <GridSplitter BorderBrush="White" BorderThickness="1" Width="480"
-                                          HorizontalAlignment="Center"
-                                          Style="{StaticResource MaterialDesignGridSplitter}"
-                                          Margin="10,0,10,0" />
+                                Text="Invoice Number"
+                                FontSize="15"
+                                Foreground="Orange"
+                                FontWeight="Medium"
+                                Margin="0,0,0,3" />
+                            <TextBox
+                                BorderBrush="White" BorderThickness="1"
+                                Padding="3,0,3,0"
+                                Text="{Binding Path=InvoiceNumber, UpdateSourceTrigger=PropertyChanged}"
+                                Height="30"
+                                Foreground="White" />
+                        </StackPanel>
 
-                            <StackPanel Margin="10,12,10,0">
-                                <TextBlock
-                                    Text="Invoice Number"
-                                    FontSize="15"
-                                    Foreground="Orange"
-                                    FontWeight="Medium"
-                                    Margin="0,0,0,3" />
-                                <TextBox
-                                    BorderBrush="White" BorderThickness="1"
-                                    Padding="3,0,3,0"
-                                    Text="{Binding Path=InvoiceNumber, UpdateSourceTrigger=PropertyChanged}"
-                                    Height="30"
-                                    Foreground="White" />
-                            </StackPanel>
+                        <StackPanel Margin="10,5,10,0">
+                            <TextBlock
+                                Text="Customer"
+                                FontSize="15"
+                                Foreground="Orange"
+                                FontWeight="Medium"
+                                Margin="0,0,0,0" />
 
-                            <StackPanel Margin="10,5,10,0">
-                                <TextBlock
-                                    Text="Customer"
-                                    FontSize="15"
-                                    Foreground="Orange"
-                                    FontWeight="Medium"
-                                    Margin="0,0,0,0" />
-
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="60" />
-                                    </Grid.ColumnDefinitions>
-                                    <ComboBox
-                                        materialDesign:HintAssist.Hint="Select Customer"
-                                        HorizontalAlignment="Stretch"
-                                        Foreground="White"
-                                        BorderBrush="White"
-                                        BorderThickness="1"
-                                        FontSize="15"
-                                        Margin="0,2,0,0"
-                                        Grid.Column="0"
-                                        ItemsSource="{Binding Path=Persons}"
-                                        SelectedItem="{Binding Path=SelectedPerson, UpdateSourceTrigger=PropertyChanged}"
-                                        SelectionChanged="ComboBox_SelectionChanged">
-                                        <ComboBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Path=LastName, StringFormat={}{0} }" />
-                                                    <TextBlock Text="{Binding Path=FirstName, StringFormat={} {0}}" />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ComboBox.ItemTemplate>
-                                        <ComboBox.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <VirtualizingStackPanel />
-                                            </ItemsPanelTemplate>
-                                        </ComboBox.ItemsPanel>
-                                    </ComboBox>
-                                    <Button
-                                        Grid.Column="1"
-                                        Width="Auto"
-                                        Margin="5"
-                                        Command="{Binding }"
-                                        ToolTip="New Customer">
-
-                                        <materialDesign:PackIcon
-                                            Kind="PersonAdd" />
-                                    </Button>
-
-                                </Grid>
-
-                                <StackPanel Margin="0,10,0,0">
-                                    <TextBlock
-                                        Text="Purchase Date"
-                                        FontSize="15"
-                                        Foreground="Orange"
-                                        FontWeight="Medium"
-                                        Margin="0,0,0,3" />
-                                    <DatePicker BorderBrush="White" BorderThickness="1"
-                                                Padding="3,0,3,0"
-                                                Text="{Binding Path=TransactionDate}"
-                                                Height="30"
-                                                Foreground="White" />
-
-                                </StackPanel>
-
-                            </StackPanel>
-
-
-                            <StackPanel Margin="10,10,10,0">
-                                <TextBlock
-                                    Text="Transaction Type"
-                                    FontSize="15"
-                                    Foreground="Orange"
-                                    FontWeight="Medium"
-                                    Margin="0,0,0,0" />
-
-
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="60" />
+                                </Grid.ColumnDefinitions>
                                 <ComboBox
-                                    materialDesign:HintAssist.Hint="Select Type"
+                                    materialDesign:HintAssist.Hint="Select Customer"
                                     HorizontalAlignment="Stretch"
                                     Foreground="White"
                                     BorderBrush="White"
                                     BorderThickness="1"
-
                                     FontSize="15"
                                     Margin="0,2,0,0"
-                                    ItemsSource="{Binding TransactionTypes}"
-                                    SelectedItem="{Binding SelectedTransactionType}">
+                                    Grid.Column="0"
+                                    ItemsSource="{Binding Path=Persons}"
+                                    SelectedItem="{Binding Path=SelectedPerson, UpdateSourceTrigger=PropertyChanged}">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding Path=Type}" />
+                                                <TextBlock Text="{Binding Path=LastName, StringFormat={}{0} }" />
+                                                <TextBlock Text="{Binding Path=FirstName, StringFormat={} {0}}" />
                                             </StackPanel>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
@@ -175,91 +107,437 @@
                                         </ItemsPanelTemplate>
                                     </ComboBox.ItemsPanel>
                                 </ComboBox>
-                            </StackPanel>
+                                <Button
+                                    Grid.Column="1"
+                                    Width="Auto"
+                                    Margin="5"
+                                    Command="{Binding }"
+                                    ToolTip="New Customer">
 
+                                    <materialDesign:PackIcon
+                                        Kind="PersonAdd" />
+                                </Button>
+
+                            </Grid>
+
+                            <StackPanel Margin="0,10,0,0">
+                                <TextBlock
+                                    Text="Transaction Date"
+                                    FontSize="15"
+                                    Foreground="Orange"
+                                    FontWeight="Medium"
+                                    Margin="0,0,0,3" />
+                                <DatePicker BorderBrush="White" BorderThickness="1"
+                                            Padding="3,0,3,0"
+                                            Text="{Binding Path=TransactionDate}"
+                                            Height="30"
+                                            Foreground="White" />
+
+                            </StackPanel>
 
                         </StackPanel>
 
 
-                        <!--RIGHT SIDE-->
-                        <Grid Grid.Column="1" Margin="10,10,0,0">
-                            <StackPanel Margin="0,30,0,0">
-                                <TextBlock
-                                    Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                                    Text="Transaction Summary"
-                                    Foreground="White"
-                                    FontSize="20"
+                        <StackPanel Margin="10,10,10,0">
+                            <TextBlock
+                                Text="Transaction Type"
+                                FontSize="15"
+                                Foreground="Orange"
+                                FontWeight="Medium"
+                                Margin="0,0,0,0" />
+
+
+                            <ComboBox
+                                materialDesign:HintAssist.Hint="Select Type"
+                                HorizontalAlignment="Stretch"
+                                Foreground="White"
+                                BorderBrush="White"
+                                BorderThickness="1"
+
+                                FontSize="15"
+                                Margin="0,2,0,0"
+                                ItemsSource="{Binding TransactionTypes}"
+                                SelectedItem="{Binding SelectedTransactionType}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Path=Type}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                        </StackPanel>
+
+
+                    </StackPanel>
+
+
+                    <!--RIGHT SIDE-->
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                        <GroupBox >
+                            <GroupBox.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                               Text="Transaction Summary:"
+                                               FontSize="20"
+                                               FontWeight="Bold"
+                                               >
+                                        <TextBlock.TextDecorations>
+                                            <TextDecoration/>
+                                        </TextBlock.TextDecorations>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GroupBox.HeaderTemplate>
+
+                            <Grid Margin="0,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock
+                                    Text="Name :"
+                                    FontSize="15"
+                                    Foreground="Orange"
+                                    FontWeight="Medium" />
+                                    <TextBlock
+                                    Margin="0,5,0,0"
+                                    Text="Additional Contact:"
+                                    FontSize="15"
+                                    Foreground="Orange"
+                                    FontWeight="Medium" />
+                                    <TextBlock
+                                    Margin="0,5,0,0"
+                                    Text="Invoice Number :"
+                                    FontSize="15"
+                                    Foreground="Orange"
+                                    FontWeight="Medium" />
+                                    <TextBlock
+                                    Margin="0,5,0,0"
+                                    Text="Transaction Date :"
+                                    FontSize="15"
+                                    Foreground="Orange"
+                                    FontWeight="Medium" />
+                                    <TextBlock
+                                    Margin="0,5,0,0"
+                                    Text="Type :"
+                                    FontSize="15"
+                                    Foreground="Orange"
+                                    FontWeight="Medium" />
+
+
+                                    <TextBlock
+                                    Margin="0,25,0,0"
+                                    Text="Subtotal :"
+                                    FontSize="15"
+                                    Foreground="Orange"
+                                    FontWeight="Medium" />
+                                    <TextBlock
+                                    Margin="0,5,0,0"
+                                    Text="Tax :"
+                                    FontSize="15"
+                                    Foreground="Orange"
+                                    FontWeight="Medium" />
+                                    <TextBlock
+                                    Margin="0,5,0,0"
+                                    Text="TOTAL :"
+                                    FontSize="25"
+                                    Foreground="Orange"
+                                    FontWeight="Bold" />
+
+
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+
+                                    <TextBlock
+                                    Padding="3,0,3,0"
                                     Margin="10,0,0,0"
-                                    FontWeight="DemiBold" />
-                                <GridSplitter BorderBrush="White" BorderThickness="1" Width="750"
-                                              HorizontalAlignment="Center"
-                                              Style="{StaticResource MaterialDesignGridSplitter}"
-                                              Margin="10,0,10,0" />
+                                    FontSize="15"
+                                    Text="{Binding Path=Person, UpdateSourceTrigger=PropertyChanged}"
+                                    Height="Auto"
+                                    Foreground="White" />
+                                    <TextBlock
+                                    Padding="3,0,3,0"
+                                    Margin="10,5,0,0"
+                                    FontSize="15"
+                                    Text="{Binding Path=AdditionalContact, UpdateSourceTrigger=PropertyChanged}"
+                                    Height="Auto"
+                                    Foreground="White" />
+                                    <TextBlock
+                                    Padding="3,0,3,0"
+                                    Margin="10,5,0,0"
+                                    FontSize="15"
+                                    Text="{Binding Path=InvoiceNumber, UpdateSourceTrigger=PropertyChanged}"
+                                    Height="Auto"
+                                    Foreground="White" />
+                                    <TextBlock
+                                    Padding="3,0,3,0"
+                                    Margin="10,5,0,0"
+                                    FontSize="15"
+                                    Text="{Binding Path=TransactionDate, UpdateSourceTrigger=PropertyChanged}"
+                                    Height="Auto"
+                                    Foreground="White" />
+                                    <TextBlock
+                                    Padding="3,0,3,0"
+                                    Margin="10,5,0,0"
+                                    FontSize="15"
+                                    Text="{Binding Path=Type, UpdateSourceTrigger=PropertyChanged}"
+                                    Height="Auto"
+                                    Foreground="White" />
 
-                            </StackPanel>
-                            <StackPanel Grid.Column="0">
-                                <StackPanel Margin="10,5,10,0">
+
                                     <TextBlock
-                                        Text="Customer Name"
-                                        FontSize="15"
-                                        Foreground="Orange"
-                                        FontWeight="Medium"
-                                        Margin="0,0,0,3" />
+                                    Padding="3,0,3,0"
+                                    Margin="0,25,0,0"
+                                    FontSize="15"
+                                    Text="{Binding Path=Subtotal, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:C}}"
+                                    Height="Auto"
+                                    Foreground="White" />
                                     <TextBlock
-                                        x:Name="TxtCustomer"
-                                        Padding="3,0,3,0"
-                                        FontSize="15"
-                                        Height="30"
-                                        Foreground="White" />
+                                    Padding="3,0,3,0"
+                                    Margin="0,5,0,0"
+                                    FontSize="15"
+                                    Text="{Binding Path=Tax, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0}%}"
+                                    Height="Auto"
+                                    Foreground="White" />
+                                    <TextBlock
+                                    Padding="3,0,3,0"
+                                    Margin="0,5,0,0"
+                                    FontSize="25"
+                                    Text="{Binding Path=Total, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:C}}"
+                                    Height="Auto"
+                                    Foreground="White" />
                                 </StackPanel>
-                                <StackPanel Margin="10,5,10,0">
-                                    <TextBlock
-                                        Text="Invoice Number"
-                                        FontSize="15"
-                                        Foreground="Orange"
-                                        FontWeight="Medium"
-                                        Margin="0,0,0,3" />
-                                    <TextBlock
-                                        Padding="3,0,3,0"
-                                        FontSize="15"
-                                        Text="{Binding Path=InvoiceNumber, UpdateSourceTrigger=PropertyChanged}"
-                                        Height="30"
-                                        Foreground="White" />
+
+                            </Grid>
+                        </GroupBox>
+                        
+
+
+                    </StackPanel>
+
+                </Grid>
+
+                <!--CART-->
+                <Grid Grid.Row="1" Margin="10,25,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock
+                                Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                Text="Shopping Cart"
+                                Foreground="White"
+                                FontSize="20"
+                                FontWeight="DemiBold" />
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                Text="{Binding Path=CartItemCount, StringFormat={}({0})}"
+                                Foreground="White"
+                                FontSize="20"
+                                FontWeight="DemiBold" />
+                        </StackPanel>
+                        
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button 
+                                x:Name="BtnDeleteItem"
+                                HorizontalAlignment="Right"
+                                Height="30"
+                                Width="100"
+                                Visibility="Visible"
+                                Background="White"
+                                BorderBrush="Transparent"
+                                Margin="10, 0, 10, 0" Click="BtnDeleteItem_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Kind="TrashCan"
+                                        VerticalContentAlignment="Center"
+                                        Height="20"
+                                        Width="20"
+                                        Margin="0,0,5,0"/>
+                                    <TextBlock Text="Delete"
+                                               VerticalAlignment="Center"/>
+
                                 </StackPanel>
+                            </Button>
+                            <Button
+                                x:Name="BtnAddItem"
+                                Width="100"
+                                Height="30"
+                                Margin="4"
+                                HorizontalAlignment="Right"
+                                Content="Add Item"
+                                Style="{StaticResource MaterialDesignRaisedButton}" Click="BtnAddItem_Click" />
 
-                            </StackPanel>
+                        </StackPanel>
+                       
+                    </Grid>
+                    
 
-
-                        </Grid>
+                    <Grid Background="White" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon
+                            Width="25"
+                            Height="25"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Foreground="Black"
+                            Kind="Magnify"
+                            Opacity="0.2" />
+                        <TextBox
+                            Grid.Column="1"
+                            Margin="5"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            materialDesign:HintAssist.Hint="Search Person"
+                            BorderThickness="0"
+                            Foreground="Black"
+                            Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged, Delay=500}" />
 
                     </Grid>
 
-                </StackPanel>
+                    <DataGrid
+                        x:Name="DataGrid"
+                        Grid.Row="2"
+                        Height="150"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        AutoGenerateColumns="False"
+                        Background="Transparent"
+                        Foreground="White"
+                        BorderBrush="Transparent"
+                        CanUserResizeColumns="True"
+                        CanUserResizeRows="False"
+                        IsReadOnly="True"
+                        ItemsSource="{Binding Path=Items}"
+
+                        SelectedItem="{Binding Path=SelectedTransactionItem}"
+                        ScrollViewer.CanContentScroll="True"
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        VirtualizingPanel.IsVirtualizing="True"
+                        VirtualizingPanel.VirtualizationMode="Standard"
+                        RowHeight="35">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=ItemId}" Header="Item ID">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="Border.BorderBrush" Value="Transparent" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Path=ItemName}" Header="Item Name">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="Border.BorderBrush" Value="Transparent" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Path=VendorName}" Header="Vendor">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="Border.BorderBrush" Value="Transparent" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Path=TransactionId}" Header="TransactionId">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="Border.BorderBrush" Value="Transparent" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Path=Quantity}" Header="Quantity">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="Border.BorderBrush" Value="Transparent" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Path=Price}" Header="Amount">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="Border.BorderBrush" Value="Transparent" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
 
                 <!--Buttons-->
                 <DockPanel
                     Grid.Row="2"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
-                    Margin="5,0,0,5">
+                    Margin="5,10,5,5">
 
                     <Button
-                        Width="100"
-                        Height="30"
+                        x:Name="BtnCheckOut"
+                        Width="180"
+                        Height="50"
+                        FontWeight="DemiBold"
+                        FontSize="18"
                         Margin="4"
-                        HorizontalAlignment="Right"
-                        Command="{Binding Path=AddPerson}"
-                        Content="Save"
-                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                        HorizontalAlignment="Right" Click="BtnCheckOut_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Kind="CashUsd"
+                                Height="30"
+                                Width="25"
+                                Margin="0,0,10,0"/>
+                            <TextBlock Text="Check Out"
+                                       VerticalAlignment="Center"/>
+
+                        </StackPanel>
+
+                    </Button>
+                    
 
                     <Button
+                        x:Name="BtnCancelTransaction"
                         Width="100"
-                        Height="30"
+                        Height="50"
                         Margin="4"
+                        FontSize="15"
                         HorizontalAlignment="Right"
                         Command="{Binding CloseCommand}"
                         Content="Cancel"
-                        Style="{StaticResource MaterialDesignFlatButton}" />
+                        Style="{StaticResource MaterialDesignFlatButton}" Click="BtnCancelTransaction_Click" />
 
                 </DockPanel>
                 <!--end Buttons-->

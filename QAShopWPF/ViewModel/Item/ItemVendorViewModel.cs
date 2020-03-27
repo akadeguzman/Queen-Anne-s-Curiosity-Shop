@@ -117,6 +117,7 @@ namespace QAShopWPF.ViewModel.Item
 
         public ItemVendorViewModel(ItemVendor itemVendor)
         {
+            ItemVendorId = itemVendor.ItemVendorId;
             ItemId = itemVendor.ItemId;
             Price = itemVendor.Price;
             PurchaseDate = itemVendor.PurchaseDate;

@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:QAShopWPF.Views.Transaction"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Height="Auto"
+        Height="350"
         Width="420"
-        MinHeight="300"
+        MinHeight="350"
         MinWidth="420"
-        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
         d:DesignWidth="420">
     <Grid>
         <GroupBox Header="Add Address" Style="{DynamicResource MaterialDesignCardGroupBox}">
@@ -155,7 +155,7 @@
                         Height="30"
                         Margin="4"
                         HorizontalAlignment="Right"
-                        Content="Save"
+                        Content="Proceed"
                         Style="{StaticResource MaterialDesignRaisedButton}" Click="BtnProceed_Click"/>
 
                     <Button
@@ -163,6 +163,8 @@
                         Width="100"
                         Height="30"
                         Margin="4"
+                        BorderBrush="Orange"
+                        BorderThickness="1"
                         HorizontalAlignment="Right"
                         Content="Cancel"
                         Style="{StaticResource MaterialDesignFlatButton}" Click="BtnCancel_Click"/>

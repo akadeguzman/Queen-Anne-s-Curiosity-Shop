@@ -10,7 +10,7 @@ using QAShop_System.EfClasses;
 namespace QAShop_System.Migrations
 {
     [DbContext(typeof(QueenAnneCuriosityShopContext))]
-    [Migration("20200322143553_V1")]
+    [Migration("20200327065508_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,19 +49,10 @@ namespace QAShop_System.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ExchangeRate")
-                        .HasColumnType("int");
-
                     b.Property<int>("InventoryQuantity")
                         .HasColumnType("int");
 
                     b.Property<int>("ItemAvailabilityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ItemCost")
                         .HasColumnType("int");
 
                     b.Property<string>("ItemDescription")
@@ -69,12 +60,6 @@ namespace QAShop_System.Migrations
 
                     b.Property<int>("ItemTypeId")
                         .HasColumnType("int");
-
-                    b.Property<int>("LocalCurrency")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PurchaseDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("ItemId");
 
@@ -122,11 +107,23 @@ namespace QAShop_System.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ExchangeRate")
+                        .HasColumnType("int");
+
                     b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LocalCurrency")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("VendorId")
                         .HasColumnType("int");
@@ -341,7 +338,13 @@ namespace QAShop_System.Migrations
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Total")
+                    b.Property<int?>("Subtotal")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Tax")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Total")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("TransactionDate")
@@ -359,9 +362,9 @@ namespace QAShop_System.Migrations
                     b.ToTable("Transaction");
                 });
 
-            modelBuilder.Entity("QAShop_System.EfClasses.TransactionItemVendor", b =>
+            modelBuilder.Entity("QAShop_System.EfClasses.TransactionItem", b =>
                 {
-                    b.Property<int>("TransactionItemVendorId")
+                    b.Property<int>("TransactionItemId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -372,28 +375,16 @@ namespace QAShop_System.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("Subtotal")
+                    b.Property<int>("TransactionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Tax")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Total")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TransactionId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TransactionInvoiceNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TransactionItemVendorId");
+                    b.HasKey("TransactionItemId");
 
                     b.HasIndex("ItemVendorId");
 
                     b.HasIndex("TransactionId");
 
-                    b.ToTable("TransactionItemVendor");
+                    b.ToTable("TransactionItem");
                 });
 
             modelBuilder.Entity("QAShop_System.EfClasses.TransactionType", b =>
@@ -553,17 +544,19 @@ namespace QAShop_System.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("QAShop_System.EfClasses.TransactionItemVendor", b =>
+            modelBuilder.Entity("QAShop_System.EfClasses.TransactionItem", b =>
                 {
                     b.HasOne("QAShop_System.EfClasses.ItemVendor", "ItemVendorLink")
-                        .WithMany("TransactionItemVendors")
+                        .WithMany("TransactionItems")
                         .HasForeignKey("ItemVendorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("QAShop_System.EfClasses.Transaction", null)
-                        .WithMany("TransactionItemVendors")
-                        .HasForeignKey("TransactionId");
+                    b.HasOne("QAShop_System.EfClasses.Transaction", "TransactionLink")
+                        .WithMany("TransactionItems")
+                        .HasForeignKey("TransactionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -17,7 +17,7 @@ namespace QAShop_System.EfClasses
         public DbSet<Shipment> Shipments { get; set; }
         public DbSet<ShipmentItemVendor> ShipmentItemVendors { get; set; }
         public DbSet<Shipper> Shippers { get; set; }
-        public DbSet<TransactionItem> TransactionItemVendors { get; set; }
+        public DbSet<TransactionItem> TransactionItems { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionType> TransactionTypes { get; set; }
         public DbSet<ItemVendor> ItemVendors { get; set; }
@@ -48,7 +48,7 @@ namespace QAShop_System.EfClasses
             modelBuilder.ApplyConfiguration(new ShipmentConfig());
             modelBuilder.ApplyConfiguration(new ShipmentItemVendorConfig());
             modelBuilder.ApplyConfiguration(new ShipperConfig());
-            modelBuilder.ApplyConfiguration(new TransactionItemVendorConfig());
+            modelBuilder.ApplyConfiguration(new TransactionItemConfig());
             modelBuilder.ApplyConfiguration(new TransactionConfig());
             modelBuilder.ApplyConfiguration(new TransactionTypeConfig());
             modelBuilder.ApplyConfiguration(new VendorConfig());

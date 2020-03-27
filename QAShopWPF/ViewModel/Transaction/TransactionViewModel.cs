@@ -18,6 +18,7 @@ namespace QAShopWPF.ViewModel.Transaction
         private int? _tax;
         private int? _total;
         private string _person;
+        [CanBeNull] private string _additionalContact;
         private string _transactionType;
 
         public int TransactionId
@@ -90,6 +91,16 @@ namespace QAShopWPF.ViewModel.Transaction
             }
         }
 
+        [CanBeNull]
+        public string AdditionalContact
+        {
+            get => (_additionalContact);
+            internal set
+            {
+                _additionalContact = value;
+                RaisePropertyChanged(nameof(AdditionalContact));
+            }
+        }
         public string TransactionType
         {
             get => (_transactionType);
@@ -103,7 +114,7 @@ namespace QAShopWPF.ViewModel.Transaction
         public int PersonId { get; set; }
         public int TransactionTypeId { get; set; }
 
-        public TransactionViewModel(int transactionId, string invoiceNumber, DateTime transactionDate, int? subtotal, int? tax, int? total, string person, string transactionType, int personId, int transactionTypeId)
+        public TransactionViewModel(int transactionId, string invoiceNumber, DateTime transactionDate,[CanBeNull] string additionalContact, int? subtotal, int? tax, int? total, string person, string transactionType, int personId, int transactionTypeId)
         {
             TransactionId = transactionId;
             InvoiceNumber = invoiceNumber;
@@ -112,6 +123,7 @@ namespace QAShopWPF.ViewModel.Transaction
             Tax = tax;
             Total = total;
             Person = person;
+            AdditionalContact = additionalContact;
             TransactionType = transactionType;
             PersonId = personId;
             TransactionTypeId = transactionTypeId;
@@ -126,6 +138,7 @@ namespace QAShopWPF.ViewModel.Transaction
             Tax = transaction.Tax;
             Total = transaction.Total;
             Person = transaction.PersonLink.GetFullName();
+            AdditionalContact = transaction.PersonLink.AdditionalContactLink?.GetFullName();
             TransactionType = transaction.TransactionTypeLink.Type;
             PersonId = transaction.PersonId;
             TransactionTypeId = transaction.TransactionTypeId;

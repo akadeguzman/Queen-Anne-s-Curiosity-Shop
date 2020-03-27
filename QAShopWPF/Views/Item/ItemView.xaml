@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              Height="Auto"
              Width="Auto"
-             d:DesignHeight="450" d:DesignWidth="960">
+             d:DesignHeight="450" d:DesignWidth="536.277">
     <Grid>
         <GroupBox
             Width="Auto"
@@ -112,16 +112,8 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Path=PurchaseDate}" Header="Purchase Date">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Stretch" />
-                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                    <Setter Property="Border.BorderBrush" Value="Transparent" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Path=ItemCost}" Header="Cost">
+                        
+                        <DataGridTextColumn Binding="{Binding Path=InventoryQuantity}" Header="Stocks Available">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Left" />
@@ -129,38 +121,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Path=InventoryQuantity}" Header="Stocks">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Left" />
-                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Path=City}" Header="City">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Left" />
-                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Path=LocalCurrency}" Header="Local Currency">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Left" />
-                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Path=ExchangeRate}" Header="Exchange Rate">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Left" />
-                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
+                        
                         <DataGridTextColumn Binding="{Binding Path=ItemAvailability}" Header="Availability">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
@@ -180,11 +141,12 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <Button Grid.Row="2"
+                <Button x:Name="BtnAddItem"
+                    Grid.Row="2"
                         HorizontalAlignment="Right"
                         Height="50"
                         Width="170"
-                        Margin="10, 10, 10, 0" Click="Button_Click">
+                        Margin="10, 10, 10, 0" Click="BtnAddItem_Click">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Kind="TagAdd"

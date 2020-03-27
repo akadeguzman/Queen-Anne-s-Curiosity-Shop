@@ -24,7 +24,7 @@ namespace QAShopWPF.ViewModel.Transaction
         {
             var blankTransaction = new QAShop_System.EfClasses.Transaction();
             TransactionViewModel = new TransactionViewModel(blankTransaction.TransactionId, blankTransaction.InvoiceNumber, blankTransaction.TransactionDate,
-                blankTransaction.Subtotal, blankTransaction.Tax, blankTransaction.Total, "", "", blankTransaction.PersonId, blankTransaction.TransactionTypeId);
+                "",blankTransaction.Subtotal, blankTransaction.Tax, blankTransaction.Total, "", "", blankTransaction.PersonId, blankTransaction.TransactionTypeId);
             
             _transactionService = transactionService;
 
@@ -32,14 +32,12 @@ namespace QAShopWPF.ViewModel.Transaction
             
             TransactionTypes = new ObservableCollection<TransactionType>(transactionTypeService.GetTransactionTypes());
 
-            TransactionItems = new ObservableCollection<TransactionItemViewModel>();
         }
 
         public TransactionViewModel TransactionViewModel { get; }
 
         public ObservableCollection<QAShop_System.EfClasses.Person> Persons { get; }
         public ObservableCollection<TransactionType> TransactionTypes { get; }
-        public ObservableCollection<TransactionItemViewModel> TransactionItems { get; }
 
         public QAShop_System.EfClasses.Person SelectedPerson { get; set; }
         public TransactionType SelectedTransactionType { get; set; }

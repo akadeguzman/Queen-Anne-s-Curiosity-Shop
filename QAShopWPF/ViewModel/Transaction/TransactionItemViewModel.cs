@@ -5,23 +5,30 @@ namespace QAShopWPF.ViewModel.Transaction
 {
     public class TransactionItemViewModel : ObservableObject
     {
-        //TODO: Update this
-        private int _transactionItemVendorId;
+        private int _transactionItemId;
+        private int _itemId;
         private int _quantity;
-        private int _subtotal;
-        private int _tax;
-        private int _total;
+        private int _price;
         private string _itemName;
         private string _vendorName;
-        private string _transactionInvoiceNumber;
 
-        public int TransactionItemVendorId
+        public int TransactionItemId
         {
-            get => _transactionItemVendorId;
+            get => _transactionItemId;
             internal set
             {
-                _transactionItemVendorId = value;
-                RaisePropertyChanged(nameof(TransactionItemVendorId));
+                _transactionItemId = value;
+                RaisePropertyChanged(nameof(TransactionItemId));
+            }
+        }
+
+        public int ItemId
+        {
+            get => _itemId;
+            internal set
+            {
+                _itemId = value;
+                RaisePropertyChanged(nameof(ItemId));
             }
         }
 
@@ -30,38 +37,18 @@ namespace QAShopWPF.ViewModel.Transaction
             get => _quantity;
             internal set
             {
-                _transactionItemVendorId = value;
+                _quantity = value;
                 RaisePropertyChanged(nameof(Quantity));
             }
         }
 
-        public int Subtotal
+        public int Price
         {
-            get => _subtotal;
+            get => _price;
             internal set
             {
-                _subtotal = value;
-                RaisePropertyChanged(nameof(Subtotal));
-            }
-        }
-
-        public int Tax
-        {
-            get => _tax;
-            internal set
-            {
-                _tax = value;
-                RaisePropertyChanged(nameof(Tax));
-            }
-        }
-
-        public int Total
-        {
-            get => _total;
-            internal set
-            {
-                _total = value;
-                RaisePropertyChanged(nameof(Total));
+                _price = value;
+                RaisePropertyChanged(nameof(Price));
             }
         }
 
@@ -84,45 +71,30 @@ namespace QAShopWPF.ViewModel.Transaction
                 RaisePropertyChanged(nameof(ItemName));
             }
         }
-
-        public string TransactionInvoiceNumber
-        {
-            get => _transactionInvoiceNumber;
-            internal set
-            {
-                _transactionInvoiceNumber = value;
-                RaisePropertyChanged(nameof(TransactionInvoiceNumber));
-            }
-        }
-
+        
         public int ItemVendorId { get; set; }
+        public int TransactionId { get; set; }
 
-        public TransactionItemViewModel(int transactionItemVendorId, 
-            int quantity,int subtotal, 
-            int tax, int total, string transactionInvoiceNumber, int itemVendorId)
+        public TransactionItemViewModel(int transactionItemId, 
+            int quantity,  int transactionId,  int itemVendorId)
         {
-            TransactionItemVendorId = transactionItemVendorId;
+            TransactionItemId = transactionItemId;
             Quantity = quantity;
-            Subtotal = subtotal;
-            Tax = tax;
-            Total = total;
-            TransactionInvoiceNumber = transactionInvoiceNumber;
+            TransactionId = transactionId;
             ItemVendorId = itemVendorId;
         }
 
         public TransactionItemViewModel(TransactionItem transactionItemVendor)
         {
-            TransactionItemVendorId = transactionItemVendor.TransactionItemVendorId;
+            TransactionItemId = transactionItemVendor.TransactionItemId;
             Quantity = transactionItemVendor.Quantity;
-            Subtotal = transactionItemVendor.Subtotal;
-            Tax = transactionItemVendor.Tax;
-            Total = transactionItemVendor.Total;
 
-            TransactionInvoiceNumber = transactionItemVendor.TransactionInvoiceNumber;
+            Price = transactionItemVendor.ItemVendorLink.Price;
+            ItemId = transactionItemVendor.ItemVendorLink.ItemId;
             ItemName = transactionItemVendor.ItemVendorLink.ItemLink.ItemDescription;
             VendorName = transactionItemVendor.ItemVendorLink.VendorLink.CompanyName ??
                          transactionItemVendor.ItemVendorLink.VendorLink.GetFullName();
-
+            TransactionId = TransactionId;
             ItemVendorId = transactionItemVendor.ItemVendorId;
         }
     }

@@ -143,7 +143,7 @@ namespace QAShopWPF
             UserControl person = new PersonView(_personService, _personTypeService, _addressService);
             UserControl item = new ItemView(_itemListViewModel, _itemTypeService, _itemAvailabilityService, _itemService);
             UserControl procurement = new ProcurementView(_procurementListViewModel, _shipmentItemVendorService, _personService, _purchasingAgentService, _procurementService);
-
+            UserControl itemVendor = new ItemVendorView(_itemVendorService, _vendorService, _itemService);
             UserControl shipment = new ShipmentView(_shipperService, _shipmentService);
             UserControl vendor = new VendorView(_vendorService);
 
@@ -168,6 +168,9 @@ namespace QAShopWPF
                     break;
                 case "Vendor":
                     GridMain.Children.Add(vendor);
+                    break;
+                case "PurchasedItems":
+                    GridMain.Children.Add(itemVendor);
                     break;
 
                 default:

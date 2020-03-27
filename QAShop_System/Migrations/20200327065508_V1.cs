@@ -112,12 +112,7 @@ namespace QAShop_System.Migrations
                     ItemId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ItemDescription = table.Column<string>(nullable: true),
-                    PurchaseDate = table.Column<DateTime>(nullable: false),
-                    ItemCost = table.Column<int>(nullable: false),
                     InventoryQuantity = table.Column<int>(nullable: false),
-                    City = table.Column<string>(nullable: true),
-                    LocalCurrency = table.Column<int>(nullable: false),
-                    ExchangeRate = table.Column<int>(nullable: false),
                     ItemAvailabilityId = table.Column<int>(nullable: false),
                     ItemTypeId = table.Column<int>(nullable: false)
                 },
@@ -207,6 +202,10 @@ namespace QAShop_System.Migrations
                     ItemVendorId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Price = table.Column<int>(nullable: false),
+                    PurchaseDate = table.Column<DateTime>(nullable: false),
+                    City = table.Column<string>(nullable: true),
+                    LocalCurrency = table.Column<int>(nullable: false),
+                    ExchangeRate = table.Column<int>(nullable: false),
                     VendorId = table.Column<int>(nullable: false),
                     ItemId = table.Column<int>(nullable: false)
                 },
@@ -254,7 +253,9 @@ namespace QAShop_System.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InvoiceNumber = table.Column<string>(nullable: true),
                     TransactionDate = table.Column<DateTime>(nullable: false),
-                    Total = table.Column<int>(nullable: false),
+                    Subtotal = table.Column<int>(nullable: true),
+                    Tax = table.Column<int>(nullable: true),
+                    Total = table.Column<int>(nullable: true),
                     PersonId = table.Column<int>(nullable: false),
                     TransactionTypeId = table.Column<int>(nullable: false)
                 },
@@ -303,34 +304,30 @@ namespace QAShop_System.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TransactionItemVendor",
+                name: "TransactionItem",
                 columns: table => new
                 {
-                    TransactionItemVendorId = table.Column<int>(nullable: false)
+                    TransactionItemId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantity = table.Column<int>(nullable: false),
-                    Subtotal = table.Column<int>(nullable: false),
-                    Tax = table.Column<int>(nullable: false),
-                    Total = table.Column<int>(nullable: false),
-                    TransactionInvoiceNumber = table.Column<string>(nullable: true),
-                    ItemVendorId = table.Column<int>(nullable: false),
-                    TransactionId = table.Column<int>(nullable: true)
+                    TransactionId = table.Column<int>(nullable: false),
+                    ItemVendorId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TransactionItemVendor", x => x.TransactionItemVendorId);
+                    table.PrimaryKey("PK_TransactionItem", x => x.TransactionItemId);
                     table.ForeignKey(
-                        name: "FK_TransactionItemVendor_ItemVendor_ItemVendorId",
+                        name: "FK_TransactionItem_ItemVendor_ItemVendorId",
                         column: x => x.ItemVendorId,
                         principalTable: "ItemVendor",
                         principalColumn: "ItemVendorId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TransactionItemVendor_Transaction_TransactionId",
+                        name: "FK_TransactionItem_Transaction_TransactionId",
                         column: x => x.TransactionId,
                         principalTable: "Transaction",
                         principalColumn: "TransactionId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -450,13 +447,13 @@ namespace QAShop_System.Migrations
                 column: "TransactionTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TransactionItemVendor_ItemVendorId",
-                table: "TransactionItemVendor",
+                name: "IX_TransactionItem_ItemVendorId",
+                table: "TransactionItem",
                 column: "ItemVendorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TransactionItemVendor_TransactionId",
-                table: "TransactionItemVendor",
+                name: "IX_TransactionItem_TransactionId",
+                table: "TransactionItem",
                 column: "TransactionId");
         }
 
@@ -466,7 +463,7 @@ namespace QAShop_System.Migrations
                 name: "Procurement");
 
             migrationBuilder.DropTable(
-                name: "TransactionItemVendor");
+                name: "TransactionItem");
 
             migrationBuilder.DropTable(
                 name: "PurchasingAgent");

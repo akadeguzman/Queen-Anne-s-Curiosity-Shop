@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using QAShop_System.EfClasses;
 using QAShopWPF.ViewModel.Transaction;
 using ServiceLayer;
 
@@ -19,37 +20,45 @@ namespace QAShopWPF.Views.Transaction
     /// </summary>
     public partial class AddNewTransactionView : Window
     {
-        private AddTransactionViewModel _transactionToAdd;
+        private EditTransactionViewModel _transactionToEdit;
         private TransactionService _transactionService;
-        private TransactionTypeService _transactionTypeService;
-        private PersonService _personService;
-        private ItemVendorService _itemVendorService;
-        private TransactionItemService _transactionItemVendorService;
+        private TransactionListViewModel _transactionListViewModel;
+        private TransactionViewModel _inputTransaction;
 
-        public AddNewTransactionView(TransactionService transactionService, TransactionTypeService transactionTypeService, PersonService personService, ItemVendorService itemVendorService, TransactionItemService transactionItemVendorService)
+        public AddNewTransactionView(TransactionViewModel transactionViewModel, TransactionService transactionService, 
+            PersonService personService, TransactionTypeService transactionTypeService, TransactionListViewModel transactionListViewModel)
         {
             InitializeComponent();
-
-            _itemVendorService = itemVendorService;
+            _inputTransaction = transactionViewModel;
+            _transactionListViewModel = transactionListViewModel;
             _transactionService = transactionService;
-            _transactionTypeService = transactionTypeService;
-            _personService = personService;
-            _transactionItemVendorService = transactionItemVendorService;
-
-            _transactionToAdd = new AddTransactionViewModel(transactionService, transactionTypeService, personService);
-            DataContext = _transactionToAdd;
-
+            _transactionToEdit = new EditTransactionViewModel(transactionViewModel, transactionService, personService, transactionTypeService);
+            DataContext = _transactionToEdit;
         }
 
-        private void BtnAddItemsToTransaction_Click(object sender, RoutedEventArgs e)
+        private void BtnCheckOut_Click(object sender, RoutedEventArgs e)
         {
-            var addItemsToTransaction = new AddItemVendorToTransactionView( _transactionToAdd, _itemVendorService, _transactionItemVendorService);
-            addItemsToTransaction.Show();
+            _transactionToEdit.Edit();
+            _transactionListViewModel.Sync();
+            Close();
+        }
+        
+        private void BtnCancelTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            _transactionService.DeleteTransaction(_inputTransaction.TransactionId);
+            Close();
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void BtnDeleteItem_Click(object sender, RoutedEventArgs e)
         {
-            TxtCustomer.Text = _transactionToAdd.SelectedPerson.GetFullName();
+            _transactionToEdit.Items.Remove(_transactionToEdit.SelectedTransactionItem);
+
+        }
+        
+        private void BtnAddItem_Click(object sender, RoutedEventArgs e)
+        {
+            var addItem = new AddTransactionItemView(_transactionToEdit, new ItemVendorService(new QueenAnneCuriosityShopContext()));
+            addItem.Show();
         }
     }
 }
